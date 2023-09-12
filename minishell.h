@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/12 17:10:03 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:25:54 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,41 @@ typedef struct s_mini
 	int		exit;
 }		t_mini;
 
-void		ft_command(t_mini *mini);
-void		ft_pre_parse(t_mini *mini);
-int			ft_has_operator(t_mini *mini);
+/*	Check.c	*/
 int			ft_check_line(char *str);
-t_operator	ft_find_operator(char *str, int l);
-int			ft_size_until_op(char *str, int i, int l);
-void		ft_echo(t_mini *mini, char *line);
-void		ft_cd(t_mini *mini, char *path);
-void		ft_parse(t_mini *mini);
-void		free_args(t_mini *mini);
-
+/*	Check2.c	*/
 void		ft_bracket(t_mini *mini);
-
+//***********************************
+/*	pre_parsing.c	*/
+void		ft_pre_parse(t_mini *mini);
 /*	pre_parsing2.c	*/
-void	ft_delete_space(t_mini *mini);
+void		ft_delete_space(t_mini *mini);
 /*	pre_parsing3.c	*/
-void	ft_replace_home(t_mini *mini);
+void		ft_replace(t_mini *mini);
+
+/*	parsing.c	*/
+void		ft_parse(t_mini *mini);
+
+/*	Utils.c	*/
+int			ft_size_until_op(char *str, int i, int l);
+t_operator	ft_find_operator(char *str, int l);
+void		free_args(t_mini *mini);
+int			ft_has_operator(t_mini *mini);
 /*	Utils2.c	*/
 int			unused_prio_num(t_lists *args);
 int			bracket_closed(char *str);
 int			bracket_opened(char *str);
-void    	delete_bracket(t_lists *tmp);
+void		delete_bracket(t_lists *tmp);
 int			has_bracket(char *str);
 /*	Utils3.c	*/
 void		ft_add_num_arg(t_mini *mini);
+
+/*	Commands.c	*/
+void		ft_command(t_mini *mini);
+/*	Commands2.c	*/
+void		ft_echo(t_mini *mini, char *line);
+/*	Commands3.c	*/
+char		*get_env(t_mini *mini, char *src);
+void		ft_cd(t_mini *mini, char *path);
 
 #endif
