@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/07 12:10:23 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:06:50 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ zsh: missing end of string
 	ft_bracket(mini);
 	ft_add_num_arg(mini);
 	ft_delete_space(mini);
+	ft_replace_home(mini);
 	ft_parse(mini);
 	
 //------------------------------------------------
