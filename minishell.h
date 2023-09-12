@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/12 18:25:54 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:33:02 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,17 @@ typedef struct s_mini
 int			ft_check_line(char *str);
 /*	Check2.c	*/
 void		ft_bracket(t_mini *mini);
-//***********************************
+/*----------------------------------------*/
 /*	pre_parsing.c	*/
 void		ft_pre_parse(t_mini *mini);
 /*	pre_parsing2.c	*/
 void		ft_delete_space(t_mini *mini);
 /*	pre_parsing3.c	*/
 void		ft_replace(t_mini *mini);
-
+/*----------------------------------------*/
 /*	parsing.c	*/
 void		ft_parse(t_mini *mini);
-
+/*----------------------------------------*/
 /*	Utils.c	*/
 int			ft_size_until_op(char *str, int i, int l);
 t_operator	ft_find_operator(char *str, int l);
@@ -109,7 +109,7 @@ void		delete_bracket(t_lists *tmp);
 int			has_bracket(char *str);
 /*	Utils3.c	*/
 void		ft_add_num_arg(t_mini *mini);
-
+/*----------------------------------------*/
 /*	Commands.c	*/
 void		ft_command(t_mini *mini);
 /*	Commands2.c	*/
