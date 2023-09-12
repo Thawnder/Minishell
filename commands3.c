@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/12 17:11:05 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:43:10 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	fill_path(char **res, char *path)
 	tmp = ft_split(path, '/');
 	while (tmp[i])
 	{
-		printf("tmp[%d]:%s\n", i, tmp[i]);
 		if (ft_strncmp(tmp[i], ".", 1) == 0)
 		{
 			if (ft_strncmp(tmp[i], "..", 2) == 0)
@@ -47,7 +46,6 @@ void	fill_path(char **res, char *path)
 			*res = ft_strjoin(*res, tmp[i]);
 		if (tmp[i + 1] != NULL)
 			*res = ft_strjoin(*res, "/");
-		printf("res %d:%s\n", i, *res);
 		i++;
 	}
 }
@@ -59,7 +57,6 @@ char	*resolve_path(char *pwd, char *path)
 
 	i = 0;
 	res = NULL;
-	printf("%s\n", path);
 	if (!path[i] || (path[i] == '-' && path[++i] == '-' && i++))
 		res = ft_strdup(getenv("HOME"));
 	if (!path[i])
@@ -81,6 +78,13 @@ char	*resolve_path(char *pwd, char *path)
 	return (fill_path(&res, path + i), res);
 }
 
+void	refresh_path(t_mini *mini, char *path, int size, int i)
+{
+	ft_memset(mini->env[i] + size, 0, ft_strlen(mini->env[i]) - size);
+	mini->env[i] = ft_realloc(mini->env[i], size + ft_strlen(path));
+	mini->env[i] = ft_strjoin(mini->env[i], path);
+}
+
 void	ft_cd(t_mini *mini, char *path)
 {
 	int	i;
@@ -90,22 +94,19 @@ void	ft_cd(t_mini *mini, char *path)
 		mini->args->result = NULL;
 	else if (path[1] == '.' && !path[2])
 		return ;
-	else if (!path[0] || chdir(++path) == 0)
+	else if ((!path[0] || (*(++path) == '-' && *(path + 1) == '-'))
+		|| chdir(path) == 0)
 	{
 		while (ft_strncmp(mini->env[i], "OLDPWD=", 7))
 			i++;
 		free(mini->oldpath);
 		mini->oldpath = ft_strdup(mini->path);
-		ft_memset(mini->env[i] + 7, 0, ft_strlen(mini->env[i]) - 7);
-		mini->env[i] = ft_realloc(mini->env[i], 7 + ft_strlen(mini->oldpath));
-		mini->env[i] = ft_strjoin(mini->env[i], mini->oldpath);
+		refresh_path(mini, mini->oldpath, 7, i);
 		i = 0;
 		while (ft_strncmp(mini->env[i], "PWD=", 4))
 			i++;
 		free(mini->path);
 		mini->path = resolve_path(mini->env[i], path);
-		ft_memset(mini->env[i] + 4, 0, ft_strlen(mini->env[i]) - 4);
-		mini->env[i] = ft_realloc(mini->env[i], 4 + ft_strlen(mini->path));
-		mini->env[i] = ft_strjoin(mini->env[i], mini->path);
+		refresh_path(mini, mini->path, 4, i);
 	}
 }
