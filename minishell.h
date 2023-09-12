@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/07 13:20:47 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:10:03 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void		ft_bracket(t_mini *mini);
 
 /*	pre_parsing2.c	*/
 void	ft_delete_space(t_mini *mini);
+/*	pre_parsing3.c	*/
+void	ft_replace_home(t_mini *mini);
 /*	Utils2.c	*/
 int			unused_prio_num(t_lists *args);
 int			bracket_closed(char *str);
