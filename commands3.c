@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/12 16:13:30 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:11:05 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ void	fill_path(char **res, char *path)
 	tmp = ft_split(path, '/');
 	while (tmp[i])
 	{
+		printf("tmp[%d]:%s\n", i, tmp[i]);
 		if (ft_strncmp(tmp[i], ".", 1) == 0)
 		{
 			if (ft_strncmp(tmp[i], "..", 2) == 0)
 			{
-				j = ft_strlen(*res);
+				j = ft_strlen(*res) - 2;
 				while (j && (*res)[j] != '/')
 					j--;
 				*res = free_substr(*res, 0, j);
@@ -46,6 +47,7 @@ void	fill_path(char **res, char *path)
 			*res = ft_strjoin(*res, tmp[i]);
 		if (tmp[i + 1] != NULL)
 			*res = ft_strjoin(*res, "/");
+		printf("res %d:%s\n", i, *res);
 		i++;
 	}
 }
@@ -57,6 +59,7 @@ char	*resolve_path(char *pwd, char *path)
 
 	i = 0;
 	res = NULL;
+	printf("%s\n", path);
 	if (!path[i] || (path[i] == '-' && path[++i] == '-' && i++))
 		res = ft_strdup(getenv("HOME"));
 	if (!path[i])
