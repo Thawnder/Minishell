@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/07 11:19:16 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/12 12:01:57 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ char	*stock_echo(char *line)
 			flag = 1;
 			i += 3;
 		}
-		if (line[i] != 39 && line[i] != 34)
-			res[j++] = line[i];
-		i++;
+		res[j++] = line[i++];
 	}
 	if (flag == 0)
 		res[j] = '\n';
@@ -97,9 +95,7 @@ void	ft_echo(t_mini *mini, char *line)
 				flag = 1;
 				line += 3;
 			}
-			if (*line != 39 && *line != 34)
-				write(1, line, 1);
-			line++;
+			write(1, line++, 1);
 		}
 		if (flag == 0)
 			write(1, "\n", 1);

@@ -15,13 +15,14 @@
 char	*ft_realloc(char *dest, int size)
 {
 	char	*tmp;
-	size_t		len;
 
-	len = ft_strlen(dest);
-	tmp = malloc(len + size + 1);
+	tmp = malloc(size + 1);
 	if (!tmp)
 		return (NULL);
-	ft_memcpy(tmp, dest, len + 1);
-	free(dest);
+	if (dest && dest[0])
+	{
+		ft_memcpy(tmp, dest, ft_strlen(dest) + 1);
+		free(dest);
+	}
 	return (tmp);
 }
