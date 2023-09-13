@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:32:12 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/07 11:23:55 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:28:01 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 void	useless_bracket(t_lists *args)
 {
-	t_lists *tmp;
+	t_lists	*tmp;
 
 	tmp = args;
 	while (tmp)
 	{
-		if (has_bracket(tmp->arg) 
+		if (has_bracket(tmp->arg)
 			&& tmp->operator != OP_2AMP && tmp->operator != OP_2PIPE)
 		{
-			if (!tmp->previous || (tmp->previous && tmp->previous->operator != OP_2AMP 
-			&& tmp->previous->operator != OP_2PIPE))
+			if (!tmp->previous
+				|| (tmp->previous && tmp->previous->operator != OP_2AMP
+					&& tmp->previous->operator != OP_2PIPE))
 			{
 				delete_bracket(tmp);
 				while (!has_bracket(tmp->arg) && tmp->previous)
@@ -90,7 +91,5 @@ void	ft_bracket(t_mini *mini)
 	useless_bracket(mini->args);
 	if (!has_bracket(mini->line))
 		return ;
-
 	check_priorities(mini->args);
-	//check_bracket(mini->args);
 }

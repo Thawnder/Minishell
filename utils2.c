@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:49:30 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/07 11:01:05 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:22:31 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	bracket_opened(char *str)
 	return (count);
 }
 
-int count_bracket(char *str)
+int	count_bracket(char *str)
 {
 	int	i;
 	int	count;
@@ -76,11 +76,11 @@ int count_bracket(char *str)
 	return (count);
 }
 
-void    delete_bracket(t_lists *tmp)
+void	delete_bracket(t_lists *tmp)
 {
-    int		len;
-    int		i;
-    char	*str;
+	int		len;
+	int		i;
+	char	*str;
 
 	len = ft_strlen(tmp->arg) - count_bracket(tmp->arg) + 1;
 	str = ft_calloc(len, sizeof(char));

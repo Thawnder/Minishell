@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 16:56:47 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:54:17 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ void		ft_add_num_arg(t_mini *mini);
 void		ft_replace(t_mini *mini);
 /*	replace2.c	*/
 void		find_quotes(t_mini *mini, t_lists *tmp);
+int			has_dollar(char	*old, int i, int y);
+char		*manage_dollars(t_mini *mini, char *old, int i, int y);
+/*	replace3.c	*/
+void		find_dollars(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	parsing.c	*/
 void		ft_parse(t_mini *mini);
@@ -113,6 +117,7 @@ int			bracket_opened(char *str);
 void		delete_bracket(t_lists *tmp);
 int			has_bracket(char *str);
 /*	Utils3.c	*/
+char		*strdup_without(char *old, int i, int y);
 char		*join_sorted(char **str, char *sep);
 char		**alpha_sort_tabl(char **str);
 /*----------------------------------------*/

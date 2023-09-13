@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 15:13:37 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:12:23 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*replace_by(char *old, char *env, int here, int is_malloc)
 	i = -1;
 	y = 0;
 	str = ft_calloc(ft_strlen(old) + ft_strlen(env), sizeof(char));
-	ft_printf("New len %i\n", ft_strlen(old) + ft_strlen(env));
 	while (++i < here)
 		str[i] = old[i];
 	while (env[y])
@@ -104,6 +103,7 @@ void	ft_replace(t_mini *mini)
 	{
 		find_home(mini, tmp);
 		find_wildcard(tmp);
+		find_dollars(mini, tmp);
 		find_quotes(mini, tmp);
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/12 17:41:23 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:14:33 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,7 @@ zsh: missing end of string
 */
 	if (ft_check_line(mini->line) == -1)
 		return ;
-	printf("check success\n");
 	mini->has_operator = ft_has_operator(mini);
-	if (mini->has_operator)
-	{
-		// Check if operator has args between them
-		printf("NB OPERATOR = %i \n", count_operator(mini->line));
-	}
 	ft_init_lists(mini);
 	ft_bracket(mini);
 	ft_add_num_arg(mini);

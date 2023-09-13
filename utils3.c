@@ -6,11 +6,28 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:19:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 14:28:11 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:24:20 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*strdup_without(char *old, int i, int y)
+{
+	char	*str;
+	int		a;
+	int		z;
+
+	a = 0;
+	z = -1;
+	str = ft_calloc(ft_strlen(old) - 1, sizeof(char));
+	while (old[++z])
+	{
+		if (z != i && z != y)
+			str[a++] = old[z];
+	}
+	return (str);
+}
 
 char	*join_sorted(char **str, char *sep)
 {
