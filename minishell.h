@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 14:26:40 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:34:35 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,11 @@ void		ft_pre_parse(t_mini *mini);
 /*	pre_parsing2.c	*/
 void		ft_delete_space(t_mini *mini);
 void		ft_add_num_arg(t_mini *mini);
-/*	pre_parsing3.c	*/
+/*----------------------------------------*/
+/*	replace.c	*/
 void		ft_replace(t_mini *mini);
+/*	replace2.c	*/
+void		find_quotes(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	parsing.c	*/
 void		ft_parse(t_mini *mini);

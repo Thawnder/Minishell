@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_parsing3.c                                     :+:      :+:    :+:   */
+/*   replace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 14:29:22 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:36:32 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*get_dir_content(char *dir)
 	return (join_sorted(alpha_sort_tabl(ft_split(str, ' ')), " "));
 }
 
-void	find_wildcard(t_mini *mini, t_lists *tmp)
+void	find_wildcard(t_lists *tmp)
 {
 	int	i;
 
@@ -106,8 +106,8 @@ void	ft_replace(t_mini *mini)
 	while (tmp)
 	{
 		find_home(mini, tmp);
-		find_wildcard(mini, tmp);
-		/*find_string_(); //"" et ''*/
+		find_wildcard(tmp);
+		find_quotes(mini, tmp);
 		tmp = tmp->next;
 	}
 }
