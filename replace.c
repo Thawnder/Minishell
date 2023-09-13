@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 14:36:32 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:13:37 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,24 @@ char	*replace_by(char *old, char *env, int here, int is_malloc)
 	here++;
 	while (old[here])
 		str[i++] = old[here++];
-	free(old);
 	if (is_malloc)
 		free(env);
-	return (str);
+	return (free(old), str);
 }
 
 void	find_home(t_mini *mini, t_lists *tmp)
 {
 	int	i;
+	int	quote;
 
 	i = 0;
+	quote = -1;
 	while (tmp->arg[i])
 	{
-		if (tmp->arg[i] == 126)
+		if (tmp->arg[i] == '\'' || tmp->arg[i] == '"')
+			quote *= -1;
+		if (quote == -1 && tmp->arg[i] == 126)
 			tmp->arg = replace_by(tmp->arg, (get_env(mini, "HOME") + 5), i, 0);
-		if (tmp->arg[i] == '"' || tmp->arg[i] == '\'')
-		{
-			while (tmp->arg[i] && tmp->arg[i] != '"' && tmp->arg[i] != '\'')
-				i++;
-		}
 		i++;
 	}
 }
@@ -83,17 +81,16 @@ char	*get_dir_content(char *dir)
 void	find_wildcard(t_lists *tmp)
 {
 	int	i;
+	int	quote;
 
 	i = 0;
+	quote = -1;
 	while (tmp->arg[i])
 	{
-		if (tmp->arg[i] == '*')
+		if (tmp->arg[i] == '\'' || tmp->arg[i] == '"')
+			quote *= -1;
+		if (quote == -1 && tmp->arg[i] == '*')
 			tmp->arg = replace_by(tmp->arg, get_dir_content("."), i, 1);
-		if (tmp->arg[i] == '"' || tmp->arg[i] == '\'')
-		{
-			while (tmp->arg[i] && tmp->arg[i] != '"' && tmp->arg[i] != '\'')
-				i++;
-		}
 		i++;
 	}
 }

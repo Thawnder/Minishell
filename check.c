@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:52:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/06 18:12:02 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:09:35 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@ int	ft_check_more(char *str)
 {
 	int	i;
 	int	bracket;
+	int	quote;
 
 	i = 0;
 	bracket = -1;
+	quote = -1;
 	while (str[i])
 	{
-		if (str[i] == '(' || str[i] == ')')
+		if (str[i] == '\'' || str[i] == '"')
+			quote *= -1;
+		if (quote == -1 && (str[i] == '(' || str[i] == ')'))
 			bracket *= -1;
 		i++;
 	}
@@ -100,7 +104,7 @@ int	ft_check_line(char *str)
 		return (ft_syntax_error(0, str[i], 1), -1);
 	while (str[i])
 	{
-		if (str[i] == '\'' || str [i] == '"')
+		if (str[i] == '\'' || str[i] == '"')
 			quote *= -1;
 		if (quote == -1 && ft_check_op1(str, i) == -1)
 			return (-1);
