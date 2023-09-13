@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/12 18:33:02 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:53:46 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_mini
 {
 	char	*line;
 	char	**env;
+	char	**export;
 	char	*oldpath;
 	char	*path;
 	int		size_args;
