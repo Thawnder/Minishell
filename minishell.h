@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 18:52:22 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:53:33 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void		ft_echo(t_mini *mini, char *line);
 char		*get_env(t_mini *mini, char *src);
 void		ft_cd(t_mini *mini, char *path);
 /*	Commands4.c	*/
-void 		ft_export(t_mini *m, char *arg);
+void		ft_export(t_mini *m, char *arg);
 /*----------------------------------------*/
 /*	free.c	*/
 void		free_tabl(char **str);
