@@ -3,27 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   commands4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/13 17:01:46 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:25:16 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	idx_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
+
+char	**ft_tab_realloc(char **dest, int size, char *add)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	while (dest[i])
+		i++;
+	tmp = ft_calloc(i + size + 1, sizeof(char *));
+	i = -1;
+	while (dest[++i])
+	{
+		if (!add || (ft_strcmp(dest[i], add) < 0
+				&& ft_strcmp(dest[i + 1], add) > 0))
+		{
+			tmp[i] = ft_strdup(dest[i]);
+			free(dest[i]);
+		}
+		else if (!ft_strncmp(dest[i], add, idx_equal(add)))
+			tmp[i] = ft_strjoin(ft_strndup(dest[i],
+						idx_equal(dest[i])),
+					ft_strdup(add + idx_equal(dest[i])));
+		else
+			tmp[i] = ft_strdup(add);
+	}
+	return (free(dest), tmp);
+}
+
 void	add_to_env(t_mini *mini, char *arg)
 {
 	int	i;
-	(void)arg;
-	
+
 	i = 0;
-	while (ft_strncmp(mini->env[i], "_=", 7))
-			i++;
-	// realloc mini->env
-	// realloc mini->export
-	// add arg at the end of mini->env
-	// add "_="
+	mini->env = ft_tab_realloc(mini->env, 1, NULL);
+	while (mini->env[i])
+		i++;
+	mini->env[i] = ft_strdup(arg);
+	mini->export = ft_tab_realloc(mini->export, 1, arg);
 }
 
 void	print_export(t_mini *m)
@@ -43,7 +79,7 @@ void	print_export(t_mini *m)
 	free(tmp);
 }
 
-void ft_export(t_mini *m, char *arg)
+void	ft_export(t_mini *m, char *arg)
 {
 	int	i;
 
