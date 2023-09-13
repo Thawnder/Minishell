@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/07 13:28:20 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:54:28 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ void	ft_init_mini(t_mini *mini, char **env)
 	while (env[i])
 		i++;
 	mini->env = malloc(sizeof(char *) * (i + 1));
+	mini->export = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (env[i])
 	{
 		mini->env[i] = ft_strdup(env[i]);
+		mini->export[i] = ft_strdup(env[i]);
 		i++;
 	}
 	mini->env[i] = 0;
+	mini->export[i] = 0;
+	mini->export = alpha_sort_tab(mini->export);
 	mini->oldpath = ft_strdup(getenv("OLDPWD"));
 	mini->path = ft_strdup(getenv("PWD"));
 }

@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/12 17:43:10 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:48:12 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*get_env(t_mini *mini, char *src)
 	i = 0;
 	while (mini->env[i] && ft_strncmp(src, mini->env[i], ft_strlen(src)))
 		i++;
+	if (!mini->env[i])
+		return (NULL);
 	return (mini->env[i]);
 }
 
