@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 13:54:28 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:54:54 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_init_mini(t_mini *mini, char **env)
 	}
 	mini->env[i] = 0;
 	mini->export[i] = 0;
-	mini->export = alpha_sort_tab(mini->export);
+	mini->export = alpha_sort_tabl(mini->export);
 	mini->oldpath = ft_strdup(getenv("OLDPWD"));
 	mini->path = ft_strdup(getenv("PWD"));
 }

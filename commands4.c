@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/13 16:46:09 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:01:46 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	add_to_env(t_mini *mini, char *arg)
 {
 	int	i;
+	(void)arg;
 	
 	i = 0;
 	while (ft_strncmp(mini->env[i], "_=", 7))

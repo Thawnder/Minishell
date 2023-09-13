@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 16:50:35 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:56:47 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ void		ft_echo(t_mini *mini, char *line);
 /*	Commands3.c	*/
 char		*get_env(t_mini *mini, char *src);
 void		ft_cd(t_mini *mini, char *path);
+/*	Commands4.c	*/
+void 		ft_export(t_mini *m, char *arg);
 /*----------------------------------------*/
 /*	free.c	*/
 void		free_tabl(char **str);
