@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/13 17:21:44 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:25:16 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ char	**ft_tab_realloc(char **dest, int size, char *add)
 	while (dest[i])
 		i++;
 	tmp = ft_calloc(i + size + 1, sizeof(char *));
-	if (!tmp)
-		return (NULL);
 	i = -1;
 	while (dest[++i])
 	{
@@ -43,8 +41,9 @@ char	**ft_tab_realloc(char **dest, int size, char *add)
 			free(dest[i]);
 		}
 		else if (!ft_strncmp(dest[i], add, idx_equal(add)))
-			tmp[i] = ft_strjoin(ft_strndup(dest[i]),
-					idx_equal(dest[i]), ft_strdup(add + idx_equal(dest[i])));
+			tmp[i] = ft_strjoin(ft_strndup(dest[i],
+						idx_equal(dest[i])),
+					ft_strdup(add + idx_equal(dest[i])));
 		else
 			tmp[i] = ft_strdup(add);
 	}
