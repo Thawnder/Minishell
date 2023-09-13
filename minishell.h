@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 17:54:17 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:52:22 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int			bracket_opened(char *str);
 void		delete_bracket(t_lists *tmp);
 int			has_bracket(char *str);
 /*	Utils3.c	*/
+int			ft_strcmp(const char *s1, const char *s2);
 char		*strdup_without(char *old, int i, int y);
 char		*join_sorted(char **str, char *sep);
 char		**alpha_sort_tabl(char **str);
