@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/13 16:48:12 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:07:43 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	fill_path(char **res, char *path)
 	tmp = ft_split(path, '/');
 	while (tmp[i])
 	{
-		if (ft_strncmp(tmp[i], ".", 1) == 0)
+		if (ft_strcmp(tmp[i], ".") == 0)
 		{
-			if (ft_strncmp(tmp[i], "..", 2) == 0)
+			if (ft_strcmp(tmp[i], "..") == 0)
 			{
 				j = ft_strlen(*res) - 2;
 				while (j && (*res)[j] != '/')
