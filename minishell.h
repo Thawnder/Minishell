@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 10:53:03 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:55:48 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ char		*strdup_without(char *old, int i, int y);
 char		*join_sorted(char **str, char *sep);
 char		**alpha_sort_tabl(char **str);
 /*	Utils4.c	*/
-int 		has_option_echo(char *str);
+int			has_option_echo(char *str);
+int			ft_tab_len(char **tab);
 /*----------------------------------------*/
 /*	Commands.c	*/
 void		ft_command(t_mini *mini);
