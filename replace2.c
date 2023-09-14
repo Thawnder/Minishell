@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:33:30 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 18:21:09 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:20:33 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	has_dollar(char	*old, int i, int y)
 	count = 0;
 	while (old[i] && i <= y)
 	{
-		if (old[i] == '$')
+		if (old[i] == '$' && old[i + 1] != '?' && old[i + 1] != ' ')
 		{
 			i++;
 			count++;
@@ -77,6 +77,8 @@ char	*manage_dollars(t_mini *mini, char *old, int i, int y)
 			sizeof(char));
 	while (old[z] && old[z] != '$')
 		str[a++] = old[z++];
+	if (old[z + 1] == '?')
+		return (free(tmp), old);
 	z += has_dollar(old, i, y);
 	while (tmp && tmp[++p])
 		str[a++] = tmp[p];
@@ -95,7 +97,7 @@ static char	*delete_quotes(t_mini *mini, char *old, int i, int y)
 	}
 	else
 	{
-		while (has_dollar(old, i, y))
+		while (has_dollar(old, i, y) || str[y] != '"')
 		{
 			str = manage_dollars(mini, old, i, y);
 			y = i;

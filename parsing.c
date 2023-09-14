@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/07 11:05:28 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 09:54:23 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ void	ft_parse(t_mini *mini)
 	/*
 		TRY FONCTION AND ADD && AND || TRUE AND DELETE USELESS
 
-		PRIORITY WITH ( )
+		REPLACE $?
 
-		ADD NUM ARGS
 
 
 		

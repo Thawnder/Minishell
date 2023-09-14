@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 18:12:23 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:13:40 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	ft_replace(t_mini *mini)
 		find_home(mini, tmp);
 		find_wildcard(tmp);
 		find_dollars(mini, tmp);
+		//find_option(mini, tmp); // Echo -nnnnnn & delete multiple -n
 		find_quotes(mini, tmp);
 		tmp = tmp->next;
 	}

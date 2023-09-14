@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 18:14:33 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:11:25 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ Check add fuction when "echo <<>" need to display error
 echo (test)
 zsh: missing end of string
 */
-	if (ft_check_line(mini->line) == -1)
+	if (ft_check_line(mini->line) == -1 || ft_check_advanced(mini) == -1)
 		return ;
 	mini->has_operator = ft_has_operator(mini);
 	ft_init_lists(mini);
@@ -115,6 +115,9 @@ zsh: missing end of string
 	ft_delete_space(mini);
 	ft_replace(mini);
 	ft_parse(mini);
+
+
+	check_flag(mini->args->arg);
 	
 //------------------------------------------------
 	t_lists	*tmp;

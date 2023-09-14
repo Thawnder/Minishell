@@ -6,11 +6,35 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:19:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 18:24:20 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:39:45 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_flag(char *str)
+{
+	int	i;
+	int count;
+
+	i = 0;
+	count = 0;
+	if (!has_option_echo(str))
+		return (0);
+	while (str[i] != ' ')
+		i++;
+	while (str[i] == ' ' || (str[i] == '-' && str[i + 1] != '-') || str[i] == 'n' )
+	{
+		count++;
+		i++;
+	}
+	while (str[i - 1] && str[i - 1] != ' ')
+	{
+		i--;
+		count--;
+	}
+	return (--count);
+}
 
 char	*strdup_without(char *old, int i, int y)
 {
