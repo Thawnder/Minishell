@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 14:37:28 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:46:15 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,12 @@ void	ft_init_lists(t_mini *mini)
 
 int	ft_pre_parse(t_mini *mini)
 {
-/*
-Check add fuction when "echo <<>" need to display error
-
-echo (test)
-zsh: missing end of string
-*/
-	if (ft_check_line(mini->line) == -1 /*|| ft_check_advanced(mini) == -1*/)
+	if (ft_check_line(mini->line) == -1 || ft_check_operator(mini->line) == -1)
 		return (0);
 	mini->has_operator = ft_has_operator(mini);
 	ft_init_lists(mini);
-	ft_bracket(mini);
+	if (!ft_bracket(mini))
+		return (0);
 	ft_add_num_arg(mini);
 	ft_delete_space(mini);
 	if (ft_check_advanced(mini) == -1)

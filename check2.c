@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:32:12 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 18:28:01 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:22:04 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,41 @@ void	check_priorities(t_lists *args)
 	}
 }
 
-void	ft_bracket(t_mini *mini)
+int	error_bracket(char *str)
+{
+	int	i;
+	int y;
+	char	*error;
+
+	i = 0;
+	y = 0;
+	if (check_builtin(str, "echo") == 0 
+		|| (str[0] == '(' && check_builtin(&str[1], "echo") == 0))
+	{
+		while (str[i] != ' ')
+			i++;
+		while (str[i] && str[i] != '(')
+			i++;
+		if (str[i] == '(')
+		{
+			while (str[y] && str[y] != ')')
+				y++;
+			error = ft_strndup(&str[i], y);
+			return (ft_syntax_error(error, 0, 0), free(error), 1);
+		}
+	}
+	return (0);
+}
+
+int	ft_bracket(t_mini *mini)
 {
 	if (!has_bracket(mini->line))
-		return ;
+		return (1);
+	if (error_bracket(mini->args->arg))
+		return (0);
 	useless_bracket(mini->args);
 	if (!has_bracket(mini->line))
-		return ;
+		return (1);
 	check_priorities(mini->args);
+	return (1);
 }
