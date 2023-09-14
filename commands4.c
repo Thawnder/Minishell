@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/14 13:53:33 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:09:47 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	idx_equal(char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
+	printf("i = %d\n", i);
 	return (i);
 }
 
@@ -40,11 +41,11 @@ char	**ft_tab_realloc(char **dest, int size, char *add)
 			if (dest[i])
 				free(dest[i]);
 		}
-		else if (i < ft_tab_len(dest)
+		else if (i < ft_tab_len(dest) - 1
 			&& !ft_strncmp(dest[i], add, idx_equal(add)))
 			tmp[i] = ft_strjoin(ft_strndup(dest[i], idx_equal(dest[i])),
 					add + idx_equal(dest[i]));
-		else
+		else if (tmp[ft_tab_len(dest) - 2] == 0)
 			tmp[i] = ft_strdup(add);
 	}
 	return (free(dest), tmp);
@@ -53,14 +54,28 @@ char	**ft_tab_realloc(char **dest, int size, char *add)
 void	add_to_env(t_mini *mini, char *arg)
 {
 	int	i;
+	int	size;
 
-	i = 0;
-	mini->env = ft_tab_realloc(mini->env, 1, NULL);
-	while (mini->env[i])
-		i++;
-	mini->env[i++] = ft_strdup(arg);
-	mini->env[i] = 0;
-	mini->export = ft_tab_realloc(mini->export, 1, arg);
+	if (get_env(mini, arg) == NULL)
+		size = 1;
+	else
+		size = 0;
+	mini->export = ft_tab_realloc(mini->export, size, arg); // a corriger
+	if (size == 1)
+	{
+		mini->env = ft_tab_realloc(mini->env, size, NULL);
+		i = ft_tab_len(mini->env);
+		mini->env[i++] = ft_strdup(arg);
+		mini->env[i] = 0;
+	}
+	else
+	{
+		i = 0;
+		while (mini->env[i] && ft_strncmp(mini->env[i], arg, idx_equal(arg)))
+			i++;
+		free(mini->env[i]);
+		mini->env[i] = ft_strdup(arg);
+	}
 }
 
 void	print_export(t_mini *m)

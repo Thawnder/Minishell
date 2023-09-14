@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/13 11:33:42 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:06:56 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,22 @@ void	ft_command(t_mini *mini)
 	tmp = mini->args;
 	while (tmp)
 	{
-		if (tmp->arg[0])
-		{
-			if (check_builtin(tmp->arg, "exit") == 0)
-				ft_exit(mini);
-			else if (check_builtin(tmp->arg, "echo") == 0)
-				ft_echo(mini, tmp->arg + 4);
-			else if (check_builtin(tmp->arg, "cd") == 0)
-				ft_cd(mini, tmp->arg + 2);
-			else if (check_builtin(tmp->arg, "pwd") == 0)
-				ft_pwd(mini);
-			else if (check_builtin(tmp->arg, "export") == 0)
-				ft_export(mini, tmp->arg + 6);
-			else if (check_builtin(tmp->arg, "unset") == 0)
-				mini->exit = 1;
-			else if (check_builtin(tmp->arg, "env") == 0)
-				ft_env(mini);
-		}
+		if (tmp->arg[0] && check_builtin(tmp->arg, "exit") == 0)
+			ft_exit(mini);
+		else if (tmp->arg[0] && check_builtin(tmp->arg, "echo") == 0)
+			ft_echo(mini, tmp->arg + 4);
+		else if (tmp->arg[0] && check_builtin(tmp->arg, "cd") == 0)
+			ft_cd(mini, tmp->arg + 2);
+		else if (tmp->arg[0] && check_builtin(tmp->arg, "pwd") == 0)
+			ft_pwd(mini);
+		else if (tmp->arg[0] && check_builtin(tmp->arg, "export") == 0)
+			ft_export(mini, tmp->arg + 6);
+		else if (tmp->arg[0] && check_builtin(tmp->arg, "unset") == 0)
+			mini->exit = 1;
+		else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
+			ft_env(mini);
+		// else if (tmp->arg[0] && check_builtin(tmp->arg, "/") == 0)
+		// 	ft_exec(mini, tmp->arg);
 		tmp = tmp->next;
 	}
 }
