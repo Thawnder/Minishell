@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/14 18:09:47 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:21:00 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,80 +19,63 @@ int	idx_equal(char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
-	printf("i = %d\n", i);
 	return (i);
 }
 
-char	**ft_tab_realloc(char **dest, int size, char *add)
+char	**ft_tab_realloc(char **dest, int n, char *add)
 {
 	char	**tmp;
 	int		i;
+	int		j;
 
-	tmp = ft_calloc(ft_tab_len(dest) + size + 1, sizeof(char *));
+	tmp = ft_calloc(ft_tab_len(dest) + n + 1, sizeof(char *));
 	i = -1;
-	while (++i < ft_tab_len(dest) + size)
+	j = -1;
+	if (add != NULL)
+		tmp[++j] = ft_strdup(add);
+	while (dest[++i] && i < ft_tab_len(dest) && ++j < ft_tab_len(dest) + n)
 	{
-		if (!add || ((i < ft_tab_len(dest) - 1 && !(ft_strcmp(dest[i], add) < 0
-						&& ft_strcmp(dest[i + 1], add) > 0))
-				|| (i == ft_tab_len(dest) - 1 && ft_strcmp(dest[i], add) < 0)))
+		if (add && j > 0 && !ft_strcmp(tmp[j - 1], add)
+			&& ft_strncmp(dest[i], add, idx_equal(add)) < 0)
 		{
-			if (dest[i])
-				tmp[i] = ft_strdup(dest[i]);
-			if (dest[i])
-				free(dest[i]);
+			free(tmp[j - 1]);
+			tmp[j - 1] = ft_strdup(dest[i]);
+			tmp[j] = ft_strdup(add);
 		}
-		else if (i < ft_tab_len(dest) - 1
-			&& !ft_strncmp(dest[i], add, idx_equal(add)))
-			tmp[i] = ft_strjoin(ft_strndup(dest[i], idx_equal(dest[i])),
-					add + idx_equal(dest[i]));
-		else if (tmp[ft_tab_len(dest) - 2] == 0)
-			tmp[i] = ft_strdup(add);
+		else if (!add || ft_strncmp(add, dest[i], idx_equal(add)))
+			tmp[j] = ft_strdup(dest[i]);
+		else
+			j--;
+		free(dest[i]);
 	}
 	return (free(dest), tmp);
 }
 
 void	add_to_env(t_mini *mini, char *arg)
 {
-	int	i;
-	int	size;
+	int		i;
+	char	*tmp;
 
-	if (get_env(mini, arg) == NULL)
-		size = 1;
-	else
-		size = 0;
-	mini->export = ft_tab_realloc(mini->export, size, arg); // a corriger
-	if (size == 1)
+	tmp = ft_strndup(arg, idx_equal(arg));
+	if (get_env(mini, tmp) == NULL)
 	{
-		mini->env = ft_tab_realloc(mini->env, size, NULL);
-		i = ft_tab_len(mini->env);
-		mini->env[i++] = ft_strdup(arg);
-		mini->env[i] = 0;
+		mini->export = ft_tab_realloc(mini->export, 1, arg);
+		if (ft_strchr(arg, '='))
+		{
+			mini->env = ft_tab_realloc(mini->env, 1, NULL);
+			i = ft_tab_len(mini->env);
+			mini->env[i] = ft_strdup(arg);
+		}
 	}
 	else
 	{
+		mini->export = ft_tab_realloc(mini->export, 0, arg);
 		i = 0;
 		while (mini->env[i] && ft_strncmp(mini->env[i], arg, idx_equal(arg)))
 			i++;
 		free(mini->env[i]);
 		mini->env[i] = ft_strdup(arg);
 	}
-}
-
-void	print_export(t_mini *m)
-{
-	char	*tmp;
-	int		i;
-
-	tmp = NULL;
-	i = 0;
-	while (m->export[i])
-	{
-		printf("%d:%s\n", i, m->export[i]);
-		tmp = ft_strjoin(tmp, "declare -x \"");
-		tmp = ft_strjoin(tmp, m->export[i++]);
-		tmp = ft_strjoin(tmp, "\"\n");
-	}
-	printf("%s", tmp);
 	free(tmp);
 }
 
@@ -101,25 +84,20 @@ void	ft_export(t_mini *m, char *arg)
 	int	i;
 
 	i = 0;
-	if (m->has_operator && m->args->operator == OP_PIPE)
+	while (m->export[i])
 	{
-		if (!arg[0])
-		{
-			while (m->export[i])
-			{
-				m->args->result = ft_strjoin(m->args->result, "declare -x \"");
-				m->args->result = ft_strjoin(m->args->result, m->export[i++]);
-				m->args->result = ft_strjoin(m->args->result, "\"\n");
-			}
-		}
-		else
-			m->args->result = NULL;
+		m->args->result = ft_strjoin(m->args->result, "declare -x \"");
+		m->args->result = ft_strjoin(m->args->result, m->export[i++]);
+		m->args->result = ft_strjoin(m->args->result, "\"\n");
 	}
+	if (m->has_operator && m->args->operator == OP_PIPE && arg && arg[0])
+		free(m->args->result);
 	else
 	{
 		if (!arg[0])
-			print_export(m);
+			printf("%s", m->args->result);
 		else
 			add_to_env(m, arg + 1);
+		free(m->args->result);
 	}
 }
