@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/15 15:27:42 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:36:28 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,12 @@ char	*stock_echo(char *line)
 	res = malloc(size_of_echo(line) + 1);
 	while (line[i])
 	{
-		/* if (line[i] == '-' && line[i + 1] == 'n' && line[i + 2] == ' ')
-		{
-			flag = 1;
-			i += 3;
-		} */
 		if (line[i] == '-')
+		{
+			if (check_flag(line) != 0)
+				flag = 1;
 			i += check_flag(line);
+		}
 		res[j++] = line[i++];
 	}
 	if (flag == 0)
