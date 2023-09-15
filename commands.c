@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/14 18:06:56 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:54:13 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_command(t_mini *mini)
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "export") == 0)
 			ft_export(mini, tmp->arg + 6);
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "unset") == 0)
-			mini->exit = 1;
+			ft_unset(mini, tmp->arg + 5);
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
 			ft_env(mini);
 		// else if (tmp->arg[0] && check_builtin(tmp->arg, "/") == 0)

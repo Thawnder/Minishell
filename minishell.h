@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/15 13:51:02 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:02:34 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,12 @@ int			check_builtin(char *arg, char *ref);
 void		ft_command(t_mini *mini);
 /*	Commands2.c	*/
 void		ft_echo(t_mini *mini, char *line);
+void		ft_unset(t_mini *mini, char *arg);
 /*	Commands3.c	*/
 char		*get_env(t_mini *mini, char *src);
 void		ft_cd(t_mini *mini, char *path);
 /*	Commands4.c	*/
+char		*get_export(t_mini *mini, char *src);
 void		ft_export(t_mini *m, char *arg);
 /*----------------------------------------*/
 /*	free.c	*/

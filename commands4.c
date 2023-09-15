@@ -6,11 +6,23 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/15 13:34:33 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:02:46 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_export(t_mini *mini, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (mini->export[i] && ft_strncmp(src, mini->export[i], ft_strlen(src)))
+		i++;
+	if (!mini->export[i])
+		return (NULL);
+	return (mini->export[i]);
+}
 
 int	idx_equal(char *str)
 {
