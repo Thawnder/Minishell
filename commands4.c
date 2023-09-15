@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/15 13:21:00 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:34:33 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	idx_equal(char *str)
 	return (i);
 }
 
-char	**ft_tab_realloc(char **dest, int n, char *add)
+char	**realloc_add(char **dest, int n, char *add)
 {
 	char	**tmp;
 	int		i;
@@ -59,17 +59,17 @@ void	add_to_env(t_mini *mini, char *arg)
 	tmp = ft_strndup(arg, idx_equal(arg));
 	if (get_env(mini, tmp) == NULL)
 	{
-		mini->export = ft_tab_realloc(mini->export, 1, arg);
+		mini->export = realloc_add(mini->export, 1, arg);
 		if (ft_strchr(arg, '='))
 		{
-			mini->env = ft_tab_realloc(mini->env, 1, NULL);
+			mini->env = realloc_add(mini->env, 1, NULL);
 			i = ft_tab_len(mini->env);
 			mini->env[i] = ft_strdup(arg);
 		}
 	}
 	else
 	{
-		mini->export = ft_tab_realloc(mini->export, 0, arg);
+		mini->export = realloc_add(mini->export, 0, arg);
 		i = 0;
 		while (mini->env[i] && ft_strncmp(mini->env[i], arg, idx_equal(arg)))
 			i++;

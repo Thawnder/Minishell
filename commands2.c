@@ -6,25 +6,11 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/14 16:50:14 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:50:49 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_realloc(char *dest, int size)
-{
-	char	*tmp;
-	int		len;
-
-	len = ft_strlen(dest);
-	tmp = malloc(len + size + 1);
-	if (!tmp)
-		return (NULL);
-	ft_memcpy(tmp, dest, len + 1);
-	free(dest);
-	return (tmp);
-}
 
 int	size_of_echo(char *line)
 {
