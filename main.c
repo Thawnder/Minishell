@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 14:37:43 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/18 09:48:33 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	mini = ft_calloc(1, sizeof(t_mini));
 	ft_init_mini(mini, env);
+	using_history();
 	while (!mini->exit)
 	{
 		//int tcsetattr(fd, la structure de commandes en sah);
 		mini->line = readline("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
-		//add_history(mini->line);
+		add_history(mini->line); 
 		if (ft_pre_parse(mini))
 			ft_command(mini);
 		free_args(mini);
