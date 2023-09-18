@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/15 14:54:13 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:44:43 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_builtin(char *arg, char *ref)
 
 	len = ft_strlen(ref);
 	if (ft_strncmp(arg, ref, len) == 0
-		&& (*(arg + len) == 0 || *(arg + len) == ' '))
+		&& (*(arg + len) == 0 || *(arg + len) == ' ')) // Faudra changer la condition
 		return (0);
 	return (-1);
 }
@@ -94,8 +94,8 @@ void	ft_command(t_mini *mini)
 			ft_unset(mini, tmp->arg + 5);
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
 			ft_env(mini);
-		// else if (tmp->arg[0] && check_builtin(tmp->arg, "/") == 0)
-		// 	ft_exec(mini, tmp->arg);
+		else if (tmp->arg[0] && check_builtin(tmp->arg, "/") == 0) // Que les commands de /bin/ ou y'en a d'autres ?
+			ft_exec(mini, tmp->arg);
 		tmp = tmp->next;
 	}
 }

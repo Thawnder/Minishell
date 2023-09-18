@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/15 14:02:34 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:25:58 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ void		ft_cd(t_mini *mini, char *path);
 /*	Commands4.c	*/
 char		*get_export(t_mini *mini, char *src);
 void		ft_export(t_mini *m, char *arg);
+/*	Commands5.c	*/
+void		ft_exec(t_mini *mini, char *line);
 /*----------------------------------------*/
 /*	free.c	*/
 void		free_tabl(char **str);
