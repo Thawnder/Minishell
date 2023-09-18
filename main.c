@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/18 09:48:33 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:57:36 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **env)
 			ft_command(mini);
 		free_args(mini);
 	}
+	rl_clear_history();
 	free_all(mini);
 	return (0);
 }
