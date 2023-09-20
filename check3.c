@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:13:18 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/18 10:44:54 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:51:13 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,10 @@ int	valid_command(t_lists *tmp)
 		return (1);
 	else if (check_builtin(tmp->arg, "env") == 0)
 		return (1);
-	else if (check_builtin(tmp->arg, "/") == 0) // Check commands.c
-		return (1);
 	else if (dollar_command(tmp->arg))
 		return (1);
 	else
-		return (0);
+		return (0/* fonction qui test la commande pour savoir si elle existe ou pas */);
 }
 
 char	*get_invalid_command(char *str, char c)

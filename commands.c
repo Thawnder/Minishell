@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/18 10:44:43 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/20 09:55:08 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_command(t_mini *mini)
 			ft_unset(mini, tmp->arg + 5);
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
 			ft_env(mini);
-		else if (tmp->arg[0] && check_builtin(tmp->arg, "/") == 0) // Que les commands de /bin/ ou y'en a d'autres ?
+		else
 			ft_exec(mini, tmp->arg);
 		tmp = tmp->next;
 	}
