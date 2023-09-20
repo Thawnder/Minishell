@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 17:46:15 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:06:27 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,8 @@ int	ft_pre_parse(t_mini *mini)
 		return (0);
 	ft_add_num_arg(mini);
 	ft_delete_space(mini);
-	if (ft_check_advanced(mini) == -1)
+	if (ft_replace(mini) == -1 || ft_check_advanced(mini) == -1)
 		return (0);
-	ft_replace(mini);
 	ft_parse(mini);
 
 
