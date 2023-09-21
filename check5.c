@@ -6,11 +6,30 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:49:20 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 17:02:41 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:26:10 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	existing_exec(char *path, char *file)
+{
+	int	exec;
+
+	exec = 0;
+	if (found_command(path, file))
+	{
+		exec = is_exec(path, file);
+		if (exec == 1)
+			return (1);
+		else if (exec == -1)
+			return (2);
+		printf("%s%s: Permission denied\n", path, file);
+		return (2);
+	}
+	printf("%s%s: No such file or directory\n", path, file);
+	return (free(path), free(file), 2);
+}
 
 int	find_exec(t_mini *mini, t_lists *tmp)
 {
@@ -41,10 +60,27 @@ int	find_exec(t_mini *mini, t_lists *tmp)
 
 int	find_replace_exec(t_mini *mini, t_lists *tmp)
 {
+	int	i;
+	int	y;
+
+	i = 0;
 	if (!with_path(tmp->arg))
 	{
 		if (find_exec(mini, tmp))
 			return (1);
+	}
+	else
+	{
+		while (tmp->arg[i] && tmp->arg[i] != ' ')
+			i++;
+		y = i - 1;
+		while (tmp->arg[y] && tmp->arg[y] != '/')
+			y--;
+		if (existing_exec(ft_strndup(tmp->arg, y + 1),
+				ft_strndup(&tmp->arg[y + 1], i - (y + 1))) == 1)
+			return (1);
+		else
+			return (2);
 	}
 	return (0);
 }

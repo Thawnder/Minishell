@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 14:27:39 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:08:59 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <dirent.h>
 
 typedef enum e_operator
 {
@@ -135,10 +136,13 @@ char		*strdup_without(char *old, int i, int y);
 char		*join_sorted(char **str, char *sep);
 char		**alpha_sort_tabl(char **str);
 /*	Utils4.c	*/
+int			found_command(char *path, char *str);
 char		*get_path(char **tab, char *tmp);
 int			with_path(char *str);
 int			has_option_echo(char *str);
 int			ft_tab_len(char **tab);
+/*	Utils5.c	*/
+int			is_exec(char *path, char *str);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);

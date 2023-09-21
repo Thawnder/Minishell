@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:13:18 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 14:18:05 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 10:43:59 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,21 @@ int	ft_check_advanced(t_mini *mini)
 {
 	t_lists	*tmp;
 	char	*str;
+	int		valid;
 
 	tmp = mini->args;
 	str = NULL;
+	valid = 0;
 	while(tmp)
 	{
-		if (!valid_command(mini, tmp))
+		valid = valid_command(mini, tmp);
+		if (!valid)
 		{
 			str =  get_invalid_command(tmp->arg, 0);
 			printf("%s: command not found\n", str);
 			return (free(str), -1);
 		}
-		if (valid_command(mini, tmp) == 2)
+		if (valid == 2)
 			return (-1);
 		tmp = tmp->next;
 	}

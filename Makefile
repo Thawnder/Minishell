@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRCS = main.c commands.c commands2.c commands3.c commands4.c commands5.c \
 	check.c check2.c check3.c check4.c check5.c \
 	pre_parsing.c pre_parsing2.c replace.c replace2.c replace3.c parsing.c \
-	utils.c utils2.c utils3.c utils4.c free.c
+	utils.c utils2.c utils3.c utils4.c utils5.c free.c
 OBJS_EXEC = ${SRCS:.c=.o}
 EXEC = minishell
 
