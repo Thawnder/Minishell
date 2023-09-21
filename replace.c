@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 11:05:55 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:36:03 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,11 @@ int	ft_replace(t_mini *mini)
 		find_wildcard(tmp);
 		if (!valid_dollars(tmp->arg))
 		{
-			str =  get_invalid_command(tmp->arg, '$');
+			str = get_invalid_command(tmp->arg, '$');
 			printf("%s: bad substitution\n", str);
 			return (free(str), -1);
 		}
 		find_dollars(mini, tmp);
-		//find_option(mini, tmp); // Echo -nnnnnn & delete multiple -n
 		find_quotes(mini, tmp);
 		tmp = tmp->next;
 	}

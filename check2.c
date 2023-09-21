@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:32:12 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 17:22:04 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:33:37 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void	check_priorities(t_lists *args)
 
 int	error_bracket(char *str)
 {
-	int	i;
-	int y;
+	int		i;
+	int		y;
 	char	*error;
 
 	i = 0;
 	y = 0;
-	if (check_builtin(str, "echo") == 0 
+	if (check_builtin(str, "echo") == 0
 		|| (str[0] == '(' && check_builtin(&str[1], "echo") == 0))
 	{
 		while (str[i] != ' ')

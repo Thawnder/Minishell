@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:49:20 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/21 11:26:10 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:53:34 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int	existing_exec(char *path, char *file)
 {
 	int	exec;
-
+	
 	exec = 0;
 	if (found_command(path, file))
 	{
 		exec = is_exec(path, file);
 		if (exec == 1)
-			return (1);
+			return (free(path), free(file), 1);
 		else if (exec == -1)
-			return (2);
+			return (free(path), free(file), 2);
 		printf("%s%s: Permission denied\n", path, file);
-		return (2);
+		return (free(path), free(file), 2);
 	}
 	printf("%s%s: No such file or directory\n", path, file);
 	return (free(path), free(file), 2);
@@ -119,7 +119,7 @@ int	try_path(t_mini *mini, t_lists *tmp)
 		if (dir == NULL)
 		{
 			if (try_prev_path(stmp))
-				return (free(stmp), 0);
+				return (free(stmp), 2);
 			printf("%s: No such file or directory\n", stmp);
 			return (free(stmp), 2);
 		}

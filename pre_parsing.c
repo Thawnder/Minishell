@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 11:06:27 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:38:05 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	count_operator(char *str)
 		if (str[i] == '|' || str[i] == '&' || str[i] == '<' || str[i] == '>')
 		{
 			op++;
-			if (str[i + 1] == '|' || str[i + 1] == '&' 
+			if (str[i + 1] == '|' || str[i + 1] == '&'
 				|| str[i + 1] == '<' || str[i + 1] == '>')
 				i++;
 		}
@@ -75,10 +75,10 @@ void	ft_parse_op(t_mini *mini)
 		while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 			i++;
 		l = i;
-		while (str[i] && (str[i] != '|' && str[i] != '<' && str[i] != '&' 
+		while (str[i] && (str[i] != '|' && str[i] != '<' && str[i] != '&'
 				&& str[i] != '>'))
 			i++;
-		if (str[i] && str[i + 1] && (str[i + 1] == '|' || str[i + 1] == '<' 
+		if (str[i] && str[i + 1] && (str[i + 1] == '|' || str[i + 1] == '<'
 				|| str[i + 1] == '&' || str[i + 1] == '>'))
 			i++;
 		ft_add_lists(mini, l, i - l, ft_find_operator(mini->line, i));
@@ -111,7 +111,6 @@ int	ft_pre_parse(t_mini *mini)
 	if (ft_replace(mini) == -1 || ft_check_advanced(mini) == -1)
 		return (0);
 	ft_parse(mini);
-
 
 	check_flag(mini->args->arg);
 	
