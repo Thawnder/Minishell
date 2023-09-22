@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:48:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:18 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/22 10:49:19 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_exec(char *path, char *str)
 	char			*tmp;
 
 	dir = opendir(path);
-	tmp = ft_strjoin(path, str);
+	tmp = ft_strjoin_nofree(path, str);
 	if (dir == NULL)
 		return (free(tmp), closedir(dir), 0);
 	dent = readdir(dir);
