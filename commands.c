@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/20 10:52:26 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:04:44 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_command(t_mini *mini)
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
 			ft_env(mini);
 		else
-			ft_exec(mini, tmp->arg);
+			ft_fork(mini, tmp->arg);
 		tmp = tmp->next;
 	}
 }
