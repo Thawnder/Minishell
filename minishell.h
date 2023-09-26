@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/22 12:06:43 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:30:41 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,27 @@ typedef struct s_mini
 void		ft_syntax_error(char *str, char c, int i);
 int			ft_check_line(char *str);
 /*	Check2.c	*/
-int		ft_bracket(t_mini *mini);
+int			ft_bracket(t_mini *mini);
 /*	Check3.c	*/
+char		*get_invalid_command(char *str, char c);
+int			valid_dollars(char *str);
 int			ft_check_advanced(t_mini *mini);
 /*	Check4.c	*/
+char		*get_operator_error(char *str, int i);
+int			ft_other_command(t_mini *mini, t_lists *tmp);
 int			ft_check_operator(char *str);
+/*	Check5.c	*/
+int			find_replace_exec(t_mini *mini, t_lists *tmp);
+int			try_path(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	pre_parsing.c	*/
-int		ft_pre_parse(t_mini *mini);
+int			ft_pre_parse(t_mini *mini);
 /*	pre_parsing2.c	*/
 void		ft_delete_space(t_mini *mini);
 void		ft_add_num_arg(t_mini *mini);
 /*----------------------------------------*/
 /*	replace.c	*/
-void		ft_replace(t_mini *mini);
+int			ft_replace(t_mini *mini);
 /*	replace2.c	*/
 void		find_quotes(t_mini *mini, t_lists *tmp);
 int			has_dollar(char	*old, int i, int y);
@@ -128,8 +135,13 @@ char		*strdup_without(char *old, int i, int y);
 char		*join_sorted(char **str, char *sep);
 char		**alpha_sort_tabl(char **str);
 /*	Utils4.c	*/
+int			found_command(char *path, char *str);
+char		*get_path(char **tab, char *tmp);
+int			with_path(char *str);
 int			has_option_echo(char *str);
 int			ft_tab_len(char **tab);
+/*	Utils5.c	*/
+int			is_exec(char *path, char *str);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);

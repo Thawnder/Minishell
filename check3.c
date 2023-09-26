@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:13:18 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 10:51:13 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:34:16 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	valid_dollars(char *str)
 	return (1);
 }
 
-int	valid_command(t_lists *tmp)
+int	valid_command(t_mini *mini, t_lists *tmp)
 {
 	if (check_builtin(tmp->arg, "exit") == 0)
 		return (1);
@@ -67,7 +67,7 @@ int	valid_command(t_lists *tmp)
 	else if (dollar_command(tmp->arg))
 		return (1);
 	else
-		return (0/* fonction qui test la commande pour savoir si elle existe ou pas */);
+		return (ft_other_command(mini, tmp));
 }
 
 char	*get_invalid_command(char *str, char c)
@@ -98,24 +98,23 @@ int	ft_check_advanced(t_mini *mini)
 {
 	t_lists	*tmp;
 	char	*str;
+	int		valid;
 
 	tmp = mini->args;
 	str = NULL;
-	while(tmp)
+	valid = 0;
+	while (tmp)
 	{
-		if (!valid_command(tmp))
+		valid = valid_command(mini, tmp);
+		if (!valid)
 		{
-			str =  get_invalid_command(tmp->arg, 0);
+			str = get_invalid_command(tmp->arg, 0);
 			printf("%s: command not found\n", str);
 			return (free(str), -1);
 		}
-		if (!valid_dollars(tmp->arg))
-		{
-			str =  get_invalid_command(tmp->arg, '$');
-			printf("%s: bad substitution\n", str);
-			return (free(str), -1);
-		}
+		if (valid == 2)
+			return (-1);
 		tmp = tmp->next;
 	}
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 09:54:23 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:38:33 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,19 @@ void	ft_amp_or(t_mini *mini)
 	tmp = mini->args;
 	while (tmp)
 	{
-		if (tmp->operator == OP_2AMP || tmp->operator == OP_2PIPE)
+		/*if (tmp->operator == OP_2AMP || tmp->operator == OP_2PIPE)
 		{
-			//if (ft_try_command())
-		}
+			if (ft_check_advanced(mini) != -1)
+			{
+				if (tmp->operator == OP_2PIPE)
+					delete_next_until(tmp, OP_2PIPE);
+			}
+			else
+			{
+				if (tmp->operator == OP_2AMP)
+					delete_next_until(tmp, OP_2AMP);
+			}
+		}*/
 		tmp = tmp->next;
 	}
 }
@@ -47,13 +56,13 @@ void	ft_parse(t_mini *mini)
 	add_is_pipe(mini);
 	ft_amp_or(mini);
 	/*
+		PROBLEM BONUS && || need to check during execution and not before
+		
 		TRY FONCTION AND ADD && AND || TRUE AND DELETE USELESS
 
 		REPLACE $?
 
-
-
-		
+		DO << < >> >
 	*/
 	
 }
