@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 16:30:41 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:54:48 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ typedef struct s_mini
 	int		exit;
 }		t_mini;
 
+/* Global Variable */
+extern int	g_forked;
+
 /*	Check.c	*/
 void		ft_syntax_error(char *str, char c, int i);
 int			ft_check_line(char *str);
@@ -156,7 +159,7 @@ void		ft_cd(t_mini *mini, char *path);
 char		*get_export(t_mini *mini, char *src);
 void		ft_export(t_mini *m, char *arg);
 /*	Commands5.c	*/
-void		ft_exec(t_mini *mini, char *line);
+void		ft_fork(t_mini *mini, char *line);
 /*----------------------------------------*/
 /*	free.c	*/
 void		free_tabl(char **str);
