@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 18:04:33 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:26:51 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ void	free_all(t_mini *mini)
 		free(mini->path);
 	/*if (mini->args->arg)
 		free_lists(mini);*/
+	rl_clear_history();
 	free(mini);
 }
 
-void	signal_handler(int signal, siginfo_t *s, void *mini)
+void	signal_handler(int signal, siginfo_t *s, void *osef)
 {
-	(void) mini;
+	(void) s;
+	(void) osef;
 	if (signal == SIGINT && g_forked == 0)
 	{
 		write(2, "\n", 1);
@@ -39,7 +41,7 @@ void	signal_handler(int signal, siginfo_t *s, void *mini)
 		kill(s->si_pid, signal);
 }
 
-void	ft_init_mini(t_mini *mini, char **env)
+void	ft_init_all(t_mini *mini, char **env, struct sigaction s)
 {
 	int	i;
 
@@ -60,6 +62,10 @@ void	ft_init_mini(t_mini *mini, char **env)
 	mini->export = alpha_sort_tabl(mini->export);
 	mini->oldpath = ft_strdup(getenv("OLDPWD"));
 	mini->path = ft_strdup(getenv("PWD"));
+	s.sa_sigaction = signal_handler;
+	s.sa_flags = SA_SIGINFO | SA_RESTART;
+	sigaction(SIGINT, &s, 0);
+	sigaction(SIGQUIT, &s, 0);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -67,30 +73,19 @@ int	main(int argc, char **argv, char **env)
 	t_mini				*mini;
 	struct sigaction	s;
 
-	(void)argv;
-	(void)argc;
-	s.sa_sigaction = signal_handler;
-	s.sa_flags = SA_SIGINFO | SA_RESTART;
 	mini = ft_calloc(1, sizeof(t_mini));
-	ft_init_mini(mini, env);
-	using_history();
-	while (!mini->exit)
+	sigemptyset(&s.sa_mask);
+	ft_init_all(mini, env, s);
+	while (!mini->exit && argc && argv[0])
 	{
 		//int tcsetattr(fd, la structure de commandes en sah);
-		sigaction(SIGINT, &s, (void *) mini);
-		sigaction(SIGQUIT, &s, (void *) mini);
 		mini->line = readline("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
 		if (!mini->line)
-		{
-			free_all(mini);
-			exit(EXIT_SUCCESS);
-		}
+			return (free_all(mini), 0);
 		add_history(mini->line);
 		if (ft_pre_parse(mini))
 			ft_command(mini);
 		free_args(mini);
 	}
-	rl_clear_history();
-	free_all(mini);
-	return (0);
+	return (free_all(mini), 0);
 }
