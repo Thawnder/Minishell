@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 11:33:56 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:52:50 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void	free_all(t_mini *mini)
 		free(mini->line);
 	if (mini->path)
 		free(mini->path);
-	/*if (mini->args->arg)
-		free_lists(mini);*/
+	if (mini->oldpath)
+		free(mini->oldpath);
+	if (mini->env)
+		free_tabl(mini->env);
+	if (mini->export)
+		free_tabl(mini->export);
 	rl_clear_history();
 	free(mini);
 }
@@ -32,7 +36,7 @@ void	signal_handler(int signal, siginfo_t *s, void *osef)
 	(void) osef;
 	if (signal == SIGINT && g_forked == 0) // Ctrl + C
 	{
-		write(2, "\n", 1);
+		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();

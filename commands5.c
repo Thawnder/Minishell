@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/26 17:55:43 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:33:44 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,32 @@ void	ft_exec(t_mini *mini, char *line)
 	int		j;
 	int		k;
 
-	i = -1;
 	j = 0;
 	argv = init_args(line);
-	k = 0;
+	k = -1;
+	i = -1;
 	while (line && line[++i])
 	{
-		if (line[i] == ' ')
+		if (line[i] == ' ' && i++)
 		{
-			argv[k] = ft_strndup(&line[i], j);
-			printf("argv[%d]=%s\n", k, argv[k]);
+			argv[++k] = ft_strndup(&line[i - j - 1], j);
 			j = 0;
-			k++;
 		}
 		j++;
 	}
+	if (!line[i])
+		argv[++k] = ft_strndup(&line[i - j], j);
+	argv[++k] = NULL;
 	execve(argv[0], argv, mini->env);
 	free_tabl(argv);
 }
 
 void	ft_fork(t_mini *mini, char *line)
 {
-	pid_t	child;
-
-	child = fork();
-	if (child == 0)
+	if (fork() == 0)
+	{
 		ft_exec(mini, line);
+		exit(EXIT_SUCCESS);
+	}
+	wait(NULL);
 }
