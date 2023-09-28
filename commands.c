@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/09/26 16:32:41 by ldeville         ###   ########.fr       */
-=======
-/*   Updated: 2023/09/26 18:04:44 by bpleutin         ###   ########.fr       */
->>>>>>> d4ae1cc97ade42ea79096bf3bce8bc3fe2ad0037
+/*   Updated: 2023/09/28 11:49:49 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +75,20 @@ int	check_builtin(char *arg, char *ref)
 
 void	ft_command(t_mini *mini, t_lists *tmp)
 {
-		if (tmp->arg[0] && check_builtin(tmp->arg, "exit") == 0)
-			ft_exit(mini);
-		else if (tmp->arg[0] && check_builtin(tmp->arg, "echo") == 0)
-			ft_echo(mini, tmp->arg + 4);
-		else if (tmp->arg[0] && check_builtin(tmp->arg, "cd") == 0)
-			ft_cd(mini, tmp->arg + 2);
-		else if (tmp->arg[0] && check_builtin(tmp->arg, "pwd") == 0)
-			ft_pwd(mini);
-		else if (tmp->arg[0] && check_builtin(tmp->arg, "export") == 0)
-			ft_export(mini, tmp->arg + 6);
-		else if (tmp->arg[0] && check_builtin(tmp->arg, "unset") == 0)
-			ft_unset(mini, tmp->arg + 5);
-		else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
-			ft_env(mini);
-		else
-			ft_fork(mini, tmp->arg);
-		tmp = tmp->next;
-	}
+	if (tmp->arg[0] && check_builtin(tmp->arg, "exit") == 0)
+		ft_exit(mini);
+	else if (tmp->arg[0] && check_builtin(tmp->arg, "echo") == 0)
+		ft_echo(mini, tmp->arg + 4);
+	else if (tmp->arg[0] && check_builtin(tmp->arg, "cd") == 0)
+		ft_cd(mini, tmp->arg + 2);
+	else if (tmp->arg[0] && check_builtin(tmp->arg, "pwd") == 0)
+		ft_pwd(mini);
+	else if (tmp->arg[0] && check_builtin(tmp->arg, "export") == 0)
+		ft_export(mini, tmp->arg + 6);
+	else if (tmp->arg[0] && check_builtin(tmp->arg, "unset") == 0)
+		ft_unset(mini, tmp->arg + 5);
+	else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
+		ft_env(mini);
+	else
+		ft_fork(mini, tmp->arg);
 }
