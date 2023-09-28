@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/27 15:26:51 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:16:11 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	signal_handler(int signal, siginfo_t *s, void *osef)
 {
 	(void) s;
 	(void) osef;
-	if (signal == SIGINT && g_forked == 0)
+	if (signal == SIGINT && g_forked == 0) // Ctrl + C
 	{
 		write(2, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (signal == SIGQUIT && g_forked == 1)
+	else if (signal == SIGQUIT && g_forked == 1) // Ctrl + \ (untested)
 		kill(s->si_pid, signal);
 }
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		//int tcsetattr(fd, la structure de commandes en sah);
 		mini->line = readline("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
-		if (!mini->line)
+		if (!mini->line) // Ctrl + D -- Same cond for STDIN while executing command?
 			return (free_all(mini), 0);
 		add_history(mini->line);
 		if (ft_pre_parse(mini))
