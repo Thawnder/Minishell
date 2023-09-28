@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 11:33:50 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:33:23 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void		find_dollars(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	parsing.c	*/
 void		ft_parse(t_mini *mini);
+/*	parsing2.c	*/
+t_lists		*special_operator(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	Utils.c	*/
 int			ft_size_until_op(char *str, int i, int l);
@@ -144,6 +146,7 @@ int			with_path(char *str);
 int			has_option_echo(char *str);
 int			ft_tab_len(char **tab);
 /*	Utils5.c	*/
+void		add_is_pipe(t_mini *mini);
 int			is_exec(char *path, char *str);
 /*----------------------------------------*/
 /*	Commands.c	*/
