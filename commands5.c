@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/28 15:44:22 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:52:19 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void	ft_fork(t_mini *mini, char *line)
 {
 	if (fork() == 0)
 	{
+		g_forked = 1;
 		ft_exec(mini, line);
 		exit(EXIT_SUCCESS);
 	}
 	wait(NULL);
+	g_forked = 0;
 }
