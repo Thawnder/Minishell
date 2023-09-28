@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 17:55:39 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:56:22 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	signal_handler(int signal, siginfo_t *s, void *ntm)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (signal == SIGQUIT) // Ctrl + \
+	else if (signal == SIGQUIT) // Ctrl + \ 
 	{	// g_forked not updated...
 		if (g_forked == 1)
 			kill(s->si_pid, signal);
