@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2023/09/26 16:32:41 by ldeville         ###   ########.fr       */
+=======
 /*   Updated: 2023/09/26 18:04:44 by bpleutin         ###   ########.fr       */
+>>>>>>> d4ae1cc97ade42ea79096bf3bce8bc3fe2ad0037
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +77,8 @@ int	check_builtin(char *arg, char *ref)
 	return (-1);
 }
 
-void	ft_command(t_mini *mini)
+void	ft_command(t_mini *mini, t_lists *tmp)
 {
-	t_lists	*tmp;
-
-	tmp = mini->args;
-	while (tmp)
-	{
 		if (tmp->arg[0] && check_builtin(tmp->arg, "exit") == 0)
 			ft_exit(mini);
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "echo") == 0)

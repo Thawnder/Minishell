@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 17:54:48 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:33:50 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			ft_bracket(t_mini *mini);
 /*	Check3.c	*/
 char		*get_invalid_command(char *str, char c);
 int			valid_dollars(char *str);
-int			ft_check_advanced(t_mini *mini);
+int			ft_check_advanced(t_mini *mini, t_lists *tmp);
 /*	Check4.c	*/
 char		*get_operator_error(char *str, int i);
 int			ft_other_command(t_mini *mini, t_lists *tmp);
@@ -109,7 +109,7 @@ void		ft_delete_space(t_mini *mini);
 void		ft_add_num_arg(t_mini *mini);
 /*----------------------------------------*/
 /*	replace.c	*/
-int			ft_replace(t_mini *mini);
+int			ft_replace(t_mini *mini, t_lists *tmp);
 /*	replace2.c	*/
 void		find_quotes(t_mini *mini, t_lists *tmp);
 int			has_dollar(char	*old, int i, int y);
@@ -148,7 +148,7 @@ int			is_exec(char *path, char *str);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);
-void		ft_command(t_mini *mini);
+void		ft_command(t_mini *mini, t_lists *tmp);
 /*	Commands2.c	*/
 void		ft_echo(t_mini *mini, char *line);
 void		ft_unset(t_mini *mini, char *arg);

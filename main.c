@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 11:20:02 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:35:28 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	main(int argc, char **argv, char **env)
 			return (free_all(mini), 0);
 		add_history(mini->line);
 		if (ft_pre_parse(mini))
-			ft_command(mini);
+			ft_parse(mini);
 		free_args(mini);
 	}
 	return (free_all(mini), 0);
