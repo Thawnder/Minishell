@@ -6,50 +6,11 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 11:22:01 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:43:13 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	add_is_pipe(t_mini *mini)
-{
-	t_lists	*tmp;
-
-	tmp = mini->args;
-	while (tmp->next)
-		tmp = tmp->next;
-	while (tmp)
-	{
-		if (tmp->previous && tmp->is_pipe)
-			tmp->previous->is_pipe = 1;
-		tmp = tmp->previous;
-	}
-}
-
-void	amp_or(t_mini *mini)
-{
-	t_lists	*tmp;
-
-	tmp = mini->args;
-	while (tmp)
-	{
-		/*if (tmp->operator == OP_2AMP || tmp->operator == OP_2PIPE)
-		{
-			if (ft_check_advanced(mini) != -1)
-			{
-				if (tmp->operator == OP_2PIPE)
-					delete_next_until(tmp, OP_2PIPE);
-			}
-			else
-			{
-				if (tmp->operator == OP_2AMP)
-					delete_next_until(tmp, OP_2AMP);
-			}
-		}*/
-		tmp = tmp->next;
-	}
-}
 
 t_lists	*delete_till_end(t_lists *tmp, t_operator op, int prio, int success)
 {
@@ -90,7 +51,7 @@ t_lists	*process_or(t_mini *mini, t_lists *tmp)
 	{
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		if (tmp->operator == OP_PIPE || (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
-			ft_command(mini, tmp); //replace to ft PIPE and <
+			special_operator(mini, tmp);
 		else
 			ft_command(mini, tmp);
 		if (tmp->next)
@@ -118,7 +79,7 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 	{
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		if (tmp->operator == OP_PIPE || (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
-			ft_command(mini, tmp); //replace to ft PIPE and <
+			special_operator(mini, tmp);
 		else
 			ft_command(mini, tmp);
 		if (tmp->next)
@@ -155,7 +116,7 @@ void	process_arg(t_mini *mini)
 		}
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		if (tmp->operator == OP_PIPE || (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
-			ft_command(mini, tmp); //replace to ft PIPE and <
+			special_operator(mini, tmp);
 		else
 			ft_command(mini, tmp);
 		tmp = tmp->next;
@@ -174,14 +135,9 @@ void	process_arg(t_mini *mini)
 void	ft_parse(t_mini *mini)
 {
 	add_is_pipe(mini);
-	//ft_amp_or(mini);
 	process_arg(mini);
 
 	/*
-		PROBLEM BONUS && || need to check during execution and not before
-		
-		TRY FONCTION AND ADD && AND || TRUE AND DELETE USELESS
-
 		REPLACE $?
 
 		DO << < >> >

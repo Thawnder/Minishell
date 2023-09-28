@@ -6,11 +6,26 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:48:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 16:28:37 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:41:08 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	add_is_pipe(t_mini *mini)
+{
+	t_lists	*tmp;
+
+	tmp = mini->args;
+	while (tmp->next)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->previous && tmp->is_pipe)
+			tmp->previous->is_pipe = 1;
+		tmp = tmp->previous;
+	}
+}
 
 int	is_exec(char *path, char *str)
 {
