@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 16:52:39 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:33:50 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <dirent.h>
 
 typedef enum e_operator
 {
@@ -83,11 +82,14 @@ typedef struct s_mini
 	int		exit;
 }		t_mini;
 
+/* Global Variable */
+extern int	g_forked;
+
 /*	Check.c	*/
 void		ft_syntax_error(char *str, char c, int i);
 int			ft_check_line(char *str);
 /*	Check2.c	*/
-int		ft_bracket(t_mini *mini);
+int			ft_bracket(t_mini *mini);
 /*	Check3.c	*/
 char		*get_invalid_command(char *str, char c);
 int			valid_dollars(char *str);
@@ -101,7 +103,7 @@ int			find_replace_exec(t_mini *mini, t_lists *tmp);
 int			try_path(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	pre_parsing.c	*/
-int		ft_pre_parse(t_mini *mini);
+int			ft_pre_parse(t_mini *mini);
 /*	pre_parsing2.c	*/
 void		ft_delete_space(t_mini *mini);
 void		ft_add_num_arg(t_mini *mini);
@@ -157,7 +159,7 @@ void		ft_cd(t_mini *mini, char *path);
 char		*get_export(t_mini *mini, char *src);
 void		ft_export(t_mini *m, char *arg);
 /*	Commands5.c	*/
-void		ft_exec(t_mini *mini, char *line);
+void		ft_fork(t_mini *mini, char *line);
 /*----------------------------------------*/
 /*	free.c	*/
 void		free_tabl(char **str);

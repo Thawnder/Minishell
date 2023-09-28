@@ -6,7 +6,11 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/26 16:32:41 by ldeville         ###   ########.fr       */
+=======
+/*   Updated: 2023/09/26 18:04:44 by bpleutin         ###   ########.fr       */
+>>>>>>> d4ae1cc97ade42ea79096bf3bce8bc3fe2ad0037
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +72,7 @@ int	check_builtin(char *arg, char *ref)
 
 	len = ft_strlen(ref);
 	if (ft_strncmp(arg, ref, len) == 0
-		&& (*(arg + len) == 0 || *(arg + len) == ' ')) // Faudra changer la condition
+		&& (*(arg + len) == 0 || *(arg + len) == ' '))
 		return (0);
 	return (-1);
 }
@@ -90,5 +94,7 @@ void	ft_command(t_mini *mini, t_lists *tmp)
 		else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
 			ft_env(mini);
 		else
-			ft_exec(mini, tmp->arg);
+			ft_fork(mini, tmp->arg);
+		tmp = tmp->next;
+	}
 }

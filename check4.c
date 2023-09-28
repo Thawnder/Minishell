@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:01:06 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 17:03:27 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:52:54 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_other_command(t_mini *mini, t_lists *tmp)
 
 	i = 0;
 	str = tmp->arg;
-	if (str[0] == '.' || str[0] == '/')
+	if (str[i] == '.' || str[i] == '/')
 		return (try_path(mini, tmp));
 	if (!find_replace_exec(mini, tmp))
 		return (0);

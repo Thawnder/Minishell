@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/18 10:28:28 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:55:43 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	ft_exec(t_mini *mini, char *line)
 	}
 	execve(argv[0], argv, mini->env);
 	free_tabl(argv);
+}
+
+void	ft_fork(t_mini *mini, char *line)
+{
+	pid_t	child;
+
+	child = fork();
+	if (child == 0)
+		ft_exec(mini, line);
 }

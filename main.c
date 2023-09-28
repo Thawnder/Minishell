@@ -6,11 +6,13 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 16:22:38 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:33:56 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_forked = 0;
 
 void	free_all(t_mini *mini)
 {
@@ -20,10 +22,26 @@ void	free_all(t_mini *mini)
 		free(mini->path);
 	/*if (mini->args->arg)
 		free_lists(mini);*/
+	rl_clear_history();
 	free(mini);
 }
 
-void	ft_init_mini(t_mini *mini, char **env)
+void	signal_handler(int signal, siginfo_t *s, void *osef)
+{
+	(void) s;
+	(void) osef;
+	if (signal == SIGINT && g_forked == 0) // Ctrl + C
+	{
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (signal == SIGQUIT && g_forked == 1) // Ctrl + \ (untested)
+		kill(s->si_pid, signal);
+}
+
+void	ft_init_all(t_mini *mini, char **env, struct sigaction s)
 {
 	int	i;
 
@@ -44,27 +62,30 @@ void	ft_init_mini(t_mini *mini, char **env)
 	mini->export = alpha_sort_tabl(mini->export);
 	mini->oldpath = ft_strdup(getenv("OLDPWD"));
 	mini->path = ft_strdup(getenv("PWD"));
+	s.sa_sigaction = signal_handler;
+	s.sa_flags = SA_SIGINFO | SA_RESTART;
+	sigaction(SIGINT, &s, 0);
+	sigaction(SIGQUIT, &s, 0);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	t_mini	*mini;
+	t_mini				*mini;
+	struct sigaction	s;
 
-	(void)argv;
-	(void)argc;
 	mini = ft_calloc(1, sizeof(t_mini));
-	ft_init_mini(mini, env);
-	using_history();
-	while (!mini->exit)
+	sigemptyset(&s.sa_mask);
+	ft_init_all(mini, env, s);
+	while (!mini->exit && argc && argv[0])
 	{
 		//int tcsetattr(fd, la structure de commandes en sah);
 		mini->line = readline("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
+		if (!mini->line) // Ctrl + D -- Same cond for STDIN while executing command?
+			return (free_all(mini), 0);
 		add_history(mini->line);
 		if (ft_pre_parse(mini))
 			ft_parse(mini);
 		free_args(mini);
 	}
-	rl_clear_history();
-	free_all(mini);
-	return (0);
+	return (free_all(mini), 0);
 }
