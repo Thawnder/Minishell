@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 17:56:22 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:57:25 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ void	free_all(t_mini *mini, struct termios tmp)
 void	signal_handler(int signal, siginfo_t *s, void *ntm)
 {
 	(void) ntm;
-	if (signal == SIGINT && g_forked == 0) // Ctrl + C
+	if (signal == SIGINT && g_forked == 0)
 	{
 		printf("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ^C\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (signal == SIGQUIT) // Ctrl + \ 
-	{	// g_forked not updated...
+	else if (signal == SIGQUIT)
+	{	
+		// g_forked not updated...
 		if (g_forked == 1)
 			kill(s->si_pid, signal);
 		printf("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
