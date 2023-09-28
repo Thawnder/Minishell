@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:13:18 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/21 16:34:16 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:47:11 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,20 @@ char	*get_invalid_command(char *str, char c)
 	return (command);
 }
 
-int	ft_check_advanced(t_mini *mini)
+int	ft_check_advanced(t_mini *mini, t_lists *tmp)
 {
-	t_lists	*tmp;
 	char	*str;
 	int		valid;
 
-	tmp = mini->args;
 	str = NULL;
-	valid = 0;
-	while (tmp)
+	valid = valid_command(mini, tmp);
+	if (!valid)
 	{
-		valid = valid_command(mini, tmp);
-		if (!valid)
-		{
-			str = get_invalid_command(tmp->arg, 0);
-			printf("%s: command not found\n", str);
-			return (free(str), -1);
-		}
-		if (valid == 2)
-			return (-1);
-		tmp = tmp->next;
+		str = get_invalid_command(tmp->arg, 0);
+		printf("%s: command not found\n", str);
+		return (free(str), -1);
 	}
+	if (valid == 2)
+		return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:32:12 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/21 16:33:37 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:29:33 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	check_priorities(t_lists *args)
 			count++;
 		}
 		if (count && !bracket)
+		{
 			add_priorities(old, tmp, count, unused_prio_num(args));
+			count = 0;
+		}
 		tmp = tmp->next;
 	}
 }
