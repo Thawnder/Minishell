@@ -6,11 +6,13 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 15:32:13 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:28:09 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
 
 /*void	from_to(t_mini *mini, t_lists *tmp)
 {

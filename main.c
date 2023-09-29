@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 12:52:50 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:53:05 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	free_all(t_mini *mini)
 	free(mini);
 }
 
-void	signal_handler(int signal, siginfo_t *s, void *osef)
+void	signal_handler(int signal, siginfo_t *s, void *obenjaminlefdp)
 {
 	(void) s;
-	(void) osef;
+	(void) obenjaminlefdp;
 	if (signal == SIGINT && g_forked == 0) // Ctrl + C
 	{
 		write(1, "\n", 1);

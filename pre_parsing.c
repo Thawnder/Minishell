@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 16:56:19 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:48:34 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,6 @@ int	ft_pre_parse(t_mini *mini)
 		return (0);
 	ft_add_num_arg(mini);
 	ft_delete_space(mini);
-
 	check_flag(mini->args->arg);
-	
-/*//------------------------------------------------
-	t_lists	*tmp;
-
-	tmp = mini->args;
-	while (tmp)
-	{
-		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
-		tmp = tmp->next;
-	}
-//------------------------------------------------*/
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:41:44 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/13 18:24:30 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:21:43 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	free_args(t_mini *mini)
 			tmp = tmp->next;
 		while (tmp->previous)
 		{
+			free(tmp->arg);
 			tmp = tmp->previous;
 			free(tmp->next);
 		}
+		free(tmp->arg);
 		free(mini->args);
 		mini->args = NULL;
 	}

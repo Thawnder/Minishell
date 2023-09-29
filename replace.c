@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 16:46:29 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:48:10 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void	find_wildcard(t_lists *tmp)
 	}
 }
 
-
 int	ft_replace(t_mini *mini, t_lists *tmp)
 {
 	char	*str;
+
 	str = NULL;
 	find_home(mini, tmp);
 	find_wildcard(tmp);

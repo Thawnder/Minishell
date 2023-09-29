@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:49:20 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/21 16:53:34 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:49:33 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	existing_exec(char *path, char *file)
 {
 	int	exec;
-	
+
 	exec = 0;
 	if (found_command(path, file))
 	{

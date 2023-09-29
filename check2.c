@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:32:12 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 11:29:33 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:49:24 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,8 @@ void	check_priorities(t_lists *args)
 			bracket = bracket_opened(tmp->arg);
 		if (bracket && count == 0)
 			old = tmp;
-		if (tmp && bracket)
-		{
+		if (tmp && bracket && count++)
 			bracket -= bracket_closed(tmp->arg);
-			count++;
-		}
 		if (count && !bracket)
 		{
 			add_priorities(old, tmp, count, unused_prio_num(args));

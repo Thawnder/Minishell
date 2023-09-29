@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:29:46 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 11:35:40 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:17:11 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	get_len_space(char *str)
 	len = 0;
 	while (str[i])
 	{
-		len++;
+		if (i != 0)
+			len++;
 		while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 			i++;
 		while (str[i] && str[i] > 32 && str[i] < 127)
@@ -76,9 +77,11 @@ void	ft_delete_space(t_mini *mini)
 	tmp = mini->args;
 	while (tmp)
 	{
+		//ft_printf("Len %i - strlen %i\n", get_len_space(tmp->arg) /*+ tmp->num_arg*/, ft_strlen(tmp->arg));
 		tmp->arg = delete_space(tmp->arg,
-				ft_calloc((get_len_space(tmp->arg) + tmp->num_arg),
+				ft_calloc(get_len_space(tmp->arg) + 1,
 					sizeof(char)));
+		//ft_printf("String |%s| - Len %i\n", tmp->arg, ft_strlen(tmp->arg));
 		tmp = tmp->next;
 	}
 }

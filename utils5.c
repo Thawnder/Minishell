@@ -6,11 +6,32 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:48:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 11:41:08 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:11:42 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*void	send_next_status(t_lists *tmp, int op, int status, int prio)
+{
+	tmp = tmp->next;
+	if (!tmp)
+		return ;
+	while (tmp && tmp->priorities != prio)
+	{
+
+	}
+
+}*/
+
+void	send_command(t_mini *mini, t_lists *tmp)
+{
+	if (tmp->operator == OP_PIPE
+			|| (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
+			special_operator(mini, tmp);
+		else
+			ft_command(mini, tmp);
+}
 
 void	add_is_pipe(t_mini *mini)
 {

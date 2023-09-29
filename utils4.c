@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:51:54 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/20 17:04:28 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:13:48 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int	has_option_echo(char *str)
 	i = 0;
 	while (str[i] && str[i] != ' ')
 		i++;
-	if (str[++i] && str[i] == '-' && str[i + 1] == 'n')
+	if (str[i] && str[++i] && str[i + 1]
+		&& str[i] == '-' && str[i + 1] == 'n')
 	{
 		i++;
 		while (str[i] && str[i] != ' ')
