@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 14:24:59 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:39:47 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ void	signal_handler(int signal, siginfo_t *s, void *ntm)
 	}
 }
 
-void	ft_init_all(t_mini *mini, char **env, struct sigaction s)
+void	ft_init_all(t_mini *mini, char **env)
 {
-	int				i;
+	int					i;
+	struct sigaction	s;
 
 	i = 0;
 	while (env[i])
@@ -81,12 +82,11 @@ void	ft_init_all(t_mini *mini, char **env, struct sigaction s)
 int	main(int argc, char **argv, char **env)
 {
 	t_mini				*mini;
-	struct sigaction	s;
 	struct termios		t;
 	struct termios		tmp;
 
 	mini = ft_calloc(1, sizeof(t_mini));
-	ft_init_all(mini, env, s);
+	ft_init_all(mini, env);
 	tcgetattr(0, &t);
 	tcgetattr(0, &tmp);
 	t.c_lflag &= ~ECHOCTL;
@@ -100,6 +100,7 @@ int	main(int argc, char **argv, char **env)
 		if (ft_pre_parse(mini))
 			ft_parse(mini);
 		free_args(mini);
+		ft_printf("Last value : %i\n", mini->result_value);
 	}
 	return (free_all(mini, tmp), 0);
 }

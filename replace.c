@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 15:48:10 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:32:29 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_replace(t_mini *mini, t_lists *tmp)
 	{
 		str = get_invalid_command(tmp->arg, '$');
 		printf("%s: bad substitution\n", str);
+		mini->result_value = 1;
 		return (free(str), -1);
 	}
 	find_dollars(mini, tmp);

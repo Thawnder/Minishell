@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 11:28:51 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:38:16 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_lists	*delete_till_end(t_lists *tmp, t_operator op, int prio, int success)
 	t_lists	*prev;
 
 	while (tmp && (tmp->previous->operator == op
-		|| (prio != 0 && tmp->priorities == prio)))
+			|| (prio != 0 && tmp->priorities == prio)))
 	{
 		if (tmp->previous->previous)
 		{
@@ -50,6 +50,7 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 	{
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		send_command(mini, tmp);
+		mini->result_value = 0;
 		if (tmp->next)
 			tmp->next->prev_amp = AMP_SUCCESS;
 		else
@@ -78,6 +79,7 @@ t_lists	*process_or(t_mini *mini, t_lists *tmp)
 	{
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		send_command(mini, tmp);
+		mini->result_value = 0;
 		if (!tmp->next)
 			return (NULL);
 		tmp->next->prev_or = OR_SUCCESS;
@@ -112,6 +114,8 @@ void	process_arg(t_mini *mini)
 			tmp = tmp->next;
 			continue ;
 		}
+		else
+			mini->result_value = 0;
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		send_command(mini, tmp);
 		tmp = tmp->next;

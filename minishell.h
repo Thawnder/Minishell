@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 14:25:37 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:37:34 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_mini
 	int		size_args;
 	t_lists	*args;
 	int		has_operator;
+	int		result_value;
 	int		exit;
 }		t_mini;
 
@@ -148,6 +149,7 @@ int			with_path(char *str);
 int			has_option_echo(char *str);
 int			ft_tab_len(char **tab);
 /*	Utils5.c	*/
+void		error_path_cd(t_mini *mini, char *path);
 void		send_command(t_mini *mini, t_lists *tmp);
 void		add_is_pipe(t_mini *mini);
 int			is_exec(char *path, char *str);

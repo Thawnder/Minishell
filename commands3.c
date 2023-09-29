@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/28 15:47:33 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:37:03 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ void	ft_cd(t_mini *mini, char *path)
 		mini->args->result = NULL;
 	else if (path[1] == '.' && !path[2])
 		return ;
-	else if ((!path[0] || (*(++path) == '-' && *(path + 1) == '-'))
-		|| chdir(path) == 0)
+	else if (chdir(path) != 0)
+		error_path_cd(mini, path);
+	else if ((!path[0] || (*(++path) == '-' && *(path + 1) == '-')))
 	{
 		while (ft_strncmp(mini->env[i], "OLDPWD=", 7))
 			i++;

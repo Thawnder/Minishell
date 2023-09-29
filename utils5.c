@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:48:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 11:11:42 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:37:39 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,19 @@
 
 }*/
 
+void	error_path_cd(t_mini *mini, char *path)
+{
+	printf("cd: not a directory:%s\n", path);
+	mini->result_value = 1;
+}
+
 void	send_command(t_mini *mini, t_lists *tmp)
 {
 	if (tmp->operator == OP_PIPE
-			|| (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
-			special_operator(mini, tmp);
-		else
-			ft_command(mini, tmp);
+		|| (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
+		special_operator(mini, tmp);
+	else
+		ft_command(mini, tmp);
 }
 
 void	add_is_pipe(t_mini *mini)
