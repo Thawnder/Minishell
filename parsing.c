@@ -19,6 +19,7 @@ t_lists	*delete_till_end(t_lists *tmp, t_operator op, int prio, int success)
 	while (tmp && (tmp->previous->operator == op
 			|| (prio != 0 && tmp->priorities == prio)))
 	{
+		//ft_printf("%s | %i %i = %i et %i\n", tmp->arg, op, success, tmp->prev_or, tmp->prev_amp);
 		if (tmp->previous->previous)
 		{
 			tmp->previous->previous->next = tmp;
@@ -66,7 +67,7 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 
 t_lists	*process_or(t_mini *mini, t_lists *tmp)
 {
-	if (tmp->prev_or == OR_SUCCESS || tmp->prev_amp == AMP_SUCCESS)
+	if ((tmp->prev_or == OR_SUCCESS && tmp->previous && !(tmp->previous->operator == OP_2AMP)) || tmp->prev_amp == AMP_SUCCESS)
 		return (delete_till_end(tmp, tmp->previous->operator,
 				tmp->priorities, 1));
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
