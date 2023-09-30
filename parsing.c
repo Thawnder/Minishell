@@ -136,7 +136,7 @@ void	ft_parse(t_mini *mini)
 	add_is_pipe(mini);
 	process_arg(mini);
 	/*
-		echo test || (echo this && echo none) && echo test
+		reloook ( ) prio
 
 		REPLACE $?
 
