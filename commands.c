@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/28 15:37:00 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:35:39 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_exit(t_mini *mini)
 
 void	ft_pwd(t_mini *mini)
 {
-	if (mini->has_operator && mini->args->operator == OP_PIPE)
+	if (mini->has_operator && (mini->args->operator == OP_SUP
+			|| mini->args->operator == OP_2SUP))
 	{
 		mini->args->result = malloc(ft_strlen(mini->path) + 2);
 		mini->args->result = mini->path;
@@ -43,7 +44,8 @@ void	ft_env(t_mini *mini)
 	int	i;
 
 	i = 0;
-	if (mini->has_operator && mini->args->operator == OP_PIPE)
+	if (mini->has_operator && (mini->args->operator == OP_SUP
+			|| mini->args->operator == OP_2SUP))
 	{
 		while (mini->env[i])
 		{

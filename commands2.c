@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/15 15:36:28 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:28:20 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	ft_echo(t_mini *mini, char *line)
 	i = 0;
 	while (line[i] == ' ')
 		i++;
-	if (mini->has_operator && mini->args->operator == OP_PIPE)
+	if (mini->has_operator && (mini->args->operator == OP_SUP
+			|| mini->args->operator == OP_2SUP))
 		mini->args->result = stock_echo(line);
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 16:39:47 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:41:20 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,27 @@ void	free_all(t_mini *mini, struct termios tmp)
 	tcsetattr(0, 0, &tmp);
 }
 
-void	signal_handler(int signal, siginfo_t *s, void *ntm)
+void	signal_handler(int signal, siginfo_t *s, void *wtf)
 {
-	(void) ntm;
-	if (signal == SIGINT && g_forked == 0)
+	(void) wtf;
+	if (signal == SIGINT)
 	{
-		printf("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ^C\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		if (g_forked == 1)
+			printf("^C\n");
+		else
+		{
+			printf("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ^C\n");
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_redisplay();
+		}
 	}
 	else if (signal == SIGQUIT)
-	{	
-		// g_forked not updated...
-		if (g_forked == 1)
+	{
+		if (s->si_pid == 0)
 			kill(s->si_pid, signal);
-		printf("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
+		else if (g_forked == 0)
+			printf("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
 	}
 }
 
