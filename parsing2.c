@@ -29,25 +29,29 @@ void	child(t_mini *mini, t_lists *tmp, int pos)
 	}
 	else if (pos == 1)
 	{
-		dup2(mini->old_fd[0], 0);
+		dup2(mini->new_fd[0], 0);
 		dup2(mini->old_fd[1], 1);
 		ft_fork(mini, tmp->arg);
-		close(mini->old_fd[0]);
+		close(mini->new_fd[0]);
 		close(mini->old_fd[1]);
 	}
 	else
 	{
 		write(2, "7", 1);
-		dup2(mini->old_fd[0], 0);
+		dup2(mini->new_fd[0], 0);
 		ft_fork(mini, tmp->arg);
-		mini->old_fd[1] = mini->old_fd[0];
 	}
-	mini->old_fd[0] = mini->old_fd[1];
+	fprintf(stderr, "\n%i et %i\n", mini->new_fd[0], mini->new_fd[1]);
+	fprintf(stderr, "\n%i et %i\n", mini->old_fd[0], mini->old_fd[1]);
+	mini->new_fd[0] = mini->old_fd[0];
+	mini->new_fd[1] = mini->old_fd[1];
 	write(2, "5", 1);
 }
 
 t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 {
+	mini->new_fd[0] = 0;
+	mini->new_fd[1] = 0;
 	while (tmp && (tmp->operator == OP_PIPE
 		|| (tmp->previous && tmp->previous->operator == OP_PIPE)))
 	{
@@ -60,7 +64,6 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 			child(mini, tmp, 2);
 		tmp = tmp->next;
 	}
-	close(mini->old_fd[0]);
 	write(2, "10", 2);
 	ft_printf("ergertgert\n");
 	return (tmp);
