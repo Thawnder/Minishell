@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/29 15:37:03 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:50:07 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,11 @@ void	ft_cd(t_mini *mini, char *path)
 
 	i = 0;
 	if (mini->has_operator && mini->args->operator == OP_PIPE)
-		mini->args->result = NULL;
+		return ;
 	else if (path[1] == '.' && !path[2])
 		return ;
-	else if (chdir(path) != 0)
-		error_path_cd(mini, path);
-	else if ((!path[0] || (*(++path) == '-' && *(path + 1) == '-')))
+	else if ((!path[0] || (*(++path) == '-' && *(path + 1) == '-'))
+		|| chdir(path) == 0)
 	{
 		while (ft_strncmp(mini->env[i], "OLDPWD=", 7))
 			i++;
@@ -112,4 +111,6 @@ void	ft_cd(t_mini *mini, char *path)
 		mini->path = resolve_path(mini->env[i], path);
 		refresh_path(mini, mini->path, 4, i);
 	}
+	else
+		error_path_cd(mini, path);
 }

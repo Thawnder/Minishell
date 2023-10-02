@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/15 14:02:46 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:39:43 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	ft_export(t_mini *m, char *arg)
 	int	i;
 
 	i = 0;
+	if (m->has_operator && m->args->operator == OP_PIPE)
+		return ;
 	while (m->export[i])
 	{
 		m->args->result = ft_strjoin(m->args->result, "declare -x \"");
