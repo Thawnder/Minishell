@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 15:37:34 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:23:58 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_mini
 	t_lists	*args;
 	int		has_operator;
 	int		result_value;
+	int		old_fd[2];
+	int		new_fd[2];
 	int		exit;
 }		t_mini;
 
@@ -167,6 +169,7 @@ void		ft_cd(t_mini *mini, char *path);
 char		*get_export(t_mini *mini, char *src);
 void		ft_export(t_mini *m, char *arg);
 /*	Commands5.c	*/
+char		**init_args(char *line);
 void		ft_fork(t_mini *mini, char *line);
 /*----------------------------------------*/
 /*	free.c	*/
