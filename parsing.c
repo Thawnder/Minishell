@@ -136,7 +136,11 @@ void	ft_parse(t_mini *mini)
 	add_is_pipe(mini);
 	process_arg(mini);
 	/*
-		reloook ( ) prio
+		relook ( ) prio
+
+		ADD ERROR CASE FOR PIPE WHEN NO PATH
+
+		ERROR CASE echo test | egweg && echo test STOP EXECUTION AT PIPE
 
 		REPLACE $?
 

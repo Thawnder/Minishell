@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+int	ft_is_builtin(t_mini *mini, t_lists *tmp)
+{
+	if (check_builtin(tmp->arg, "exit") == 0 || check_builtin(tmp->arg, "echo") == 0
+		|| check_builtin(tmp->arg, "cd") == 0 || check_builtin(tmp->arg, "pwd") == 0
+		|| check_builtin(tmp->arg, "export") == 0 || check_builtin(tmp->arg, "unset") == 0
+		|| check_builtin(tmp->arg, "env") == 0)
+		ft_other_command(mini, tmp);
+	return (1);
+}
+
 void	child(t_mini *mini, t_lists *tmp, int pos)
 {
 	if (pipe(mini->old_fd) < 0)
@@ -51,11 +61,16 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 	while (tmp && (tmp->operator == OP_PIPE
 		|| (tmp->previous && tmp->previous->operator == OP_PIPE)))
 	{
-		if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
-			return (NULL);
+		if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1 || !ft_is_builtin(mini, tmp))
+		{
+			dup2(mini->saved_stdin, 0);
+			dup2(mini->saved_stdout, 1);
+			if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
+				return (tmp);
+		}
 		if (!tmp->previous || (tmp->previous && tmp->previous->operator != OP_PIPE))
 			child(mini, tmp, 0);
-		else if (tmp->next && tmp->next->operator == OP_PIPE)
+		else if (tmp->next && tmp->operator == OP_PIPE)
 			child(mini, tmp, 1);
 		else if (!tmp->next || (tmp->next && tmp->next->operator != OP_PIPE))
 		{
