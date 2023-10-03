@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/03 11:23:04 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:32:49 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ void	ft_exec(t_mini *mini, char *line)
 void	ft_fork(t_mini *mini, char *line)
 {
 	int	status;
+	pid_t	pid;
 
 	g_forked = 1;
-	if (fork() == 0)
+	pid = fork();
+	if (pid == 0)
 		ft_exec(mini, line);
-	waitpid(0, &status, 0);
+	waitpid(pid, &status, 0);
 	g_forked = 0;
 }

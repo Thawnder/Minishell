@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/03 11:20:49 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:55:51 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ void	child(t_mini *mini, t_lists *tmp, int pos)
 		return ;
 	if (pos == 0)
 	{
-		fprintf(stderr, "0\n");
 		dup2(mini->old_fd[1], 1);
 		ft_fork(mini, tmp->arg);
 		close(mini->old_fd[1]);
 	} 
 	else if (pos == 1)
 	{
-		fprintf(stderr, "1\n");
 		dup2(mini->new_fd[0], 0);
 		dup2(mini->old_fd[1], 1);
 		ft_fork(mini, tmp->arg);
@@ -34,12 +32,11 @@ void	child(t_mini *mini, t_lists *tmp, int pos)
 	}
 	else
 	{
-		fprintf(stderr, "2\n");
 		dup2(mini->new_fd[0], 0);
-		dup2(STDOUT_FILENO, 1);
+		dup2(mini->saved_stdout, 1);
 		ft_fork(mini, tmp->arg);
-		dup2(STDIN_FILENO, 0);
 		close(mini->new_fd[0]);
+		dup2(mini->saved_stdin, 0);
 	}
 	//fprintf(stderr, "\n%i et %i\n", mini->new_fd[0], mini->new_fd[1]);
 	//fprintf(stderr, "\n%i et %i\n", mini->old_fd[0], mini->old_fd[1]);
@@ -49,6 +46,8 @@ void	child(t_mini *mini, t_lists *tmp, int pos)
 
 t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 {
+	mini->saved_stdin = dup(0);
+    mini->saved_stdout = dup(1);
 	if (pipe(mini->new_fd) < 0)
 		return (NULL);
 	while (tmp && (tmp->operator == OP_PIPE
@@ -62,7 +61,6 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 			child(mini, tmp, 2);
 		tmp = tmp->next;
 	}
-	fprintf(stderr, "50\n");
 	return (tmp);
 }
 

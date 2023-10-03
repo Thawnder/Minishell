@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/02 15:29:37 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:54:48 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_mini
 	int		result_value;
 	int		old_fd[2];
 	int		new_fd[2];
+	int		saved_stdin;
+	int		saved_stdout;
 	int		exit;
 }		t_mini;
 
