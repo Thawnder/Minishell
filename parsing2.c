@@ -48,19 +48,24 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 {
 	mini->saved_stdin = dup(0);
     mini->saved_stdout = dup(1);
-	if (pipe(mini->new_fd) < 0)
-		return (NULL);
 	while (tmp && (tmp->operator == OP_PIPE
 		|| (tmp->previous && tmp->previous->operator == OP_PIPE)))
 	{
+		if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
+			return (NULL);
 		if (!tmp->previous || (tmp->previous && tmp->previous->operator != OP_PIPE))
 			child(mini, tmp, 0);
 		else if (tmp->next && tmp->next->operator == OP_PIPE)
 			child(mini, tmp, 1);
 		else if (!tmp->next || (tmp->next && tmp->next->operator != OP_PIPE))
+		{
 			child(mini, tmp, 2);
+			break;
+		}
 		tmp = tmp->next;
 	}
+	if (!tmp)
+		return (NULL);
 	return (tmp);
 }
 
@@ -72,7 +77,5 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 	// 	return (from_to(mini, tmp), tmp->next);
 	// else
 	// 	return (to_from(mini, tmp));
-	
-	
 	return (tmp);
 }

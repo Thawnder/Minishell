@@ -154,7 +154,7 @@ int			has_option_echo(char *str);
 int			ft_tab_len(char **tab);
 /*	Utils5.c	*/
 void		error_path_cd(t_mini *mini, char *path);
-void		send_command(t_mini *mini, t_lists *tmp);
+t_lists		*send_command(t_mini *mini, t_lists *tmp);
 void		add_is_pipe(t_mini *mini);
 int			is_exec(char *path, char *str);
 /*----------------------------------------*/

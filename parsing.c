@@ -50,7 +50,7 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 	else
 	{
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
-		send_command(mini, tmp);
+		tmp = send_command(mini, tmp);
 		mini->result_value = 0;
 		if (tmp->next)
 			tmp->next->prev_amp = AMP_SUCCESS;
@@ -79,9 +79,9 @@ t_lists	*process_or(t_mini *mini, t_lists *tmp)
 	else
 	{
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
-		send_command(mini, tmp);
+		tmp = send_command(mini, tmp);
 		mini->result_value = 0;
-		if (!tmp->next)
+		if (!tmp || !tmp->next)
 			return (NULL);
 		tmp->next->prev_or = OR_SUCCESS;
 	}
@@ -118,7 +118,7 @@ void	process_arg(t_mini *mini)
 		else
 			mini->result_value = 0;
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
-		send_command(mini, tmp);
+		tmp = send_command(mini, tmp);
 		tmp = tmp->next;
 	}
 	/*t_lists	*tmp2;

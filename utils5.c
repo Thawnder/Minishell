@@ -30,13 +30,14 @@ void	error_path_cd(t_mini *mini, char *path)
 	mini->result_value = 1;
 }
 
-void	send_command(t_mini *mini, t_lists *tmp)
+t_lists	*send_command(t_mini *mini, t_lists *tmp)
 {
 	if (tmp->operator == OP_PIPE
 		|| (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
-		special_operator(mini, tmp);
+		return (special_operator(mini, tmp));
 	else
-		ft_command(mini, tmp);
+		return (ft_command(mini, tmp), tmp);
+	return (NULL);
 }
 
 void	add_is_pipe(t_mini *mini)
