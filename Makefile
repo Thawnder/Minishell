@@ -5,7 +5,7 @@ LIB = -L${LIBFT_PATH} -lft
 LIBFT = libft.a
 CFLAGS = -Wall -Wextra -Werror -g
 SRCS = main.c commands.c commands2.c commands3.c commands4.c commands5.c \
-	check.c check2.c check3.c check4.c check5.c parsing.c parsing2.c \
+	check.c check2.c check3.c check4.c check5.c parsing.c parsing2.c parsing3.c \
 	pre_parsing.c pre_parsing2.c replace.c replace2.c replace3.c \
 	utils.c utils2.c utils3.c utils4.c utils5.c utils6.c free.c
 OBJS_EXEC = ${SRCS:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/04 13:31:42 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:19:12 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,11 @@ t_lists		*delete_till_end(t_lists *tmp, t_operator op, int prio, int success);
 t_lists		*process_or(t_mini *mini, t_lists *tmp);
 void		ft_parse(t_mini *mini);
 /*	parsing2.c	*/
+int			ft_is_builtin(t_mini *mini, t_lists *tmp);
 t_lists		*special_operator(t_mini *mini, t_lists *tmp);
+/*	parsing3.c	*/
+t_lists 	*from_to(t_mini *mini, t_lists *tmp);
+t_lists 	*to_from(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	Utils.c	*/
 int			ft_size_until_op(char *str, int i, int l);
@@ -162,6 +166,10 @@ t_lists		*send_command(t_mini *mini, t_lists *tmp);
 void		add_is_pipe(t_mini *mini);
 int			is_exec(char *path, char *str);
 /*	Utils6.c	*/
+char		*send_end(char *old);
+int			cmp_end(char *str, char *end);
+char		*ft_realloc_buff(char *buf, char tmp[1], int btotal);
+int			file_exist(t_mini *mini, char *file);
 void		child_between_pipe(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	Commands.c	*/

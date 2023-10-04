@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/04 13:56:50 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:35:06 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
     mini->saved_stdout = dup(1);
 	if (tmp->operator == OP_PIPE)
 		return (ft_set_next(mini, ft_pipe(mini, tmp)));
-	// else if (tmp->operator == OP_SUP || tmp->operator == OP_2SUP)
-	// 	return (from_to(mini, tmp), tmp->next);
-	// else
-	// 	return (to_from(mini, tmp));
+	else if (tmp->operator == OP_SUP || tmp->operator == OP_2SUP)
+		return (from_to(mini, tmp));
+	else
+		return (to_from(mini, tmp));
 	return (tmp);
 }
