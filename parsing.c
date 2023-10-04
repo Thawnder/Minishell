@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 16:38:16 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:55:11 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ t_lists	*delete_till_end(t_lists *tmp, t_operator op, int prio, int success)
 	while (tmp && (tmp->previous->operator == op
 			|| (prio != 0 && tmp->priorities == prio)))
 	{
-		//ft_printf("%s | %i %i = %i et %i\n", tmp->arg, op, success, tmp->prev_or, tmp->prev_amp);
 		if (tmp->previous->previous)
 		{
 			tmp->previous->previous->next = tmp;
 			prev = tmp->previous->previous;
+			free(tmp->previous->arg);
+			free(tmp->previous);
 		}
 		else
 			prev = NULL;
@@ -119,7 +120,8 @@ void	process_arg(t_mini *mini)
 			mini->result_value = 0;
 		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		tmp = send_command(mini, tmp);
-		tmp = tmp->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
 	/*t_lists	*tmp2;
 
@@ -136,15 +138,16 @@ void	ft_parse(t_mini *mini)
 	add_is_pipe(mini);
 	process_arg(mini);
 	/*
+		ls * | wc -l | echo $? //crash
+		echo test | gergr | ls | gergre | wc -l //Print 54 instead of 0 - Pipe still open and not cleared when an error occured
+		
 		relook ( ) prio
 
-		ADD ERROR CASE FOR PIPE WHEN NO PATH
-
-		ERROR CASE echo test | egweg && echo test STOP EXECUTION AT PIPE
-
-		REPLACE $?
-
 		DO << < >> >
+
+
+		Benj to do : 
+			Makefile relink
 	*/
 	
 }

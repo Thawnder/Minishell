@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/03 15:54:48 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:31:42 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ void		find_dollars(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	parsing.c	*/
 t_lists		*process_or(t_mini *mini, t_lists *tmp);
+t_lists		*process_amp(t_mini *mini, t_lists *tmp);
+t_lists		*delete_till_end(t_lists *tmp, t_operator op, int prio, int success);
+t_lists		*process_or(t_mini *mini, t_lists *tmp);
 void		ft_parse(t_mini *mini);
 /*	parsing2.c	*/
 t_lists		*special_operator(t_mini *mini, t_lists *tmp);
@@ -153,10 +156,13 @@ int			with_path(char *str);
 int			has_option_echo(char *str);
 int			ft_tab_len(char **tab);
 /*	Utils5.c	*/
+t_lists		*ft_set_next(t_mini *mini, t_lists *tmp);
 void		error_path_cd(t_mini *mini, char *path);
 t_lists		*send_command(t_mini *mini, t_lists *tmp);
 void		add_is_pipe(t_mini *mini);
 int			is_exec(char *path, char *str);
+/*	Utils6.c	*/
+void		child_between_pipe(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);

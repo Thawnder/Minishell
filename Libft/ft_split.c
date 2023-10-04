@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:49:04 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/09/05 11:07:29 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:28:13 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,33 @@ char	**ft_split(char const *s, char c)
 		res[++k] = ft_strndup2(&s[last], i - last + 1);
 	res[++k] = 0;
 	return (res);
+}
+
+char	**ft_split_free(char const *s, char c)
+{
+	char	**res;
+	size_t	i;
+	size_t	last;
+	size_t	k;
+
+	if (!s)
+		return (NULL);
+	res = malloc(sizeof(char *) * (calc_size(s, c) + 1));
+	if (!res)
+		return (NULL);
+	init(&i, &last, &k);
+	while (s[i])
+	{
+		if (s[i] == c)
+		{
+			if (i - last >= 1)
+				res[++k] = ft_strndup2(&s[last], i - last + 1);
+			last = i + 1;
+		}
+		i++;
+	}
+	if (i - last >= 1)
+		res[++k] = ft_strndup2(&s[last], i - last + 1);
+	res[++k] = 0;
+	return (free((char *)s), res);
 }

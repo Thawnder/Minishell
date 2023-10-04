@@ -6,23 +6,34 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:48:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 16:37:39 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:20:47 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*void	send_next_status(t_lists *tmp, int op, int status, int prio)
+t_lists	*ft_set_next(t_mini *mini, t_lists *tmp)
 {
-	tmp = tmp->next;
 	if (!tmp)
-		return ;
-	while (tmp && tmp->priorities != prio)
+		return (NULL);
+	if (!tmp->next)
+		return (tmp);
+	tmp = tmp->next;
+	if (tmp->previous->operator == OP_2PIPE && ((tmp->prev_or == OR_SUCCESS && tmp->previous && !(tmp->previous->operator == OP_2AMP)) || tmp->prev_amp == AMP_SUCCESS))
+			tmp = delete_till_end(tmp, tmp->previous->operator,
+					tmp->priorities, 1);
+	else if (tmp->previous->operator == OP_2AMP && (tmp->prev_or == OR_FALSE || tmp->prev_amp == AMP_FALSE))
+		tmp = delete_till_end(tmp, tmp->previous->operator,
+				tmp->priorities, -1);	
+	while (tmp && (tmp->previous->operator == OP_2PIPE || tmp->previous->operator == OP_2AMP))
 	{
-
+		if (tmp->previous->operator == OP_2PIPE)
+			tmp = process_or(mini, tmp);
+		else if (tmp->previous->operator == OP_2AMP)
+			tmp = process_amp(mini, tmp);
 	}
-
-}*/
+	return (tmp);
+}
 
 void	error_path_cd(t_mini *mini, char *path)
 {

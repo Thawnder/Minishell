@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 15:32:29 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:22:00 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_dir_content(char *dir)
 		dp = readdir(dirp);
 	}
 	closedir(dirp);
-	return (join_sorted(alpha_sort_tabl(ft_split(str, ' ')), " "));
+	return (join_sorted(alpha_sort_tabl(ft_split_free(str, ' ')), " "));
 }
 
 void	find_wildcard(t_lists *tmp)

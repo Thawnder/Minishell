@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:51:54 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 14:13:48 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/04 12:59:38 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*get_path(char **tab, char *tmp)
 	{
 		if (found_command(tab[i], tmp))
 		{
-			printf("FOUND at %s\n", tab[i]);
 			str = ft_strdup(tab[i]);
 			return (free_tabl(tab), str);
 		}
