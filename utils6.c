@@ -23,7 +23,8 @@ char	*send_end(char *old)
 		i--;
 	str = calloc(i, sizeof(char));
 	y = 0;
-	while (y != i)
+	i++;
+	while (y < i)
 	{
 		str[y] = old[y];
 		y++;

@@ -38,15 +38,18 @@ char	*ft_clone_terminal(char *end)
 }
 
 
-int	read_from_shell(char *end)
+int	read_from_shell(t_mini *mini, char *end)
 {
 	char	*str;
 
+	if (pipe(mini->old_fd) < 0)
+		return (0);
 	str = ft_clone_terminal(end);
-	ft_printf("%s\n", str);
+	ft_printf("|%s|\n", str);
+	ft_putstr_fd(str, mini->old_fd[1]);
+	close(mini->old_fd[1]);
 	free(str);
-	return (0);
-	
+	return (mini->old_fd[0]);
 }
 
 void	exec_command(t_mini *mini, int from, int to, t_lists *tmp)
@@ -104,14 +107,20 @@ t_lists *to_from(t_mini *mini, t_lists *tmp)
 	if (tmp->operator == OP_INF)
 		file = open(path, O_RDONLY);
 	else
-		file = read_from_shell(tmp->next->arg);
+		file = read_from_shell(mini, tmp->next->arg);
 
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1
 			|| !ft_is_builtin(mini, tmp))
-		return (free(nfile), free(path), close(file), tmp->next->next);
+	{
+		if (tmp->operator == OP_INF)
+			return (free(nfile), free(path), close(file), tmp->next->next);
+		return (free(nfile), free(path), close(file), close(mini->old_fd[0]), tmp->next->next);
+	}
 	exec_command(mini, file, -1, tmp);
 	close(file);
 	dup2(mini->saved_stdin, 0);
 	dup2(mini->saved_stdout, 1);
-	return (free(nfile), free(path), tmp->next->next);
+	if (tmp->operator == OP_INF)
+		return (free(nfile), free(path), close(file), tmp->next->next);
+	return (free(nfile), free(path), close(file), close(mini->old_fd[0]), tmp->next->next);
 }
