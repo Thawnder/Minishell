@@ -50,7 +50,6 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 		tmp->next->prev_amp = AMP_FALSE;
 	else
 	{
-		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		tmp = send_command(mini, tmp);
 		mini->result_value = 0;
 		if (tmp->next)
@@ -68,7 +67,9 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 
 t_lists	*process_or(t_mini *mini, t_lists *tmp)
 {
-	if ((tmp->prev_or == OR_SUCCESS && tmp->previous && !(tmp->previous->operator == OP_2AMP)) || tmp->prev_amp == AMP_SUCCESS)
+	if ((tmp->prev_or == OR_SUCCESS && tmp->previous
+			&& !(tmp->previous->operator == OP_2AMP))
+		|| tmp->prev_amp == AMP_SUCCESS)
 		return (delete_till_end(tmp, tmp->previous->operator,
 				tmp->priorities, 1));
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
@@ -79,15 +80,13 @@ t_lists	*process_or(t_mini *mini, t_lists *tmp)
 	}
 	else
 	{
-		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		tmp = send_command(mini, tmp);
 		mini->result_value = 0;
 		if (!tmp || !tmp->next)
 			return (NULL);
 		tmp->next->prev_or = OR_SUCCESS;
 	}
-	if (tmp->next)
-		tmp = tmp->next;
+	tmp = tmp->next;
 	if (tmp->previous->operator == OP_2PIPE)
 		return (process_or(mini, tmp));
 	else if (tmp->previous->operator == OP_2AMP)
@@ -118,19 +117,10 @@ void	process_arg(t_mini *mini)
 		}
 		else
 			mini->result_value = 0;
-		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp->arg, tmp->operator, tmp->num_arg, tmp->is_pipe, tmp->priorities);
 		tmp = send_command(mini, tmp);
 		if (tmp)
 			tmp = tmp->next;
 	}
-	/*t_lists	*tmp2;
-
-	tmp2 = mini->args;
-	while (tmp2)
-	{
-		printf("ARG = |%s| - OP %i - Arg %i - isPipe %i - Prio %i\n", tmp2->arg, tmp2->operator, tmp2->num_arg, tmp2->is_pipe, tmp2->priorities);
-		tmp2 = tmp2->next;
-	}*/
 }
 
 void	ft_parse(t_mini *mini)
@@ -138,6 +128,17 @@ void	ft_parse(t_mini *mini)
 	add_is_pipe(mini);
 	process_arg(mini);
 	/*
+		NEED TO WORK :
+		$? 
+
+		: echo "cat lol.c | cat > lol.c"
+
+		echo test > test > testt
+
+		cat | cat | ls
+		
+		||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+		NOT IMPORTANT :
 		ls * | wc -l | echo $? //crash
 		echo test | gergr | ls | gergre | wc -l //Print 54 instead of 0 - Pipe still open and not cleared when an error occured
 		
@@ -149,5 +150,4 @@ void	ft_parse(t_mini *mini)
 		Benj to do : 
 			Makefile relink
 	*/
-	
 }

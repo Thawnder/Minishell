@@ -1,5 +1,5 @@
 MAKEFLAGS += --silent
-CC = cc
+CC = gcc
 LIBFT_PATH = Libft/
 LIB = -L${LIBFT_PATH} -lft
 LIBFT = libft.a

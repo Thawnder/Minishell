@@ -59,37 +59,40 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 		{
 			dup2(mini->saved_stdin, 0);
 			dup2(mini->saved_stdout, 1);
-			if ((ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
-					&& tmp->next && tmp->operator != OP_PIPE)
+			if ((ft_replace(mini, tmp) == -1
+					|| ft_check_advanced(mini, tmp) == -1)
+				&& tmp->next && tmp->operator != OP_PIPE)
 				return (tmp->next->prev_amp = AMP_FALSE
 					, tmp->next->prev_or = OR_FALSE, tmp);
 			else if (tmp->operator != OP_PIPE)
 				return (tmp);
 			dup2(STDIN_FILENO, 0);
 			dup2(STDOUT_FILENO, 1);
-			tmp = tmp->next;	
-			continue;
+			tmp = tmp->next;
+			continue ;
 		}
-		if (!tmp->previous || (tmp->previous && tmp->previous->operator != OP_PIPE))
+		if (!tmp->previous || (tmp->previous
+				&& tmp->previous->operator != OP_PIPE))
 			child(mini, tmp, 0);
 		else if (tmp->next && tmp->operator == OP_PIPE)
 			child(mini, tmp, 1);
 		else if (!tmp->next || (tmp->next && tmp->next->operator != OP_PIPE))
 		{
 			child(mini, tmp, 2);
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}
 	if (tmp->next)
-		return (tmp->next->prev_amp = AMP_SUCCESS, tmp->next->prev_or = OR_SUCCESS, tmp);
+		return (tmp->next->prev_amp = AMP_SUCCESS,
+			tmp->next->prev_or = OR_SUCCESS, tmp);
 	return (tmp);
 }
 
 t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 {
 	mini->saved_stdin = dup(0);
-    mini->saved_stdout = dup(1);
+	mini->saved_stdout = dup(1);
 	if (tmp->operator == OP_PIPE)
 		return (ft_set_next(mini, ft_pipe(mini, tmp)));
 	else if (tmp->operator == OP_SUP || tmp->operator == OP_2SUP)

@@ -77,7 +77,7 @@ int	file_exist(t_mini *mini, char *file)
 {
 	DIR				*dir;
 	struct dirent	*dent;
-	
+
 	dir = opendir((get_env(mini, "PWD") + 4));
 	if (dir == NULL)
 		return (closedir(dir), 0);

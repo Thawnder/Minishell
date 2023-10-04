@@ -56,7 +56,7 @@ void	ft_exec(t_mini *mini, char *line)
 
 void	ft_fork(t_mini *mini, char *line)
 {
-	int	status;
+	int		status;
 	pid_t	pid;
 
 	g_forked = 1;

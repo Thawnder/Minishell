@@ -126,15 +126,16 @@ void		find_dollars(t_mini *mini, t_lists *tmp);
 /*	parsing.c	*/
 t_lists		*process_or(t_mini *mini, t_lists *tmp);
 t_lists		*process_amp(t_mini *mini, t_lists *tmp);
-t_lists		*delete_till_end(t_lists *tmp, t_operator op, int prio, int success);
+t_lists		*delete_till_end(t_lists *tmp,
+				t_operator op, int prio, int success);
 t_lists		*process_or(t_mini *mini, t_lists *tmp);
 void		ft_parse(t_mini *mini);
 /*	parsing2.c	*/
 int			ft_is_builtin(t_mini *mini, t_lists *tmp);
 t_lists		*special_operator(t_mini *mini, t_lists *tmp);
 /*	parsing3.c	*/
-t_lists 	*from_to(t_mini *mini, t_lists *tmp);
-t_lists 	*to_from(t_mini *mini, t_lists *tmp);
+t_lists		*from_to(t_mini *mini, t_lists *tmp);
+t_lists		*to_from(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	Utils.c	*/
 int			ft_size_until_op(char *str, int i, int l);

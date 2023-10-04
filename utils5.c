@@ -19,13 +19,17 @@ t_lists	*ft_set_next(t_mini *mini, t_lists *tmp)
 	if (!tmp->next)
 		return (tmp);
 	tmp = tmp->next;
-	if (tmp->previous->operator == OP_2PIPE && ((tmp->prev_or == OR_SUCCESS && tmp->previous && !(tmp->previous->operator == OP_2AMP)) || tmp->prev_amp == AMP_SUCCESS))
-			tmp = delete_till_end(tmp, tmp->previous->operator,
-					tmp->priorities, 1);
-	else if (tmp->previous->operator == OP_2AMP && (tmp->prev_or == OR_FALSE || tmp->prev_amp == AMP_FALSE))
+	if (tmp->previous->operator == OP_2PIPE && ((tmp->prev_or == OR_SUCCESS
+				&& tmp->previous && !(tmp->previous->operator == OP_2AMP))
+			|| tmp->prev_amp == AMP_SUCCESS))
 		tmp = delete_till_end(tmp, tmp->previous->operator,
-				tmp->priorities, -1);	
-	while (tmp && (tmp->previous->operator == OP_2PIPE || tmp->previous->operator == OP_2AMP))
+				tmp->priorities, 1);
+	else if (tmp->previous->operator == OP_2AMP && (tmp->prev_or == OR_FALSE
+			|| tmp->prev_amp == AMP_FALSE))
+		tmp = delete_till_end(tmp, tmp->previous->operator,
+				tmp->priorities, -1);
+	while (tmp && (tmp->previous->operator == OP_2PIPE
+			|| tmp->previous->operator == OP_2AMP))
 	{
 		if (tmp->previous->operator == OP_2PIPE)
 			tmp = process_or(mini, tmp);

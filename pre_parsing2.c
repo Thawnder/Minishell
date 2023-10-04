@@ -77,11 +77,9 @@ void	ft_delete_space(t_mini *mini)
 	tmp = mini->args;
 	while (tmp)
 	{
-		//ft_printf("Len %i - strlen %i\n", get_len_space(tmp->arg) /*+ tmp->num_arg*/, ft_strlen(tmp->arg));
 		tmp->arg = delete_space(tmp->arg,
 				ft_calloc(get_len_space(tmp->arg) + 1,
 					sizeof(char)));
-		//ft_printf("String |%s| - Len %i\n", tmp->arg, ft_strlen(tmp->arg));
 		tmp = tmp->next;
 	}
 }
