@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:00:19 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 14:07:37 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:02:39 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_lists	*from_to(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
 		file = open(path, O_WRONLY | O_TRUNC, 0644);
 	else
 		file = open(path, O_WRONLY | O_APPEND);
-	
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1
 		|| !ft_is_builtin(mini, tmp))
 		return (free(nfile), free(path), close(file), tmp2->next);
