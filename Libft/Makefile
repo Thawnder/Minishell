@@ -56,13 +56,13 @@ OBJ = ${SRC:.c=.o}
 .c.o:
 	${GCC} ${FLAGS} -c $< -o ${<:.c=.o}
 
+all: ${NAME}
+
 ${NAME}: ${OBJ}
 	make -C Printf/
 	cp Printf/libftprintf.a .
 	mv libftprintf.a ${NAME}
 	ar rc ${NAME} ${OBJ}
-
-all: ${NAME}
 
 bonus: all
 
