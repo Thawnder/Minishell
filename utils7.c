@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int is_quoted(char *str, int i)
+int	is_quoted(char *str, int i)
 {
 	int	a;
 
@@ -38,11 +38,20 @@ void	wait_pid(t_mini *mini)
 	int	status;
 
 	i = 0;
-	while (mini->pid[i])
+	if (!mini->pid)
+		return ;
+	while (mini->pid && mini->pid[i] != 0)
 	{
 		waitpid(mini->pid[i], &status, 0);
+		/*if (waitpid(mini->pid[i], &status, 0) == -1)
+			exit(EXIT_FAILURE);
+		if (WIFEXITED(status))
+			mini->result_value = WEXITSTATUS(status);*/
 		i++;
 	}
+	if (mini->pid)
+		free(mini->pid);
+	mini->pid = NULL;
 }
 
 void	add_pid(t_mini *mini, int pid)
@@ -59,7 +68,8 @@ void	add_pid(t_mini *mini, int pid)
 	}
 	while (mini->pid[i])
 		i++;
- 	new = calloc(i + 1, sizeof(int));
+	fprintf(stderr, "AT %i\n", i);
+	new = calloc(i + 2, sizeof(int));
 	i = 0;
 	while (mini->pid[i])
 	{
