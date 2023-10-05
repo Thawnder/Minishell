@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:41:44 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 14:21:43 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:25:42 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_size_until_op(char *str, int i, int l)
 	while (str[i] && i <= l)
 	{
 		c = str[i];
+		y += is_quoted(str, i);
+		i += is_quoted(str, i);
 		if (c == '|' || c == '&' || c == '<' || c == '>')
 			return (y);
 		y++;

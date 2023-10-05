@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:00:19 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 11:29:01 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:07:37 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,59 +65,59 @@ void	exec_command(t_mini *mini, int from, int to, t_lists *tmp)
 	close(to);
 }
 
-t_lists	*from_to(t_mini *mini, t_lists *tmp)
+t_lists	*from_to(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
 {
 	int		file;
 	char	*path;
 	char	*nfile;
 
-	nfile = ft_strjoin_nofree("/", tmp->next->arg);
+	nfile = ft_strjoin_nofree("/", tmp2->arg);
 	path = ft_strjoin_nofree(get_env(mini, "PWD") + 4, nfile);
-	if (!file_exist(mini, tmp->next->arg))
+	if (!file_exist(mini, tmp2->arg))
 		file = open(path, O_WRONLY | O_CREAT, 0644);
-	else if (tmp->operator == OP_SUP)
+	else if (op == OP_SUP)
 		file = open(path, O_WRONLY | O_TRUNC, 0644);
 	else
 		file = open(path, O_WRONLY | O_APPEND);
 	
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1
 		|| !ft_is_builtin(mini, tmp))
-		return (free(nfile), free(path), close(file), tmp->next->next);
+		return (free(nfile), free(path), close(file), tmp2->next);
 	exec_command(mini, -1, file, tmp);
 	close(file);
 	dup2(mini->saved_stdin, 0);
 	dup2(mini->saved_stdout, 1);
-	return (free(nfile), free(path), tmp->next->next);
+	return (free(nfile), free(path), tmp2->next);
 }
 
-t_lists	*to_from(t_mini *mini, t_lists *tmp)
+t_lists	*to_from(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
 {
 	int		file;
 	char	*path;
 	char	*nfile;
 
-	if (tmp->operator == OP_INF && !file_exist(mini, tmp->next->arg))
+	if (op == OP_INF && !file_exist(mini, tmp->next->arg))
 		return (printf("no such file or directory: %s", tmp->next->arg),
-			tmp->next->next);
-	nfile = ft_strjoin_nofree("/", tmp->next->arg);
+			tmp2->next);
+	nfile = ft_strjoin_nofree("/", tmp2->arg);
 	path = ft_strjoin_nofree(get_env(mini, "PWD") + 4, nfile);
-	if (tmp->operator == OP_INF)
+	if (op == OP_INF)
 		file = open(path, O_RDONLY);
 	else
-		file = read_from_shell(mini, tmp->next->arg);
+		file = read_from_shell(mini, tmp2->arg);
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1
 		|| !ft_is_builtin(mini, tmp))
 	{
-		if (tmp->operator == OP_INF)
-			return (free(nfile), free(path), close(file), tmp->next->next);
+		if (op == OP_INF)
+			return (free(nfile), free(path), close(file), tmp2->next);
 		return (free(nfile), free(path), close(file),
-			close(mini->old_fd[0]), tmp->next->next);
+			close(mini->old_fd[0]), tmp2->next);
 	}
 	exec_command(mini, file, -1, tmp);
 	dup2(mini->saved_stdin, 0);
 	dup2(mini->saved_stdout, 1);
-	if (tmp->operator == OP_INF)
-		return (free(nfile), free(path), close(file), tmp->next->next);
+	if (op == OP_INF)
+		return (free(nfile), free(path), close(file), tmp2->next);
 	return (free(nfile), free(path), close(file),
-		close(mini->old_fd[0]), tmp->next->next);
+		close(mini->old_fd[0]), tmp2->next);
 }

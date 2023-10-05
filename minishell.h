@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/04 15:19:12 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:48:23 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_mini
 	int		new_fd[2];
 	int		saved_stdin;
 	int		saved_stdout;
+	int		*pid;
 	int		exit;
 }		t_mini;
 
@@ -134,8 +135,8 @@ void		ft_parse(t_mini *mini);
 int			ft_is_builtin(t_mini *mini, t_lists *tmp);
 t_lists		*special_operator(t_mini *mini, t_lists *tmp);
 /*	parsing3.c	*/
-t_lists		*from_to(t_mini *mini, t_lists *tmp);
-t_lists		*to_from(t_mini *mini, t_lists *tmp);
+t_lists		*from_to(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2);
+t_lists		*to_from(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2);
 /*----------------------------------------*/
 /*	Utils.c	*/
 int			ft_size_until_op(char *str, int i, int l);
@@ -172,6 +173,11 @@ int			cmp_end(char *str, char *end);
 char		*ft_realloc_buff(char *buf, char tmp[1], int btotal);
 int			file_exist(t_mini *mini, char *file);
 void		child_between_pipe(t_mini *mini, t_lists *tmp);
+/*	Utils7.c	*/
+int 		is_quoted(char *str, int i);
+void		wait_pid(t_mini *mini);
+void		add_pid(t_mini *mini, int pid);
+t_lists		*do_chevron(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);

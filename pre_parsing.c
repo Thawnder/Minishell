@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 10:17:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 15:48:34 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:52:21 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	count_operator(char *str)
 	i = 0;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
+	i += is_quoted(str, i);
 	while (str[i])
 	{
 		if (str[i] == '|' || str[i] == '&' || str[i] == '<' || str[i] == '>')
@@ -33,6 +34,7 @@ int	count_operator(char *str)
 				i++;
 		}
 		i++;
+		i += is_quoted(str, i);
 	}
 	return (op);
 }
@@ -77,7 +79,10 @@ void	ft_parse_op(t_mini *mini)
 		l = i;
 		while (str[i] && (str[i] != '|' && str[i] != '<' && str[i] != '&'
 				&& str[i] != '>'))
+		{
 			i++;
+			i += is_quoted(str, i);
+		}
 		if (str[i] && str[i + 1] && (str[i + 1] == '|' || str[i + 1] == '<'
 				|| str[i + 1] == '&' || str[i + 1] == '>'))
 			i++;

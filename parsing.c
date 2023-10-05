@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/04 13:55:11 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:41:15 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	process_arg(t_mini *mini)
 		}
 		else
 			mini->result_value = 0;
+		ft_printf("SENDING ARG |%s|\n", tmp->arg);
 		tmp = send_command(mini, tmp);
 		if (tmp)
 			tmp = tmp->next;
@@ -129,25 +130,16 @@ void	ft_parse(t_mini *mini)
 	process_arg(mini);
 	/*
 		NEED TO WORK :
-		$? 
-
-		: echo "cat lol.c | cat > lol.c"
-
-		echo test > test > testt
+		$?
 
 		cat | cat | ls
-		
+
 		||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		NOT IMPORTANT :
 		ls * | wc -l | echo $? //crash
+
 		echo test | gergr | ls | gergre | wc -l //Print 54 instead of 0 - Pipe still open and not cleared when an error occured
-		
+
 		relook ( ) prio
-
-		DO << < >> >
-
-
-		Benj to do : 
-			Makefile relink
 	*/
 }
