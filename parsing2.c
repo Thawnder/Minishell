@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 16:50:12 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:18:36 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 
 t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 {
-	t_lists *tmp2;
+	t_lists	*tmp2;
 
 	mini->saved_stdin = dup(0);
 	mini->saved_stdout = dup(1);

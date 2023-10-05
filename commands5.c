@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/05 17:00:36 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:11:38 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_exec(t_mini *mini, char *line)
 
 void	ft_fork(t_mini *mini, char *line)
 {
-	//int		status;
+	int		status;
 	pid_t	pid;
 
 	g_forked = 1;
@@ -64,7 +64,13 @@ void	ft_fork(t_mini *mini, char *line)
 	if (pid == 0)
 		ft_exec(mini, line);
 	else
+	{
+		if (waitpid(pid, &status, 0) == -1)
+			exit(EXIT_FAILURE);
+		if (WIFEXITED(status))
+			mini->result_value = WEXITSTATUS(status);
 		add_pid(mini, pid);
+	}
 	//waitpid(pid, &status, 0);
 	g_forked = 0;
 }
