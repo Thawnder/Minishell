@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:00:19 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/04 15:38:33 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:29:01 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	read_from_shell(t_mini *mini, char *end)
 	ft_putstr_fd(str, mini->old_fd[1]);
 	close(mini->old_fd[1]);
 	free(str);
+	mini->new_fd[0] = mini->old_fd[0];
 	return (mini->old_fd[0]);
 }
 
@@ -56,13 +57,12 @@ void	exec_command(t_mini *mini, int from, int to, t_lists *tmp)
 {
 	if (from != -1)
 		dup2(from, 0);
-	else
+	if (to != -1)
 		dup2(to, 1);
 	ft_fork(mini, tmp->arg);
 	if (from != -1)
 		close(from);
-	else
-		close(to);
+	close(to);
 }
 
 t_lists	*from_to(t_mini *mini, t_lists *tmp)
@@ -79,7 +79,7 @@ t_lists	*from_to(t_mini *mini, t_lists *tmp)
 		file = open(path, O_WRONLY | O_TRUNC, 0644);
 	else
 		file = open(path, O_WRONLY | O_APPEND);
-
+	
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1
 		|| !ft_is_builtin(mini, tmp))
 		return (free(nfile), free(path), close(file), tmp->next->next);

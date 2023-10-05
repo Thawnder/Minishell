@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/04 14:35:06 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 11:28:21 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	child(t_mini *mini, t_lists *tmp, int pos)
 		child_between_pipe(mini, tmp);
 	else
 	{
+		fprintf(stderr, "LAST %i\n", mini->new_fd[0]);
 		dup2(mini->new_fd[0], 0);
 		dup2(mini->saved_stdout, 1);
 		ft_fork(mini, tmp->arg);
@@ -76,10 +77,23 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 			child(mini, tmp, 0);
 		else if (tmp->next && tmp->operator == OP_PIPE)
 			child(mini, tmp, 1);
-		else if (!tmp->next || (tmp->next && tmp->next->operator != OP_PIPE))
+		else if (!tmp->next || (tmp->next && (tmp->next->operator != OP_PIPE
+			&& !(tmp->next->operator >= OP_INF && tmp->next->operator <= OP_2SUP))))
 		{
+			fprintf(stderr, "ARG %s\n", tmp->arg);
 			child(mini, tmp, 2);
 			break ;
+		}
+		else
+		{
+			close(mini->new_fd[0]);
+			close(mini->new_fd[1]);
+			if (tmp->operator == OP_SUP || tmp->operator == OP_2SUP)
+				tmp = from_to(mini, tmp);
+			else
+				tmp = to_from(mini, tmp);
+			child(mini, tmp->previous->previous, 0);
+			continue ;
 		}
 		tmp = tmp->next;
 	}
