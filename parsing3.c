@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:00:19 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 11:29:01 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:03:03 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_lists	*from_to(t_mini *mini, t_lists *tmp)
 		file = open(path, O_WRONLY | O_TRUNC, 0644);
 	else
 		file = open(path, O_WRONLY | O_APPEND);
-	
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1
 		|| !ft_is_builtin(mini, tmp))
 		return (free(nfile), free(path), close(file), tmp->next->next);
