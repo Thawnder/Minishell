@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/05 18:11:38 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:12:54 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ void	ft_fork(t_mini *mini, char *line)
 		ft_exec(mini, line);
 	else
 	{
-		if (waitpid(pid, &status, 0) == -1)
+		if (waitpid(pid, &status, WNOHANG) == -1)
 			exit(EXIT_FAILURE);
 		if (WIFEXITED(status))
 			mini->result_value = WEXITSTATUS(status);
 		add_pid(mini, pid);
 	}
-	//waitpid(pid, &status, 0);
 	g_forked = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils7.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:29:31 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 16:49:25 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:12:25 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,7 @@ void	wait_pid(t_mini *mini)
 	if (!mini->pid)
 		return ;
 	while (mini->pid && mini->pid[i] != 0)
-	{
-		waitpid(mini->pid[i], &status, 0);
-		/*if (waitpid(mini->pid[i], &status, 0) == -1)
-			exit(EXIT_FAILURE);
-		if (WIFEXITED(status))
-			mini->result_value = WEXITSTATUS(status);*/
-		i++;
-	}
+		waitpid(mini->pid[i++], &status, 0);
 	if (mini->pid)
 		free(mini->pid);
 	mini->pid = NULL;
