@@ -92,5 +92,5 @@ void	ft_command(t_mini *mini, t_lists *tmp)
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
 		ft_env(mini);
 	else
-		ft_fork(mini, tmp->arg);
+		ft_fork(mini, tmp->arg, 0);
 }

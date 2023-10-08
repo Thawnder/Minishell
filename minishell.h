@@ -193,7 +193,7 @@ char		*get_export(t_mini *mini, char *src);
 void		ft_export(t_mini *m, char *arg);
 /*	Commands5.c	*/
 char		**init_args(char *line);
-void		ft_fork(t_mini *mini, char *line);
+void		ft_fork(t_mini *mini, char *line, int pipe);
 /*----------------------------------------*/
 /*	free.c	*/
 void		free_tabl(char **str);

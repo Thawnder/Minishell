@@ -29,25 +29,7 @@ void	child(t_mini *mini, t_lists *tmp, int pos)
 {
 	if (pipe(mini->old_fd) < 0)
 		return ;
-	if (pos == 0)
-	{
-		dup2(mini->old_fd[1], 1);
-		ft_fork(mini, tmp->arg);
-		close(mini->old_fd[1]);
-	}
-	else if (pos == 1)
-		child_between_pipe(mini, tmp);
-	else
-	{
-		fprintf(stderr, "LAST %i\n", mini->new_fd[0]);
-		dup2(mini->new_fd[0], 0);
-		dup2(mini->saved_stdout, 1);
-		ft_fork(mini, tmp->arg);
-		close(mini->new_fd[0]);
-		dup2(mini->saved_stdin, 0);
-	}
-	mini->new_fd[0] = mini->old_fd[0];
-	mini->new_fd[1] = mini->old_fd[1];
+	ft_fork(mini, tmp->arg, pos + 1);
 }
 
 t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)

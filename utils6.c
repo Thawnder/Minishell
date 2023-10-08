@@ -95,7 +95,7 @@ void	child_between_pipe(t_mini *mini, t_lists *tmp)
 {
 	dup2(mini->new_fd[0], 0);
 	dup2(mini->old_fd[1], 1);
-	ft_fork(mini, tmp->arg);
+	ft_fork(mini, tmp->arg, 2);
 	close(mini->new_fd[0]);
 	close(mini->old_fd[1]);
 }

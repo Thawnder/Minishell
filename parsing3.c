@@ -45,7 +45,7 @@ int	read_from_shell(t_mini *mini, char *end)
 	if (pipe(mini->old_fd) < 0)
 		return (0);
 	str = ft_clone_terminal(end);
-	ft_printf("|%s|\n", str);
+	ft_printf("READING = |%s|\n", str);
 	ft_putstr_fd(str, mini->old_fd[1]);
 	close(mini->old_fd[1]);
 	free(str);
@@ -59,7 +59,7 @@ void	exec_command(t_mini *mini, int from, int to, t_lists *tmp)
 		dup2(from, 0);
 	if (to != -1)
 		dup2(to, 1);
-	ft_fork(mini, tmp->arg);
+	ft_fork(mini, tmp->arg, 3);
 	if (from != -1)
 		close(from);
 	close(to);

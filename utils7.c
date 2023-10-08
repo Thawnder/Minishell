@@ -61,7 +61,6 @@ void	add_pid(t_mini *mini, int pid)
 	}
 	while (mini->pid[i])
 		i++;
-	fprintf(stderr, "AT %i\n", i);
 	new = calloc(i + 2, sizeof(int));
 	i = 0;
 	while (mini->pid[i])
