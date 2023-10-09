@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/06 11:13:08 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:36:40 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,9 @@ void	ft_parse(t_mini *mini)
 	process_arg(mini);
 	/*
 		NEED TO WORK :
-		$?
-
-		cat | cat | ls
-
+		
+		chevrons
+		
 		||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		NOT IMPORTANT :
 		ls * | wc -l | echo $? //crash

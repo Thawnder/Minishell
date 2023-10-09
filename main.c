@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/02 13:41:20 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:25:53 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	main(int argc, char **argv, char **env)
 		if (ft_pre_parse(mini))
 			ft_parse(mini);
 		free_args(mini);
-		ft_printf("Last value : %i\n", mini->result_value);
 	}
 	return (free_all(mini, tmp), 0);
 }
