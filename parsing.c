@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 13:54:47 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:35:51 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,29 @@ void	ft_parse(t_mini *mini)
 		NEED TO WORK :
 		
 		chevrons
+
+		CTRL+\ apres avoir écrit des choses
+
+		Gestion des ; dans les double quotes
+		
+		-> Exécutez une commande simple avec des arguments, 
+		mais cette fois utilisez des guillemets 
+		"(rajoutez des ';' et des espaces entre les guillemets)" wtf????
+
+		echo '    lol' (pour l'instant ça skip les espaces alors que ça devrait pas)
+
+		unset PATH -> si on utilise une commande (ls) ça segfault
+
+		Gérer les "''" et les '""' (simple quote dans double quote et vice versa)
 		
 		||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+		
 		NOT IMPORTANT :
+		
 		echo test | gergr | ls | gergre | wc -l //Print 54 instead of 0 - Pipe still open and not cleared when an error occured
-
+		
+		CTRL+C après un "echo -n"
+		
 		relook ( ) prio
 	*/
 }

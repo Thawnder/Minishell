@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/09 17:53:42 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:26:03 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,9 @@ void	ft_echo(t_mini *mini, char *line)
 	{
 		while (line[i])
 		{
-			if (line[i] == '-')
-			{
-				if (check_flag(line) != 0)
-					flag = 1;
-				i += check_flag(line);
-			}
+			if (check_flag(&line[i]) != 0)
+				flag = 1;
+			i += check_flag(&line[i]);
 			write(1, &line[i++], 1);
 		}
 		if (flag == 0)
