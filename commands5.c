@@ -71,6 +71,7 @@ void	ft_fork(t_mini *mini, char *line, int pipe)
 			dup2(mini->saved_stdout, 1);
 		else
 			dup2(mini->old_fd[1], 1);
+		fprintf(stderr, "write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
 		close(mini->old_fd[0]);
 		close(mini->old_fd[1]);
 		ft_exec(mini, line);
@@ -93,6 +94,7 @@ void	ft_fork(t_mini *mini, char *line, int pipe)
 			dup2(mini->saved_stdin, 0);
 		else
 			dup2(mini->old_fd[0], 0);
+		fprintf(stderr, "write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
 		close(mini->old_fd[0]);
 		close(mini->old_fd[1]);
 	}

@@ -99,6 +99,8 @@ int	main(int argc, char **argv, char **env)
 	tcgetattr(0, &tmp);
 	t.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &t);
+	mini->saved_stdin = dup(0);
+	mini->saved_stdout = dup(1);
 	while (!mini->exit && argc && argv[0])
 	{
 		mini->line = readline("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ");
