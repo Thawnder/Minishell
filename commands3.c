@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/02 13:50:07 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:18:37 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	ft_cd(t_mini *mini, char *path)
 		free(mini->path);
 		mini->path = resolve_path(mini->env[i], path);
 		refresh_path(mini, mini->path, 4, i);
+		mini->result_value = 0;
 	}
 	else
 		error_path_cd(mini, path);

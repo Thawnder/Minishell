@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/02 11:28:20 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:53:42 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	ft_echo(t_mini *mini, char *line)
 
 	flag = 0;
 	i = 0;
-	while (line[i] == ' ')
-		i++;
 	if (mini->has_operator && (mini->args->operator == OP_SUP
 			|| mini->args->operator == OP_2SUP))
 		mini->args->result = stock_echo(line);
@@ -90,7 +88,10 @@ void	ft_echo(t_mini *mini, char *line)
 		}
 		if (flag == 0)
 			write(1, "\n", 1);
+		else
+			g_forked = 2;
 	}
+	mini->result_value = 0;
 }
 
 char	**realloc_remove(char **dest, int n, char *arg)
@@ -129,5 +130,6 @@ void	ft_unset(t_mini *m, char *arg)
 		if (get_export(m, tmp) != NULL)
 			m->export = realloc_remove(m->export, 1, tmp);
 		free(tmp);
+		m->result_value = 0;
 	}
 }

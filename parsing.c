@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 13:36:40 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:54:47 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 	else
 	{
 		tmp = send_command(mini, tmp);
-		mini->result_value = 0;
 		if (tmp->next)
 			tmp->next->prev_amp = AMP_SUCCESS;
 		else
@@ -115,8 +114,6 @@ void	process_arg(t_mini *mini)
 			tmp = tmp->next;
 			continue ;
 		}
-		else
-			mini->result_value = 0;
 		ft_printf("SENDING ARG |%s|\n", tmp->arg);
 		tmp = send_command(mini, tmp);
 		if (tmp)
@@ -135,8 +132,6 @@ void	ft_parse(t_mini *mini)
 		
 		||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		NOT IMPORTANT :
-		ls * | wc -l | echo $? //crash
-
 		echo test | gergr | ls | gergre | wc -l //Print 54 instead of 0 - Pipe still open and not cleared when an error occured
 
 		relook ( ) prio

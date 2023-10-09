@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/02 11:35:39 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:01:36 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_pwd(t_mini *mini)
 		write(1, mini->path, ft_strlen(mini->path));
 		write(1, "\n", 1);
 	}
+	mini->result_value = 0;
 }
 
 void	ft_env(t_mini *mini)
@@ -62,6 +63,7 @@ void	ft_env(t_mini *mini)
 			i++;
 		}
 	}
+	mini->result_value = 0;
 }
 
 int	check_builtin(char *arg, char *ref)
@@ -77,10 +79,17 @@ int	check_builtin(char *arg, char *ref)
 
 void	ft_command(t_mini *mini, t_lists *tmp)
 {
+	int	i;
+
+	i = 0;
 	if (tmp->arg[0] && check_builtin(tmp->arg, "exit") == 0)
 		ft_exit(mini);
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "echo") == 0)
-		ft_echo(mini, tmp->arg + 4);
+	{
+		while ((tmp->arg + 4)[i] == ' ')
+			i++;
+		ft_echo(mini, tmp->arg + 4 + i);
+	}
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "cd") == 0)
 		ft_cd(mini, tmp->arg + 2);
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "pwd") == 0)

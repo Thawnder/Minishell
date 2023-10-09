@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:19:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 15:40:03 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:55:12 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ int	check_flag(char *str)
 	count = 0;
 	if (!has_option_echo(str))
 		return (0);
-	while (str[i] != ' ')
-		i++;
 	while (str[i] == ' ' || (str[i] == '-'
-			&& str[i + 1] != '-') || str[i] == 'n' )
+			&& str[i + 1] != '-') || str[i] == 'n')
 	{
 		count++;
 		i++;
@@ -34,7 +32,7 @@ int	check_flag(char *str)
 		i--;
 		count--;
 	}
-	return (--count);
+	return (count);
 }
 
 char	*strdup_without(char *old, int i, int y)

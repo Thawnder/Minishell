@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/02 11:39:43 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:46:46 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ void	ft_export(t_mini *m, char *arg)
 		else
 			add_to_env(m, arg + 1);
 		free(m->args->result);
+		m->result_value = 0;
 	}
 }

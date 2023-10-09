@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:42:03 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 13:25:53 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:02:29 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	signal_handler(int signal, siginfo_t *s, void *wtf)
 			printf("^C\n");
 		else
 		{
+			if (g_forked == 2)
+				printf("\n");
+			g_forked = 0;
 			printf("🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ ^C\n");
 			rl_replace_line("", 0);
 			rl_on_new_line();
