@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/06 11:12:54 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:35:22 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_fork(t_mini *mini, char *line, int pipe)
 	pid_t	pid;
 
 	g_forked = 1;
+	fprintf(stderr, "BASE PIPE %i\n", pipe);
 	pid = fork();
 	if (!pid && pipe == 0)
 		ft_exec(mini, line);

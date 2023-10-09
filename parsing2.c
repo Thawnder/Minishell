@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 17:18:36 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:26:22 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 			tmp = tmp->next;
 			continue ;
 		}
-		if (!tmp->previous || (tmp->previous
+		if (tmp->previous && tmp->previous->previous
+			&& tmp->previous->previous->operator >= OP_INF
+			&& tmp->previous->previous->operator <= OP_2SUP)
+			child(mini, tmp, 2);
+		else if (!tmp->previous || (tmp->previous
 				&& tmp->previous->operator != OP_PIPE))
 			child(mini, tmp, 0);
 		else if (tmp->next && tmp->operator == OP_PIPE)
@@ -68,8 +72,6 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 		}
 		else
 		{
-			close(mini->new_fd[0]);
-			close(mini->new_fd[1]);
 			tmp = do_chevron(mini, tmp);
 			child(mini, tmp->previous->previous, 0);
 			continue ;
@@ -92,6 +94,10 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 	tmp2 = tmp;
 	if (tmp->operator == OP_PIPE)
 		return (ft_set_next(mini, ft_pipe(mini, tmp)));
+	else if (tmp->previous && tmp->previous->previous
+			&& tmp->previous->previous->operator >= OP_INF
+			&& tmp->previous->previous->operator <= OP_2SUP)
+		return (ft_set_next(mini, ft_pipe(mini, tmp)));
 	if (tmp2->operator >= OP_INF && tmp2->operator <= OP_2SUP)
 	{
 		while (tmp2->operator >= OP_INF && tmp2->operator <= OP_2SUP)
@@ -102,9 +108,11 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 				to_from(mini, tmp, tmp2->operator, tmp2->next);
 			tmp2 = tmp2->next;
 		}
-		tmp = tmp2->next;
+		tmp = tmp2;
+		ft_printf("TMP END %s", tmp->arg);
+		wait_pid(mini);
 		if (!tmp)
-			return (NULL);		
+			return (NULL);
 	}
 	return (tmp);
 }

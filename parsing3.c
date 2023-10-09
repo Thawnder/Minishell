@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:00:19 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 17:02:39 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:18:12 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,43 @@ int	read_from_shell(t_mini *mini, char *end)
 
 void	exec_command(t_mini *mini, int from, int to, t_lists *tmp)
 {
-	if (from != -1)
+	/*if (from != -1)
 		dup2(from, 0);
 	if (to != -1)
-		dup2(to, 1);
-	ft_fork(mini, tmp->arg, 3);
+		dup2(to, 1);*/
+	// if (pipe(mini->new_fd) < 0)
+	// 	return ;
 	if (from != -1)
-		close(from);
-	close(to);
+	{
+		dup2(from, 0);
+		mini->old_fd[0] = from;
+	}
+	if (to != -1)
+	{
+		mini->old_fd[1] = to;
+		mini->old_fd[0] = from;
+	}
+	if ((!tmp->previous || tmp->previous->operator != OP_PIPE)
+		&& (!tmp->next || tmp->next->operator != OP_PIPE))
+	{
+		if (from != -1)
+			ft_custom_fork(mini, tmp->arg, 3);
+		else
+			ft_custom_fork(mini, tmp->arg, 2);
+	}
+	else if ((!tmp->previous || tmp->previous->operator != OP_PIPE)
+				&& (tmp->next && tmp->next->operator == OP_PIPE))
+	{
+		ft_custom_fork(mini, tmp->arg, 1);
+	}
+	else if (tmp->previous && tmp->previous->operator == OP_PIPE
+				&& (!tmp->next || tmp->next->operator != OP_PIPE))
+	{
+		if (from != -1)
+			ft_custom_fork(mini, tmp->arg, 3);
+		else
+			ft_custom_fork(mini, tmp->arg, 2);
+	}
 }
 
 t_lists	*from_to(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
