@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:48:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 13:35:55 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:25:18 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ t_lists	*send_command(t_mini *mini, t_lists *tmp)
 {
 	if (tmp->operator == OP_PIPE
 		|| (tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))
+		return (special_operator(mini, tmp));
+	else if (tmp->previous && tmp->previous->previous
+			&& tmp->previous->previous->operator >= OP_INF
+			&& tmp->previous->previous->operator <= OP_2SUP)
 		return (special_operator(mini, tmp));
 	else
 		return (ft_command(mini, tmp), tmp);

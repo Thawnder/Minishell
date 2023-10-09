@@ -6,7 +6,7 @@
 /*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 15:48:23 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:22:39 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ t_lists		*delete_till_end(t_lists *tmp,
 t_lists		*process_or(t_mini *mini, t_lists *tmp);
 void		ft_parse(t_mini *mini);
 /*	parsing2.c	*/
+void		child(t_mini *mini, t_lists *tmp, int pos);
 int			ft_is_builtin(t_mini *mini, t_lists *tmp);
 t_lists		*special_operator(t_mini *mini, t_lists *tmp);
 /*	parsing3.c	*/
@@ -174,6 +175,7 @@ char		*ft_realloc_buff(char *buf, char tmp[1], int btotal);
 int			file_exist(t_mini *mini, char *file);
 void		child_between_pipe(t_mini *mini, t_lists *tmp);
 /*	Utils7.c	*/
+void		ft_custom_fork(t_mini *mini, char *line, int pipe);
 int 		is_quoted(char *str, int i);
 void		wait_pid(t_mini *mini);
 void		add_pid(t_mini *mini, int pid);
@@ -192,6 +194,7 @@ void		ft_cd(t_mini *mini, char *path);
 char		*get_export(t_mini *mini, char *src);
 void		ft_export(t_mini *m, char *arg);
 /*	Commands5.c	*/
+void		ft_exec(t_mini *mini, char *line);
 char		**init_args(char *line);
 void		ft_fork(t_mini *mini, char *line, int pipe);
 /*----------------------------------------*/

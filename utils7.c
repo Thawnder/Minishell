@@ -3,14 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   utils7.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:29:31 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/06 11:12:25 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:10:37 by ldeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_custom_fork(t_mini *mini, char *line, int pipe)
+{
+	int		status;
+	pid_t	pid;
+
+	g_forked = 1;
+	fprintf(stderr, "PIPE %i\n", pipe);
+	pid = fork();
+	if (!pid && pipe > 0)
+	{
+		if (pipe == 3)
+			dup2(mini->saved_stdout, 1);
+		else
+			dup2(mini->old_fd[1], 1);
+		//close(mini->old_fd[0]);
+		//close(mini->old_fd[1]);
+		ft_exec(mini, line);
+	}
+	/*if (pipe > 0)
+	{
+		add_pid(mini, pid);
+	}
+	else
+	{*/
+	if (waitpid(pid, &status, 0) == -1)
+		exit(EXIT_FAILURE);
+	if (WIFEXITED(pid))
+		mini->result_value = WEXITSTATUS(pid);
+	//}
+	if (pipe > 0)
+	{
+		add_pid(mini, pid);
+		if (pipe == 3)
+			dup2(mini->saved_stdin, 0);
+		else
+			dup2(mini->old_fd[0], 0);
+		//close(mini->old_fd[0]);
+		//close(mini->old_fd[1]);
+	}
+	g_forked = 0;
+}
 
 int	is_quoted(char *str, int i)
 {
@@ -86,6 +128,7 @@ t_lists	*do_chevron(t_mini *mini, t_lists *tmp)
 			to_from(mini, tmp, tmp2->operator, tmp2->next);
 		tmp2 = tmp->next;
 	}
+	wait_pid(mini);
 	return (tmp2->next);
 
 }
