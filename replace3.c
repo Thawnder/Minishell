@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:29:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/14 10:20:59 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:24:43 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	find_dollars(t_mini *mini, t_lists *tmp)
 		if (tmp->arg[i] == '\'' || tmp->arg[i] == '"')
 			quote *= -1;
 		if (quote == -1 && tmp->arg[i] == '$' && tmp->arg[i + 1]
-			&& tmp->arg[i + 1] != '?' && tmp->arg[i + 1] != ' ')
+			&& tmp->arg[i + 1] != ' ')
 			tmp->arg = manage_dollars(mini, tmp->arg, i, ft_strlen(tmp->arg));
 		else
 			i++;

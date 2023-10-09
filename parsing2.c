@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 17:18:36 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/09 10:41:09 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 		}
 		tmp = tmp2->next;
 		if (!tmp)
-			return (NULL);		
+			return (NULL);
 	}
 	return (tmp);
 }
