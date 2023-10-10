@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 14:21:38 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:45:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 t_lists	*process_or(t_mini *mini, t_lists *tmp)
 {
 	if ((tmp->prev_or == OR_SUCCESS && tmp->previous
-			&& !(tmp->previous->operator == OP_2AMP))
-		|| tmp->prev_amp == AMP_SUCCESS)
+			&& !(tmp->previous->operator == OP_2AMP)) || tmp->prev_amp == 1)
 		return (delete_till_end(tmp, tmp->previous->operator,
 				tmp->priorities, 1));
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
@@ -121,7 +120,6 @@ void	process_arg(t_mini *mini)
 			tmp = tmp->next;
 			continue ;
 		}
-		ft_printf("SENDING ARG |%s|\n", tmp->arg);
 		tmp = send_command(mini, tmp);
 		if (tmp)
 			tmp = tmp->next;
@@ -132,17 +130,4 @@ void	ft_parse(t_mini *mini)
 {
 	add_is_pipe(mini);
 	process_arg(mini);
-	/*
-		NEED TO WORK :
-
-		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ echo { $USER}
-		SENDING ARG |echo { bpleutin|
-		{ bpleutin
-
-		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ false || echo test
-
-		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ echo test && (echo lol)
-
-		Gérer les "''" et les '""' (simple quote dans double quote et vice versa)
-	*/
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:00:19 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 15:18:12 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:43:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*ft_clone_terminal(char *end)
 	}
 	return (buf);
 }
-
 
 int	read_from_shell(t_mini *mini, char *end)
 {
@@ -76,29 +75,8 @@ void	exec_command(t_mini *mini, int from, int to, t_lists *tmp)
 		else
 			ft_custom_fork(mini, tmp->arg, 2, 0);
 	}
-	else if ((!tmp->previous || tmp->previous->operator != OP_PIPE)
-		&& (tmp->next && tmp->next->operator == OP_PIPE))
-	{
-		if (from != -1)
-			ft_custom_fork(mini, tmp->arg, 1, 1);
-		else
-			ft_custom_fork(mini, tmp->arg, 1, 0);
-	}
-	else if (tmp->previous && tmp->previous->operator == OP_PIPE
-		&& (!tmp->next || tmp->next->operator != OP_PIPE))
-	{
-		if (from != -1)
-			ft_custom_fork(mini, tmp->arg, 3, 1);
-		else
-			ft_custom_fork(mini, tmp->arg, 2, 0);
-	}
 	else
-	{
-		if (from != -1)
-			ft_custom_fork(mini, tmp->arg, 2, 1);
-		else
-			ft_custom_fork(mini, tmp->arg, 2, 0);
-	}
+		command_exe_end(mini, from, to, tmp);
 }
 
 t_lists	*from_to(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
@@ -151,12 +129,10 @@ t_lists	*to_from(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
 		if (op == OP_INF)
 			return (free(nfile), free(path), close(file), tmp2->next);
 		return (free(nfile), free(path), close(file),
-			close(mini->old_fd[0]),
-			tmp2->next);
+			close(mini->old_fd[0]), tmp2->next);
 	}
 	exec_command(mini, file, -1, tmp);
 	if (op == OP_INF)
 		return (free(nfile), free(path), close(file), tmp2->next);
-	return (free(nfile), free(path),
-	close(file), tmp2->next);
+	return (free(nfile), free(path), close(file), tmp2->next);
 }

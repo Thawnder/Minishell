@@ -110,6 +110,5 @@ int	ft_replace(t_mini *mini, t_lists *tmp)
 	}
 	find_dollars(mini, tmp);
 	find_quotes(mini, tmp);
-	ft_printf("ARGG %s\n", tmp->arg);
 	return (0);
 }

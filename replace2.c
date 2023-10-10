@@ -92,7 +92,6 @@ static char	*delete_quotes(t_mini *mini, char *old, int i, int y)
 	if (old[i] == '\'' || (old[i] == '"' && !has_dollar(old, i, y)))
 	{
 		str = strdup_without(old, i, y);
-		ft_printf("ARgrgrdgGG %s\n", str);
 	}
 	else if (old[i] != '\'')
 	{

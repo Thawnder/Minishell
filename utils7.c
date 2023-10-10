@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils7.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:29:31 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 14:34:00 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:15:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	ft_custom_fork(t_mini *mini, char *line, int pipe, int from)
 {
-	int		status;
 	pid_t	pid;
 
 	g_forked = 1;
-	fprintf(stderr, "PIPE %i\n", pipe);
 	pid = fork();
 	if (!pid && pipe > 0)
 	{
@@ -26,40 +24,13 @@ void	ft_custom_fork(t_mini *mini, char *line, int pipe, int from)
 			dup2(mini->saved_stdout, 1);
 		else
 			dup2(mini->old_fd[1], 1);
-		fprintf(stderr, "1write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
-		if (from)
-		{
-			fprintf(stderr, "CLOSING\n");
-			close(mini->old_fd[0]);
-			if (from)
-				close(mini->old_fd[1]);
-		}
-		ft_exec(mini, line);
-	}
-	/*if (pipe > 0)
-	{
-		add_pid(mini, pid);
-	}
-	else
-	{*/
-	if (waitpid(pid, &status, 0) == -1)
-		exit(EXIT_FAILURE);
-	if (WIFEXITED(pid))
-		mini->result_value = WEXITSTATUS(pid);
-	//}
-	if (pipe > 0)
-	{
-		// add_pid(mini, pid);
-		if (pipe == 3)
-			dup2(mini->saved_stdin, 0);
-		else
-			dup2(mini->old_fd[0], 0);
-		fprintf(stderr, "2write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
 		if (from)
 			close(mini->old_fd[0]);
 		if (from)
 			close(mini->old_fd[1]);
+		ft_exec(mini, line);
 	}
+	end_custom_fork(mini, pid, pipe, from);
 	g_forked = 0;
 }
 
@@ -137,6 +108,5 @@ t_lists	*do_chevron(t_mini *mini, t_lists *tmp)
 			to_from(mini, tmp, tmp2->operator, tmp2->next);
 		tmp2 = tmp2->next;
 	}
-	// wait_pid(mini);
 	return (tmp2->next);
 }

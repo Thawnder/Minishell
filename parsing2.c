@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 15:16:26 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:40:03 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,56 +37,32 @@ void	child(t_mini *mini, t_lists *tmp, int pos)
 	g_forked = 0;
 }
 
-t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
+t_lists	*ft_pipe(t_mini *m, t_lists *t, int stat)
 {
-	while (tmp && (tmp->operator == OP_PIPE
-			|| (tmp->previous && tmp->previous->operator == OP_PIPE)))
+	while (t && (t->operator == OP_PIPE
+			|| (t->previous && t->previous->operator == OP_PIPE)))
 	{
-		if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1
-			|| !ft_is_builtin(mini, tmp))
+		if (ft_replace(m, t) == -1 || ft_check_advanced(m, t) == -1
+			|| !ft_is_builtin(m, t))
 		{
-			dup2(mini->saved_stdout, 1);
-			if (dup2(mini->saved_stdin, 0), (ft_replace(mini, tmp) == -1
-					|| ft_check_advanced(mini, tmp) == -1)
-				&& tmp->next && tmp->operator != OP_PIPE)
-				return (tmp->next->prev_amp = AMP_FALSE
-					, tmp->next->prev_or = OR_FALSE, tmp);
-			else if (tmp->operator != OP_PIPE)
-				return (tmp);
-			pipe(mini->old_fd);
-			dup2(mini->old_fd[0], 0);
-			close(mini->old_fd[0]);
-			close(mini->old_fd[1]);
-			tmp = tmp->next;
+			dup2(m->saved_stdout, 1);
+			if (dup2(m->saved_stdin, 0), (ft_replace(m, t) == -1
+					|| ft_check_advanced(m, t) == -1)
+				&& t->next && t->operator != OP_PIPE)
+				return (t->next->prev_amp = -1, t->next->prev_or = -1, t);
+			else if (t->operator != OP_PIPE)
+				return (t);
+			t = error_command_pipe(m, t);
 			continue ;
 		}
-		if (!tmp->previous || (tmp->previous
-				&& tmp->previous->operator != OP_PIPE))
-			child(mini, tmp, 0);
-		else if (tmp->next && tmp->operator == OP_PIPE)
-			child(mini, tmp, 1);
-		else if (!tmp->next || (tmp->next && (tmp->operator != OP_PIPE
-			&& !(tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))))
-		{
-			fprintf(stderr, "ARG %s\n", tmp->arg);
-			child(mini, tmp, 2);
+		stat = pipe_action(m, t);
+		if (stat == 1)
 			break ;
-		}
-		else
-		{
-			fprintf(stderr, "LASTO pour %s\n", tmp->arg);
-			tmp = do_chevron(mini, tmp);
-			dup2(mini->saved_stdin, 0);
-			dup2(mini->saved_stdout, 1);
+		else if (stat == 2)
 			continue ;
-		}
-		tmp = tmp->next;
+		t = t->next;
 	}
-	wait_pid(mini);
-	if (tmp && tmp->next)
-		return (tmp->next->prev_amp = AMP_SUCCESS,
-			tmp->next->prev_or = OR_SUCCESS, tmp);
-	return (tmp);
+	return (end_pipe(m, t));
 }
 
 t_lists	*special_operator(t_mini *mini, t_lists *tmp)
@@ -95,11 +71,11 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 
 	tmp2 = tmp;
 	if (tmp->operator == OP_PIPE)
-		return (ft_set_next(mini, ft_pipe(mini, tmp)));
-	 else if (tmp->previous && tmp->previous->previous
-	 		&& tmp->previous->previous->operator >= OP_INF
-	 		&& tmp->previous->previous->operator <= OP_2SUP)
-	 	return (ft_set_next(mini, ft_pipe(mini, tmp)));
+		return (ft_set_next(mini, ft_pipe(mini, tmp, 0)));
+	else if (tmp->previous && tmp->previous->previous
+		&& tmp->previous->previous->operator >= OP_INF
+		&& tmp->previous->previous->operator <= OP_2SUP)
+		return (ft_set_next(mini, ft_pipe(mini, tmp, 0)));
 	if (tmp2->operator >= OP_INF && tmp2->operator <= OP_2SUP)
 	{
 		while (tmp2->operator >= OP_INF && tmp2->operator <= OP_2SUP)

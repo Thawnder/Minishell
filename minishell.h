@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 15:16:40 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:42:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,10 +175,16 @@ char		*ft_realloc_buff(char *buf, char tmp[1], int btotal);
 int			file_exist(t_mini *mini, char *file);
 /*	Utils7.c	*/
 void		ft_custom_fork(t_mini *mini, char *line, int pipe, int from);
-int 		is_quoted(char *str, int i);
+int			is_quoted(char *str, int i);
 void		wait_pid(t_mini *mini);
 void		add_pid(t_mini *mini, int pid);
 t_lists		*do_chevron(t_mini *mini, t_lists *tmp);
+/*	Utils8.c	*/
+void		end_custom_fork(t_mini *mini, int pid, int pipe, int from);
+t_lists		*error_command_pipe(t_mini *mini, t_lists *tmp);
+int			pipe_action(t_mini *mini, t_lists *tmp);
+t_lists		*end_pipe(t_mini *mini, t_lists *tmp);
+void		command_exe_end(t_mini *mini, int from, int to, t_lists *tmp);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);
