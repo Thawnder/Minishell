@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:07:27 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/05 15:42:48 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:32:39 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,27 +113,3 @@ int	ft_replace(t_mini *mini, t_lists *tmp)
 	ft_printf("ARGG %s\n", tmp->arg);
 	return (0);
 }
-
-/*int	ft_replace(t_mini *mini)
-{
-	t_lists	*tmp;
-	char	*str;
-
-	tmp = mini->args;
-	str = NULL;
-	while (tmp)
-	{
-		find_home(mini, tmp);
-		find_wildcard(tmp);
-		if (!valid_dollars(tmp->arg))
-		{
-			str = get_invalid_command(tmp->arg, '$');
-			printf("%s: bad substitution\n", str);
-			return (free(str), -1);
-		}
-		find_dollars(mini, tmp);
-		find_quotes(mini, tmp);
-		tmp = tmp->next;
-	}
-	return (0);
-}*/

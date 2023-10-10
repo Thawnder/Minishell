@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 11:41:33 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 16:53:01 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:16:26 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,14 @@ int	ft_is_builtin(t_mini *mini, t_lists *tmp)
 
 void	child(t_mini *mini, t_lists *tmp, int pos)
 {
+	pid_t	pid;
+
 	if (pipe(mini->old_fd) < 0)
 		return ;
-	ft_fork(mini, tmp->arg, pos + 1);
+	g_forked = 1;
+	pid = fork();
+	ft_fork(mini, tmp->arg, pos + 1, pid);
+	g_forked = 0;
 }
 
 t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)

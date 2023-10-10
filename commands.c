@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/10 10:30:14 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:17:24 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	check_builtin(char *arg, char *ref)
 
 void	ft_command(t_mini *mini, t_lists *tmp)
 {
+	pid_t	pid;
+
 	if (tmp->arg[0] && check_builtin(tmp->arg, "exit") == 0)
 		ft_exit(mini);
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "echo") == 0)
@@ -94,5 +96,10 @@ void	ft_command(t_mini *mini, t_lists *tmp)
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "env") == 0)
 		ft_env(mini);
 	else
-		ft_fork(mini, tmp->arg, 0);
+	{
+		g_forked = 1;
+		pid = fork();
+		ft_fork(mini, tmp->arg, 0, pid);
+		g_forked = 0;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 15:22:39 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:16:40 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void		ft_export(t_mini *m, char *arg);
 /*	Commands5.c	*/
 void		ft_exec(t_mini *mini, char *line);
 char		**init_args(char *line);
-void		ft_fork(t_mini *mini, char *line, int pipe);
+void		ft_fork(t_mini *mini, char *line, int pipe, pid_t pid);
 /*----------------------------------------*/
 /*	free.c	*/
 void		free_tabl(char **str);
