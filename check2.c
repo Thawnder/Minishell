@@ -19,12 +19,9 @@ void	useless_bracket(t_lists *args)
 	tmp = args;
 	while (tmp)
 	{
-		if (has_bracket(tmp->arg)
-			&& tmp->operator != OP_2AMP && tmp->operator != OP_2PIPE)
+		if (has_bracket(tmp->arg))
 		{
-			if (!tmp->previous
-				|| (tmp->previous && tmp->previous->operator != OP_2AMP
-					&& tmp->previous->operator != OP_2PIPE))
+			if (tmp->previous)
 			{
 				delete_bracket(tmp);
 				while (!has_bracket(tmp->arg) && tmp->previous)
@@ -33,6 +30,8 @@ void	useless_bracket(t_lists *args)
 					tmp = tmp->previous;
 				}
 			}
+			else
+				delete_bracket(tmp);
 		}
 		tmp = tmp->next;
 	}

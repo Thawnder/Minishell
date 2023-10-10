@@ -73,7 +73,6 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 			tmp = do_chevron(mini, tmp);
 			dup2(mini->saved_stdin, 0);
 			dup2(mini->saved_stdout, 1);
-			// child(mini, tmp->previous->previous, 0);
 			continue ;
 		}
 		tmp = tmp->next;

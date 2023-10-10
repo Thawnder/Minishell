@@ -85,6 +85,7 @@ void	ft_fork(t_mini *mini, char *line, int pipe)
 			exit(EXIT_FAILURE);
 		if (WIFEXITED(status))
 			mini->result_value = WEXITSTATUS(status);
+		ft_printf("RESULT %i\n", mini->result_value);
 	}
 	if (pipe > 0)
 	{

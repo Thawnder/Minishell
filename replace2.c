@@ -26,7 +26,7 @@ static char	*get_dollars(t_mini *mini, char *old, int i, int y)
 		i++;
 	z = i;
 	while (old[z] && z < y && old[z] != '}' && old[z] != '$'
-		&& old[z] != ' ' && old[z] != '"')
+		&& old[z] != ' ' && old[z] != '"' && old[z] != '\'')
 		z++;
 	tmp = ft_strndup(&old[i], z - i);
 	if (!get_env(mini, tmp) && !ft_strcmp(tmp, "?"))
@@ -49,13 +49,11 @@ int	has_dollar(char	*old, int i, int y)
 			i++;
 			count++;
 			while (old[i] && old[i] != '}' && old[i] != '$'
-				&& old[i] != ' ' && old[i] != '"')
+				&& old[i] != ' ' && old[i] != '"' && old[i] != '\'')
 			{
 				i++;
 				count++;
 			}
-			if (old[i] == '}')
-				count++;
 			return (count);
 		}
 		i++;
@@ -94,8 +92,9 @@ static char	*delete_quotes(t_mini *mini, char *old, int i, int y)
 	if (old[i] == '\'' || (old[i] == '"' && !has_dollar(old, i, y)))
 	{
 		str = strdup_without(old, i, y);
+		ft_printf("ARgrgrdgGG %s\n", str);
 	}
-	else
+	else if (old[i] != '\'')
 	{
 		while (has_dollar(old, i, y) || str[y] != '"')
 		{
@@ -105,24 +104,33 @@ static char	*delete_quotes(t_mini *mini, char *old, int i, int y)
 				y++;
 		}
 	}
+	else
+		str = strdup_without(old, i, y);
 	return (free(old), str);
 }
 
 void	find_quotes(t_mini *mini, t_lists *tmp)
 {
-	int	i;
-	int	y;
+	int		i;
+	int		y;
+	char	c;
+	int		z;
 
 	i = 0;
+	z = 0;
 	while (tmp->arg[i])
 	{
-		if (tmp->arg[i] == '"' || tmp->arg[i] == '\'')
+		if (z < 2 && (tmp->arg[i] == '"' || tmp->arg[i] == '\''))
 		{
+			c = tmp->arg[i];
 			y = i + 1;
-			while (tmp->arg[y] != '"' && tmp->arg[y] != '\'')
+			while (tmp->arg[y] && tmp->arg[y] != c)
 				y++;
+			if (tmp->arg[y] == '\'')
+				z++;
 			tmp->arg = delete_quotes(mini, tmp->arg, i, y);
 			i = -1;
+			z++;
 		}
 		i++;
 	}

@@ -27,7 +27,7 @@ t_lists	*delete_till_end(t_lists *tmp, t_operator op, int prio, int success)
 			free(tmp->previous);
 		}
 		else
-			prev = NULL;
+			prev = tmp->previous;
 		tmp->previous = prev;
 		if (tmp->next)
 			tmp = tmp->next;
@@ -47,7 +47,11 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 		return (delete_till_end(tmp, tmp->previous->operator,
 				tmp->priorities, -1));
 	if (ft_replace(mini, tmp) == -1 || ft_check_advanced(mini, tmp) == -1)
+	{
+		if (!tmp->next)
+			return (NULL);
 		tmp->next->prev_amp = AMP_FALSE;
+	}
 	else
 	{
 		tmp = send_command(mini, tmp);
@@ -56,6 +60,8 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 		else
 			return (NULL);
 	}
+	if (mini->result_value != 0)
+		tmp->next->prev_or = OR_FALSE;
 	tmp = tmp->next;
 	if (tmp->previous->operator == OP_2AMP)
 		return (process_amp(mini, tmp));
@@ -80,11 +86,12 @@ t_lists	*process_or(t_mini *mini, t_lists *tmp)
 	else
 	{
 		tmp = send_command(mini, tmp);
-		mini->result_value = 0;
 		if (!tmp || !tmp->next)
 			return (NULL);
 		tmp->next->prev_or = OR_SUCCESS;
 	}
+	if (mini->result_value != 0)
+		tmp->next->prev_or = OR_FALSE;
 	tmp = tmp->next;
 	if (tmp->previous->operator == OP_2PIPE)
 		return (process_or(mini, tmp));
@@ -135,9 +142,6 @@ void	ft_parse(t_mini *mini)
 		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ false || echo test
 
 		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ echo test && (echo lol)
-		test
-		(echo: command not found
-		segfault
 
 		Gérer les "''" et les '""' (simple quote dans double quote et vice versa)
 	*/

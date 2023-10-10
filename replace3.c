@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+int	next_quotes(char *str, char c, int i)
+{
+	if (str[i] == c)
+	{
+		i++;
+		while (str[i] != c)
+			i++;
+		i++;
+	}
+	return (i);
+}
+
 void	find_dollars(t_mini *mini, t_lists *tmp)
 {
 	int	i;
@@ -23,9 +35,11 @@ void	find_dollars(t_mini *mini, t_lists *tmp)
 		return ;
 	while (tmp->arg[i])
 	{
-		if (tmp->arg[i] == '\'' || tmp->arg[i] == '"')
-			quote *= -1;
-		if (quote == -1 && tmp->arg[i] == '$' && tmp->arg[i + 1]
+		if (tmp->arg[i] == '\'')
+			i = next_quotes(tmp->arg, '\'', i);
+		if (tmp->arg[i] == '"')
+			i = next_quotes(tmp->arg, '"', i);
+		if (quote == -1 && tmp->arg[i] && tmp->arg[i] == '$' && tmp->arg[i + 1]
 			&& tmp->arg[i + 1] != ' ')
 			tmp->arg = manage_dollars(mini, tmp->arg, i, ft_strlen(tmp->arg));
 		else
