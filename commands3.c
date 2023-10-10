@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:10:22 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/10 16:59:28 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:05:45 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ void	fill_path(char **res, char *path)
 			*res = ft_strjoin(*res, tmp[i]);
 		if (tmp[i + 1] != NULL)
 			*res = ft_strjoin(*res, "/");
-		i++;
+		free(tmp[i++]);
 	}
+	free(tmp);
 }
 
 char	*resolve_path(char *pwd, char *path)

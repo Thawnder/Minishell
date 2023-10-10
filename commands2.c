@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/09 21:26:03 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:12:28 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	**realloc_remove(char **dest, int n, char *arg)
 	{
 		if (i < ft_tab_len(dest) - 1
 			&& !ft_strncmp(dest[i], arg, ft_strlen(arg)))
-			i++;
+			free(dest[i++]);
 		if (ft_strncmp(dest[i], arg, ft_strlen(arg)))
 			tmp[j++] = ft_strdup(dest[i]);
 		free(dest[i]);
