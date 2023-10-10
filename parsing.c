@@ -148,8 +148,6 @@ void	ft_parse(t_mini *mini)
 		
 		NOT IMPORTANT :
 		
-		echo test | gergr | ls | gergre | wc -l //Print 54 instead of 0 - Pipe still open and not cleared when an error occured
-		
 		CTRL+C après un "echo -n"
 		
 		relook ( ) prio

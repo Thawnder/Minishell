@@ -42,6 +42,8 @@ int	cmp_end(char *str, char *end)
 	while (str[i] && str[i] != '\n')
 		i--;
 	i++;
+	if (str[i] == '\n')
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '\n')

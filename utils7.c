@@ -135,7 +135,7 @@ t_lists	*do_chevron(t_mini *mini, t_lists *tmp)
 			from_to(mini, tmp, tmp2->operator, tmp2->next);
 		else
 			to_from(mini, tmp, tmp2->operator, tmp2->next);
-		tmp2 = tmp->next;
+		tmp2 = tmp2->next;
 	}
 	// wait_pid(mini);
 	return (tmp2->next);

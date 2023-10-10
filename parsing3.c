@@ -120,6 +120,13 @@ t_lists	*from_to(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
 		return (free(nfile), free(path), close(file), tmp2->next);
 	exec_command(mini, -1, file, tmp);
 	close(file);
+	if (tmp2->operator == OP_PIPE)
+	{
+		pipe(mini->old_fd);
+		close(mini->old_fd[0]);
+		mini->old_fd[0] = open(path, O_RDONLY);
+		dup2(mini->old_fd[0], 0);
+	}
 	return (free(nfile), free(path), tmp2->next);
 }
 
@@ -129,8 +136,8 @@ t_lists	*to_from(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
 	char	*path;
 	char	*nfile;
 
-	if (op == OP_INF && !file_exist(mini, tmp->next->arg))
-		return (printf("no such file or directory: %s", tmp->next->arg),
+	if (op == OP_INF && !file_exist(mini, tmp2->arg))
+		return (printf("no such file or directory: %s\n", tmp2->arg),
 			tmp2->next);
 	nfile = ft_strjoin_nofree("/", tmp2->arg);
 	path = ft_strjoin_nofree(get_env(mini, "PWD") + 4, nfile);
@@ -151,6 +158,5 @@ t_lists	*to_from(t_mini *mini, t_lists *tmp, t_operator op, t_lists *tmp2)
 	if (op == OP_INF)
 		return (free(nfile), free(path), close(file), tmp2->next);
 	return (free(nfile), free(path),
-	close(file), //close(mini->old_fd[1]),
-	tmp2->next);
+	close(file), tmp2->next);
 }
