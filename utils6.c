@@ -19,9 +19,11 @@ char	*send_end(char *old)
 	char	*str;
 
 	i = ft_strlen(old) - 2;
-	while (old[i] && old[i] != '\n')
+	if (i < 0)
+		i = 0;
+	while (i >= 0 && old[i] && old[i] != '\n')
 		i--;
-	str = calloc(i, sizeof(char));
+	str = ft_calloc(i + 2, sizeof(char));
 	y = 0;
 	i++;
 	while (y < i)
@@ -39,19 +41,22 @@ int	cmp_end(char *str, char *end)
 
 	y = 0;
 	i = ft_strlen(str) - 2;
-	while (str[i] && str[i] != '\n')
+	if (i < 0)
+		i = 0;
+	while (i >= 0 && str[i] && str[i] != '\n')
 		i--;
 	i++;
 	if (str[i] == '\n')
 		return (0);
 	while (str[i])
 	{
-		if (str[i] == '\n')
+		if (str[i] == '\n' && !end[y])
 			return (1);
 		if (str[i] != end[y])
 			return (0);
+		else
+			y++;
 		i++;
-		y++;
 	}
 	return (0);
 }
@@ -62,7 +67,7 @@ char	*ft_realloc_buff(char *buf, char tmp[1], int btotal)
 	char	*str;
 
 	i = 0;
-	str = ft_calloc(sizeof(char), btotal + 1);
+	str = ft_calloc(btotal + 1, sizeof(char));
 	while (i < btotal)
 	{
 		if (buf[i] != '\0')

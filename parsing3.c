@@ -20,7 +20,7 @@ char	*ft_clone_terminal(char *end)
 	int		done;
 
 	done = 0;
-	buf = ft_calloc(sizeof(char), 1);
+	buf = ft_calloc(2, sizeof(char));
 	len = 0;
 	ft_printf("heredoc> ");
 	while (!done && read(0, tmp, 1))
@@ -30,7 +30,7 @@ char	*ft_clone_terminal(char *end)
 		if (tmp[0] == '\n')
 		{
 			if (cmp_end(buf, end))
-				return (printf("\n"), send_end(buf));
+				return (send_end(buf));
 			ft_printf("heredoc> ");
 		}
 	}
@@ -44,7 +44,6 @@ int	read_from_shell(t_mini *mini, char *end)
 	if (pipe(mini->new_fd) < 0)
 		return (0);
 	str = ft_clone_terminal(end);
-	ft_printf("READING = |%s|\n", str);
 	ft_putstr_fd(str, mini->new_fd[1]);
 	close(mini->new_fd[1]);
 	free(str);
