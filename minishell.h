@@ -173,9 +173,8 @@ char		*send_end(char *old);
 int			cmp_end(char *str, char *end);
 char		*ft_realloc_buff(char *buf, char tmp[1], int btotal);
 int			file_exist(t_mini *mini, char *file);
-void		child_between_pipe(t_mini *mini, t_lists *tmp);
 /*	Utils7.c	*/
-void		ft_custom_fork(t_mini *mini, char *line, int pipe);
+void		ft_custom_fork(t_mini *mini, char *line, int pipe, int from);
 int 		is_quoted(char *str, int i);
 void		wait_pid(t_mini *mini);
 void		add_pid(t_mini *mini, int pid);

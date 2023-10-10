@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_custom_fork(t_mini *mini, char *line, int pipe)
+void	ft_custom_fork(t_mini *mini, char *line, int pipe, int from)
 {
 	int		status;
 	pid_t	pid;
@@ -26,8 +26,14 @@ void	ft_custom_fork(t_mini *mini, char *line, int pipe)
 			dup2(mini->saved_stdout, 1);
 		else
 			dup2(mini->old_fd[1], 1);
-		//close(mini->old_fd[0]);
-		//close(mini->old_fd[1]);
+		fprintf(stderr, "1write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
+		if (from)
+		{
+			fprintf(stderr, "CLOSING\n");
+			close(mini->old_fd[0]);
+			if (from)
+				close(mini->old_fd[1]);
+		}
 		ft_exec(mini, line);
 	}
 	/*if (pipe > 0)
@@ -43,13 +49,16 @@ void	ft_custom_fork(t_mini *mini, char *line, int pipe)
 	//}
 	if (pipe > 0)
 	{
-		add_pid(mini, pid);
+		// add_pid(mini, pid);
 		if (pipe == 3)
 			dup2(mini->saved_stdin, 0);
 		else
 			dup2(mini->old_fd[0], 0);
-		//close(mini->old_fd[0]);
-		//close(mini->old_fd[1]);
+		fprintf(stderr, "2write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
+		if (from)
+			close(mini->old_fd[0]);
+		if (from)
+			close(mini->old_fd[1]);
 	}
 	g_forked = 0;
 }
@@ -128,7 +137,7 @@ t_lists	*do_chevron(t_mini *mini, t_lists *tmp)
 			to_from(mini, tmp, tmp2->operator, tmp2->next);
 		tmp2 = tmp->next;
 	}
-	wait_pid(mini);
+	// wait_pid(mini);
 	return (tmp2->next);
 
 }

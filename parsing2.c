@@ -54,32 +54,33 @@ t_lists	*ft_pipe(t_mini *mini, t_lists *tmp)
 			tmp = tmp->next;
 			continue ;
 		}
-		if (tmp->previous && tmp->previous->previous
-			&& tmp->previous->previous->operator >= OP_INF
-			&& tmp->previous->previous->operator <= OP_2SUP)
-			child(mini, tmp, 2);
-		else if (!tmp->previous || (tmp->previous
+		if (!tmp->previous || (tmp->previous
 				&& tmp->previous->operator != OP_PIPE))
 			child(mini, tmp, 0);
 		else if (tmp->next && tmp->operator == OP_PIPE)
 			child(mini, tmp, 1);
-		else if (!tmp->next || (tmp->next && (tmp->next->operator != OP_PIPE
-			&& !(tmp->next->operator >= OP_INF && tmp->next->operator <= OP_2SUP))))
+		else if (!tmp->next || (tmp->next && (tmp->operator != OP_PIPE
+			&& !(tmp->operator >= OP_INF && tmp->operator <= OP_2SUP))))
 		{
+			if (tmp->previous && tmp->previous->previous && (tmp->operator == OP_SUP || tmp->operator == OP_2SUP) )
+			
 			fprintf(stderr, "ARG %s\n", tmp->arg);
 			child(mini, tmp, 2);
 			break ;
 		}
 		else
 		{
+			fprintf(stderr, "LASTO pour %s\n", tmp->arg);
 			tmp = do_chevron(mini, tmp);
-			child(mini, tmp->previous->previous, 0);
+			dup2(mini->saved_stdin, 0);
+			dup2(mini->saved_stdout, 1);
+			// child(mini, tmp->previous->previous, 0);
 			continue ;
 		}
 		tmp = tmp->next;
 	}
 	wait_pid(mini);
-	if (tmp->next)
+	if (tmp && tmp->next)
 		return (tmp->next->prev_amp = AMP_SUCCESS,
 			tmp->next->prev_or = OR_SUCCESS, tmp);
 	return (tmp);
@@ -89,15 +90,15 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 {
 	t_lists	*tmp2;
 
-	mini->saved_stdin = dup(0);
-	mini->saved_stdout = dup(1);
+	// mini->saved_stdin = dup(0);
+	// mini->saved_stdout = dup(1);
 	tmp2 = tmp;
 	if (tmp->operator == OP_PIPE)
 		return (ft_set_next(mini, ft_pipe(mini, tmp)));
-	else if (tmp->previous && tmp->previous->previous
-			&& tmp->previous->previous->operator >= OP_INF
-			&& tmp->previous->previous->operator <= OP_2SUP)
-		return (ft_set_next(mini, ft_pipe(mini, tmp)));
+	 else if (tmp->previous && tmp->previous->previous
+	 		&& tmp->previous->previous->operator >= OP_INF
+	 		&& tmp->previous->previous->operator <= OP_2SUP)
+	 	return (ft_set_next(mini, ft_pipe(mini, tmp)));
 	if (tmp2->operator >= OP_INF && tmp2->operator <= OP_2SUP)
 	{
 		while (tmp2->operator >= OP_INF && tmp2->operator <= OP_2SUP)
@@ -109,7 +110,6 @@ t_lists	*special_operator(t_mini *mini, t_lists *tmp)
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp2;
-		ft_printf("TMP END %s", tmp->arg);
 		wait_pid(mini);
 		if (!tmp)
 			return (NULL);
