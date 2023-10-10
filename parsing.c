@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 11:19:24 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:06:22 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,6 @@ void	ft_parse(t_mini *mini)
 	/*
 		NEED TO WORK :
 		
-		chevrons
-
-		CTRL+\ apres avoir écrit des choses
-
 		Gestion des ; dans les double quotes
 		
 		-> Exécutez une commande simple avec des arguments, 
@@ -143,8 +139,6 @@ void	ft_parse(t_mini *mini)
 		||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		
 		NOT IMPORTANT :
-		
-		CTRL+C après un "echo -n"
 		
 		relook ( ) prio
 	*/
