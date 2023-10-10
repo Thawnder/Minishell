@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:29:16 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 13:24:43 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:25:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	next_quotes(char *str, char c, int i)
 
 void	find_dollars(t_mini *mini, t_lists *tmp)
 {
-	int	i;
-	int	quote;
+	int		i;
+	int		quote;
+	char	*old;
 
 	quote = -1;
 	i = 0;
@@ -41,7 +42,11 @@ void	find_dollars(t_mini *mini, t_lists *tmp)
 			i = next_quotes(tmp->arg, '"', i);
 		if (quote == -1 && tmp->arg[i] && tmp->arg[i] == '$' && tmp->arg[i + 1]
 			&& tmp->arg[i + 1] != ' ')
+		{
+			old = tmp->arg;
 			tmp->arg = manage_dollars(mini, tmp->arg, i, ft_strlen(tmp->arg));
+			free(old);
+		}
 		else
 			i++;
 	}
