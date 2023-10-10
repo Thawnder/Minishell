@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:50:33 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/09 14:01:36 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 10:30:14 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,10 @@ int	check_builtin(char *arg, char *ref)
 
 void	ft_command(t_mini *mini, t_lists *tmp)
 {
-	int	i;
-
-	i = 0;
 	if (tmp->arg[0] && check_builtin(tmp->arg, "exit") == 0)
 		ft_exit(mini);
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "echo") == 0)
-	{
-		while ((tmp->arg + 4)[i] == ' ')
-			i++;
-		ft_echo(mini, tmp->arg + 4 + i);
-	}
+		ft_echo(mini, tmp->arg + 5);
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "cd") == 0)
 		ft_cd(mini, tmp->arg + 2);
 	else if (tmp->arg[0] && check_builtin(tmp->arg, "pwd") == 0)

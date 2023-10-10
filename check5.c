@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:49:20 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/28 15:49:33 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:18:27 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	find_exec(t_mini *mini, t_lists *tmp)
 	while (tmp->arg[i] && tmp->arg[i] != ' ')
 		i++;
 	str = ft_strndup(tmp->arg, i);
+	if (get_env(mini, "PATH") == NULL)
+		return (0);
 	path = get_path(ft_split((get_env(mini, "PATH") + 5), ':'), str);
 	if (path == NULL)
 		return (free(str), 0);
