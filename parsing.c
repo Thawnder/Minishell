@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 13:06:22 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:21:38 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,19 +127,18 @@ void	ft_parse(t_mini *mini)
 	process_arg(mini);
 	/*
 		NEED TO WORK :
-		
-		Gestion des ; dans les double quotes
-		
-		-> Exécutez une commande simple avec des arguments, 
-		mais cette fois utilisez des guillemets 
-		"(rajoutez des ';' et des espaces entre les guillemets)" wtf????
+
+		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ echo { $USER}
+		SENDING ARG |echo { bpleutin|
+		{ bpleutin
+
+		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ false || echo test
+
+		🔹𝓜 𝓲𝓷𝓲𝓼𝓱𝓮𝓵𝓵 ⦒ echo test && (echo lol)
+		test
+		(echo: command not found
+		segfault
 
 		Gérer les "''" et les '""' (simple quote dans double quote et vice versa)
-		
-		||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-		
-		NOT IMPORTANT :
-		
-		relook ( ) prio
 	*/
 }
