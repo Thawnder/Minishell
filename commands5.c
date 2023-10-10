@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/09 16:52:56 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:13:19 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_exec(t_mini *mini, char *line)
 		argv[++k] = ft_strndup(&line[i - j], j);
 	argv[++k] = 0;
 	execve(argv[0], argv, mini->env);
-
 }
 
 void	ft_fork(t_mini *mini, char *line, int pipe)
