@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:54:19 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/10 11:13:19 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:20:42 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,18 @@ void	ft_exec(t_mini *mini, char *line)
 	execve(argv[0], argv, mini->env);
 }
 
-void	ft_fork(t_mini *mini, char *line, int pipe)
+void	update_result(t_mini *mini, pid_t pid)
 {
-	int		status;
-	pid_t	pid;
+	int	status;
 
-	g_forked = 1;
-	fprintf(stderr, "BASE PIPE %i\n", pipe);
-	pid = fork();
+	if (waitpid(pid, &status, 0) == -1)
+		exit(EXIT_FAILURE);
+	if (WIFEXITED(status))
+		mini->result_value = WEXITSTATUS(status);
+}
+
+void	ft_fork(t_mini *mini, char *line, int pipe, pid_t pid)
+{
 	if (!pid && pipe == 0)
 		ft_exec(mini, line);
 	else if (!pid && pipe > 0)
@@ -70,32 +74,20 @@ void	ft_fork(t_mini *mini, char *line, int pipe)
 			dup2(mini->saved_stdout, 1);
 		else
 			dup2(mini->old_fd[1], 1);
-		fprintf(stderr, "write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
 		close(mini->old_fd[0]);
 		close(mini->old_fd[1]);
 		ft_exec(mini, line);
 	}
-	if (pipe > 0)
-	{
-		add_pid(mini, pid);
-	}
+	if (pipe <= 0)
+		update_result(mini, pid);
 	else
-	{
-		if (waitpid(pid, &status, 0) == -1)
-			exit(EXIT_FAILURE);
-		if (WIFEXITED(status))
-			mini->result_value = WEXITSTATUS(status);
-	}
-	if (pipe > 0)
 	{
 		add_pid(mini, pid);
 		if (pipe == 3)
 			dup2(mini->saved_stdin, 0);
 		else
 			dup2(mini->old_fd[0], 0);
-		fprintf(stderr, "write %i read %i\n", mini->old_fd[1], mini->old_fd[0]);
 		close(mini->old_fd[0]);
 		close(mini->old_fd[1]);
 	}
-	g_forked = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils7.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:29:31 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 15:10:37 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:34:00 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,4 @@ t_lists	*do_chevron(t_mini *mini, t_lists *tmp)
 	}
 	// wait_pid(mini);
 	return (tmp2->next);
-
 }
