@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeville <ldeville@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:29:46 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/29 14:17:11 by ldeville         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:00:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_delete_space(t_mini *mini)
 	while (tmp)
 	{
 		tmp->arg = delete_space(tmp->arg,
-				ft_calloc(get_len_space(tmp->arg) + 1,
+				ft_calloc(get_len_space(tmp->arg) + 2,
 					sizeof(char)));
 		tmp = tmp->next;
 	}
