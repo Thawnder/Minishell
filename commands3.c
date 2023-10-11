@@ -34,7 +34,7 @@ void	fill_path(char **res, char *path)
 	tmp = ft_split(path, '/');
 	while (tmp[i])
 	{
-		if (ft_strncmp(tmp[i], ".", 1) == 0)
+		if (ft_strcmp(tmp[i], ".") != 0 && ft_strncmp(tmp[i], ".", 1) == 0)
 		{
 			if (ft_strcmp(tmp[i], "..") == 0 && ft_strcmp(*res, "/") != 0)
 			{
@@ -44,9 +44,9 @@ void	fill_path(char **res, char *path)
 				*res = free_substr(*res, 0, ft_max(1, j));
 			}
 		}
-		else
+		else if (ft_strcmp(tmp[i], ".") != 0)
 			*res = ft_strjoin(*res, tmp[i]);
-		if (tmp[i + 1] != NULL)
+		if (ft_strcmp(tmp[i], ".") != 0 && tmp[i + 1] != NULL)
 			*res = ft_strjoin(*res, "/");
 		free(tmp[i++]);
 	}
