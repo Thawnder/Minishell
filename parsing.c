@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 12:03:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 17:45:23 by user             ###   ########.fr       */
+/*   Updated: 2023/10/11 16:01:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_lists	*process_amp(t_mini *mini, t_lists *tmp)
 			return (NULL);
 	}
 	if (mini->result_value != 0)
-		tmp->next->prev_or = OR_FALSE;
+		tmp->next->prev_amp = AMP_FALSE;
 	tmp = tmp->next;
 	if (tmp->previous->operator == OP_2AMP)
 		return (process_amp(mini, tmp));

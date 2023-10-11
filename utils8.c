@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:12:05 by user              #+#    #+#             */
-/*   Updated: 2023/10/10 17:46:33 by user             ###   ########.fr       */
+/*   Updated: 2023/10/11 16:36:04 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	pipe_action(t_mini *mini, t_lists *tmp)
 		tmp = do_chevron(mini, tmp);
 		dup2(mini->saved_stdin, 0);
 		dup2(mini->saved_stdout, 1);
+		if (!tmp)
+			return (1);
 		return (2);
 	}
 	return (0);
