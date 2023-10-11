@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:19:11 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/09 21:21:02 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:47:52 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_flag(char *str)
 	return (count);
 }
 
-char	*strdup_without(char *old, int i, int y)
+char	*strdup_without(char *old, int i, int y, int nfree)
 {
 	char	*str;
 	int		a;
@@ -49,6 +49,8 @@ char	*strdup_without(char *old, int i, int y)
 		if (z != i && z != y)
 			str[a++] = old[z];
 	}
+	if (nfree)
+		free(old);
 	return (str);
 }
 

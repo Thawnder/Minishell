@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:33:30 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 18:24:08 by user             ###   ########.fr       */
+/*   Updated: 2023/10/11 14:52:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ static char	*delete_quotes(t_mini *mini, char *old, int i, int y)
 
 	if (old[i] == '\'' || (old[i] == '"' && !has_dollar(old, i, y)))
 	{
-		str = strdup_without(old, i, y);
+		str = strdup_without(old, i, y, 0);
 	}
-	else if (old[i] != '\'')
+	else if (old[i] != '\'' || has_dollar(old, i, y))
 	{
 		while (has_dollar(old, i, y) || str[y] != '"')
 		{
@@ -102,9 +102,15 @@ static char	*delete_quotes(t_mini *mini, char *old, int i, int y)
 			while (str[y] != '"')
 				y++;
 		}
+		if (str[i] == '"')
+		{
+			while (str[++y] != '"')
+				y++;
+			str = strdup_without(str, i, y, 1);
+		}
 	}
 	else
-		str = strdup_without(old, i, y);
+		str = strdup_without(old, i, y, 0);
 	return (free(old), str);
 }
 
@@ -125,11 +131,12 @@ void	find_quotes(t_mini *mini, t_lists *tmp)
 			y = i + 1;
 			while (tmp->arg[y] && tmp->arg[y] != c)
 				y++;
-			if (tmp->arg[y] == '\'')
+			if (tmp->arg[y] == '\'' || tmp->arg[y] == '"')
 				z++;
 			tmp->arg = delete_quotes(mini, tmp->arg, i, y);
 			i = -1;
 			z++;
+			i = 0;
 		}
 		i++;
 	}

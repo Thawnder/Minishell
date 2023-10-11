@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:29:31 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 17:15:33 by user             ###   ########.fr       */
+/*   Updated: 2023/10/11 13:56:57 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int	is_quoted(char *str, int i)
 	if (str[i] && str[i] == '"')
 	{
 		a = 1;
-		while (str[i + a] != '"')
+		while (str[i + a] && str[i + a] != '"')
 			a++;
 	}
 	else if (str[i] && str[i] == '\'')
 	{
 		a = 1;
-		while (str[i + a] != '\'')
+		while (str[i + a] && str[i + a] != '\'')
 			a++;
 	}
 	return (a);

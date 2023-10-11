@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:29:46 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 18:09:07 by user             ###   ########.fr       */
+/*   Updated: 2023/10/11 14:07:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,19 @@ int	get_len_space(char *str)
 		while (str[i] && str[i] > 32 && str[i] < 127)
 		{
 			len++;
-			if (str[++i - 1] == '"' || str[i - 1] == '\'')
+			if (is_quoted(str, i))
+			{
+				len += is_quoted(str, i);
+				i += is_quoted(str, i);
+			}
+			else
+				i++;
+			/*if (str[++i - 1] == '"' || str[i - 1] == '\'')
 			{
 				while (str[i++] && str[i - 1] != '"' && str[i - 1] != '\'')
 					len++;
 				len++;
-			}
+			}*/
 		}
 		while (str[i] && (str[i] <= 32 || str[i] >= 127))
 			i++;
@@ -57,12 +64,13 @@ char	*delete_space(char *old_str, char *str)
 		while (old_str[i] && old_str[i] > 32 && old_str[i] < 127)
 		{
 			str[y++] = old_str[i++];
-			if (old_str[i - 1] == '"' || old_str[i - 1] == '\'')
+			ft_need_space(str, old_str, &i, &y);
+			/*if (old_str[i - 1] == '"' || old_str[i - 1] == '\'')
 			{
 				while (old_str[i] && old_str[i] != '"' && old_str[i] != '\'')
 					str[y++] = old_str[i++];
 				str[y++] = old_str[i++];
-			}
+			}*/
 		}
 		while (old_str[i] == ' ' || (old_str[i] >= 9 && old_str[i] <= 13))
 			i++;
@@ -100,12 +108,14 @@ int	get_num_arg(char *str)
 		while (str[i] && str[i] > 32 && str[i] < 127)
 		{
 			i++;
-			if (str[i - 1] == '"' || str[i - 1] == '\'')
+			if (is_quoted(str, i))
+				i += is_quoted(str, i);
+			/*if (str[i - 1] == '"' || str[i - 1] == '\'')
 			{
 				while (str[i] && str[i] != '"' && str[i] != '\'')
 					i++;
 				i++;
-			}
+			}*/
 		}
 	}
 	return (count);

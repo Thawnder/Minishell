@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:01:06 by ldeville          #+#    #+#             */
-/*   Updated: 2023/09/26 17:52:54 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:55:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,15 @@ int	check_operator(char *str, int i)
 int	ft_check_operator(char *str)
 {
 	int		i;
-	int		quote;
 	char	*error;
 
 	i = 0;
-	quote = -1;
 	error = NULL;
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '"')
-			quote *= -1;
-		if (quote == -1 && (str[i] == '|'
+		if (is_quoted(str, i))
+			i += is_quoted(str, i);
+		if (str[i] && (str[i] == '|'
 				|| str[i] == '&' || str[i] == '<' || str[i] == '>'))
 		{
 			if (!check_operator(str, i))

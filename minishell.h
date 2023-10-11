@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:43:32 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 17:42:55 by user             ###   ########.fr       */
+/*   Updated: 2023/10/11 14:47:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int			has_bracket(char *str);
 /*	Utils3.c	*/
 int			check_flag(char *str);
 int			ft_strcmp(const char *s1, const char *s2);
-char		*strdup_without(char *old, int i, int y);
+char		*strdup_without(char *old, int i, int y, int nfree);
 char		*join_sorted(char **str, char *sep);
 char		**alpha_sort_tabl(char **str);
 /*	Utils4.c	*/
@@ -185,6 +185,9 @@ t_lists		*error_command_pipe(t_mini *mini, t_lists *tmp);
 int			pipe_action(t_mini *mini, t_lists *tmp);
 t_lists		*end_pipe(t_mini *mini, t_lists *tmp);
 void		command_exe_end(t_mini *mini, int from, int to, t_lists *tmp);
+/*	Utils9.c	*/
+int			ft_check_quotes(char *str);
+void		ft_need_space(char *str, char *old_str, int *i, int *y);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);
