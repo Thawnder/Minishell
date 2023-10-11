@@ -12,6 +12,29 @@
 
 #include "minishell.h"
 
+void	prepare_next_pipe(t_mini *mini, t_lists *tmp)
+{
+	if (tmp->previous->previous->operator == OP_SUP
+		|| tmp->previous->previous->operator == OP_2SUP)
+	{
+		pipe(mini->old_fd);
+		dup2(mini->old_fd[0], 0);
+		close(mini->old_fd[0]);
+		close(mini->old_fd[1]);
+	}
+}
+
+t_lists	*get_end_chevron(t_lists **tmp)
+{
+	t_lists	*tmp2;
+
+	tmp2 = *tmp;
+	while (tmp2 && tmp2->operator >= OP_INF && tmp2->operator <= OP_2SUP)
+		tmp2 = tmp2->next;
+	*tmp = tmp2->next;
+	return (tmp2->next);
+}
+
 void	ft_need_space(char *str, char *old_str, int *i, int *y)
 {
 	if (old_str[*i - 1] == '"')

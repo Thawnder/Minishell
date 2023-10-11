@@ -65,10 +65,13 @@ int	pipe_action(t_mini *mini, t_lists *tmp)
 	else
 	{
 		tmp = do_chevron(mini, tmp);
-		dup2(mini->saved_stdin, 0);
-		dup2(mini->saved_stdout, 1);
 		if (!tmp)
+		{
+			dup2(mini->saved_stdin, 0);
+			dup2(mini->saved_stdout, 1);
 			return (1);
+		}
+		prepare_next_pipe(mini, tmp);
 		return (2);
 	}
 	return (0);

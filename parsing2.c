@@ -58,7 +58,7 @@ t_lists	*ft_pipe(t_mini *m, t_lists *t, int stat)
 		stat = pipe_action(m, t);
 		if (stat == 1)
 			break ;
-		else if (stat == 2)
+		if (stat == 2 && get_end_chevron(&t))
 			continue ;
 		t = t->next;
 	}

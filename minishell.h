@@ -188,6 +188,8 @@ void		command_exe_end(t_mini *mini, int from, int to, t_lists *tmp);
 /*	Utils9.c	*/
 int			ft_check_quotes(char *str);
 void		ft_need_space(char *str, char *old_str, int *i, int *y);
+t_lists		*get_end_chevron(t_lists **tmp);
+void		prepare_next_pipe(t_mini *mini, t_lists *tmp);
 /*----------------------------------------*/
 /*	Commands.c	*/
 int			check_builtin(char *arg, char *ref);
