@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:33:30 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/11 14:52:40 by user             ###   ########.fr       */
+/*   Updated: 2023/10/11 15:15:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ static char	*delete_quotes(t_mini *mini, char *old, int i, int y)
 			while (str[y] != '"')
 				y++;
 		}
-		if (str[i] == '"')
+		if (str[i] == '"' && y++)
 		{
-			while (str[++y] != '"')
+			while (str[y] && str[y] != '"')
 				y++;
 			str = strdup_without(str, i, y, 1);
 		}
