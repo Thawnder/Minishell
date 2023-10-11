@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:31:59 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/09 14:46:46 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:53:34 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**realloc_add(char **dest, int n, char *add)
 			j--;
 		free(dest[i]);
 	}
-	return (free(dest), tmp);
+	return (free(dest[i]), free(dest), tmp);
 }
 
 void	add_to_env(t_mini *mini, char *arg)

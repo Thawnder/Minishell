@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 11:22:03 by bpleutin          #+#    #+#             */
-/*   Updated: 2023/10/10 20:12:28 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:23:14 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,16 @@ char	*stock_echo(char *line)
 	res = malloc(size_of_echo(line) + 1);
 	while (line[i])
 	{
-		if (line[i] == '-')
+		if (flag != 2 && check_flag(&line[i]) != 0)
 		{
-			if (check_flag(line) != 0)
-				flag = 1;
-			i += check_flag(line);
+			flag = 1;
+			i += check_flag(&line[i]);
 		}
 		res[j++] = line[i++];
+		if (flag != 1)
+			flag = 2;
 	}
-	if (flag == 0)
+	if (flag == 0 || flag == 2)
 		res[j] = '\n';
 	res[++j] = 0;
 	return (res);
@@ -71,6 +72,7 @@ void	ft_echo(t_mini *mini, char *line)
 
 	flag = 0;
 	i = 0;
+	mini->result_value = 0;
 	if (mini->has_operator && (mini->args->operator == OP_SUP
 			|| mini->args->operator == OP_2SUP))
 		mini->args->result = stock_echo(line);
@@ -78,17 +80,18 @@ void	ft_echo(t_mini *mini, char *line)
 	{
 		while (line[i])
 		{
-			if (check_flag(&line[i]) != 0)
+			if (flag != 2 && check_flag(&line[0]) != 0)
+				i += check_flag(&line[i]);
+			if (flag != 2 && check_flag(&line[0]) != 0)
 				flag = 1;
-			i += check_flag(&line[i]);
 			write(1, &line[i++], 1);
+			if (flag != 1)
+				flag = 2;
 		}
-		if (flag == 0)
-			write(1, "\n", 1);
-		else
-			g_forked = 2;
+		if (flag == 1)
+			return (g_forked = 2, (void)0);
+		write(1, "\n", 1);
 	}
-	mini->result_value = 0;
 }
 
 char	**realloc_remove(char **dest, int n, char *arg)

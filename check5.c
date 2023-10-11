@@ -6,7 +6,7 @@
 /*   By: bpleutin <bpleutin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:49:20 by ldeville          #+#    #+#             */
-/*   Updated: 2023/10/10 11:18:27 by bpleutin         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:58:42 by bpleutin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	find_exec(t_mini *mini, t_lists *tmp)
 		i++;
 	str = ft_strndup(tmp->arg, i);
 	if (get_env(mini, "PATH") == NULL)
-		return (0);
+		return (free(str), 0);
 	path = get_path(ft_split((get_env(mini, "PATH") + 5), ':'), str);
 	if (path == NULL)
 		return (free(str), 0);
