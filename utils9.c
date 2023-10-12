@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:29:07 by user              #+#    #+#             */
-/*   Updated: 2023/10/11 14:16:20 by user             ###   ########.fr       */
+/*   Updated: 2023/10/12 09:57:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	prepare_next_pipe(t_mini *mini, t_lists *tmp)
 	if (tmp->previous->previous->operator == OP_SUP
 		|| tmp->previous->previous->operator == OP_2SUP)
 	{
-		pipe(mini->old_fd);
-		dup2(mini->old_fd[0], 0);
 		close(mini->old_fd[0]);
 		close(mini->old_fd[1]);
 	}
